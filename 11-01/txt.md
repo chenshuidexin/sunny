@@ -50,3 +50,5 @@
 
 把我们的代码放到远程仓库
 - 1.在GitHub上创建
+- 2.绑定密钥
+    - ssh-keygen -t rsa -C "your-email@example.com"
