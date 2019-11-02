@@ -80,8 +80,9 @@ console.dir(ff)//scopes下里面有closure(闭包)
 ```js
 //匿名自执行函数 不是闭包
 (function(){})()
-
 ```
+## 闭包应用场景
+>在文件2中
 
 
 

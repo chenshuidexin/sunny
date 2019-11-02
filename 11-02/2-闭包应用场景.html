@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //for一定比定时器快
+        for (var i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i); //10个10
+            }, 1000)
+        }
+        for (var i = 0; i < 10; i++) {
+            function gn() {//形参未赋值
+                setTimeout(() => {
+                    console.log(i); //0,1,2,3,4,5,6,7,8,9
+                }, 1000)
+            }
+            gn(i);
+        }
+
+
+
+
+
+        for (var i = 0; i < 10; i++) {
+            function gn(i) {//形参赋值
+                setTimeout(() => {
+                    console.log(i); //0,1,2,3,4,5,6,7,8,9
+                }, 1000)
+            }
+            gn(i);
+        }
+    </script>
+</body>
+
+</html>
