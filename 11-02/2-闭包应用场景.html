@@ -7,33 +7,63 @@
 </head>
 
 <body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
     <script>
-        //for一定比定时器快
+//for一定比定时器快
+        // for (var i = 0; i < 10; i++) {
+        //     setTimeout(() => {
+        //         console.log(i); //10个10
+        //     }, 1000)
+        // }
+
+//另一种方法
+        // for (var i = 0; i < 10; i++) {
+        //     function gn() {//形参未赋值
+        //         setTimeout(() => {
+        //             console.log(i); //0,1,2,3,4,5,6,7,8,9
+        //         }, 1000)
+        //     }
+        //     gn(i);
+        // }
+
+
+
+
+//定时器的闭包的应用
+        // for (var i = 0; i < 10; i++) {
+        //     function gn(i) {//形参赋值
+        //         setTimeout(() => {
+        //             console.log(i); //0,1,2,3,4,5,6,7,8,9
+        //         }, 1000)
+        //     }
+        //     gn(i);
+        // }
+
+
+        // const btn=document.querySelectorAll('button')
+        // for(var i=0;i<btn.length;i++){
+        //     // btn[i].index=i//存储值
+        //     function e(i){
+        //         btn[i].onclick=function(){
+        //         // alert(this.index)
+        //         alert(i);
+        //         }
+        //     }
+        //     e(i);
+        // }
+
+
+
+//这是外界以为匿名自执行函数是闭包的例证
+        const btn = document.querySelectorAll('button');
         for (var i = 0; i < 10; i++) {
-            setTimeout(() => {
-                console.log(i); //10个10
-            }, 1000)
-        }
-        for (var i = 0; i < 10; i++) {
-            function gn() {//形参未赋值
-                setTimeout(() => {
-                    console.log(i); //0,1,2,3,4,5,6,7,8,9
-                }, 1000)
-            }
-            gn(i);
-        }
-
-
-
-
-
-        for (var i = 0; i < 10; i++) {
-            function gn(i) {//形参赋值
-                setTimeout(() => {
-                    console.log(i); //0,1,2,3,4,5,6,7,8,9
-                }, 1000)
-            }
-            gn(i);
+            (function (q) {
+                btn[q].onclick = function () {
+                    alert(q);
+                }
+            })(i);
         }
     </script>
 </body>

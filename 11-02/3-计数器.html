@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    button{
+        width: 200px;
+        height: 200px;
+        font-size: 80px;
+    }
+    </style>
+</head>
+<body>
+    <button id="btn">0</button>
+    <script>
+        btn.onclick=(function(){
+            var i=0;
+            return function(){
+                btn.innerHTML= ++i;
+            }
+        })()
+    </script>
+</body>
+</html>

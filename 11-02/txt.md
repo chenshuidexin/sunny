@@ -84,6 +84,9 @@ console.dir(ff)//scopes下里面有closure(闭包)
 ## 闭包应用场景
 >在文件2中
 
+*window.onload====当前页面的所有静态资源加载完成后才会执行里面的函数*
+
+
 
 
 
