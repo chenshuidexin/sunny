@@ -12,7 +12,6 @@
 // console.log(a,b,c)//12 undefined  200
 // console.dir(window)
 
-//git@github.com:chenshuidexin/sunny.git
 
 
 // var ary=[12,23];
