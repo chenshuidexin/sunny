@@ -95,14 +95,16 @@
 				if (onoff) {
 					div[i].innerHTML = '';
 					this.style.background = color;
+					// this.onoff=true;
 					// ary.push(div[i].innerHTML);
 				} else {
 					div[i].innerHTML = '√';
 					this.style.background = 'skyblue';
+					// this.onoff=false;
 					// ary.push(div[i].innerHTML)
 				}
 				ary.push(div[i].innerHTML);
-				onoff = !onoff;
+				this.onoff = !this.onoff;
 				console.log(ary);
 				if (ary.every((item) => item === "√")) {
 					kk.innerHTML = '√';
