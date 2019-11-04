@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //new Function()---->function(){}
+    function Fn(){
+        this.a = 10;
+    }
+    Fn.prototype.a = 20;
+//     Fn.a = 30; 
+    Function.prototype.a = 50;
+    let f = new Fn();
+    f.a = 40;
+    console.log(Fn.a);
+    console.dir(Fn)
+    console.log(Fn.__proto__ === Function.prototype)//true
+    //构造函数下的原型链全等于Function的原型
+    </script>
+</body>
+</html>

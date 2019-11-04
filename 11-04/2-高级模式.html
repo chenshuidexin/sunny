@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    let obj=(function(){
+        let name='ss';
+        let id='wk1314';
+        let age=0;
+        function sum(){
+            let age=0;
+            for(let i=0;i<10;i++){
+                age++;
+            }
+            return age;
+        }
+        age=sum();
+        return {
+            name:name,
+            id:id,
+            age:age,
+        }
+    })()
+    console.log(obj);//{name: "ss", id: "wk1314", age: 10}
+    </script>
+</body>
+</html>

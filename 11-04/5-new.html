@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // function fn(){
+    //     console.log(this);//Window
+    //     console.log(typeof this)//object
+    // }
+    // fn()
+//加上new之后的结果
+    function fn(){
+        console.log(this);//fn{} fn的实例化对象
+        console.log(typeof this)//object
+    }
+    new fn()
+//new之后有return
+
+
+
+//简单数据类型
+    // function fn(){
+    //     return 22
+    // }
+    // console.log(new fn())//简单数据类型返回实例化对象fn{}
+
+//引用数据类型
+    // function fn(){
+    //     return [1,2,3]
+    // }
+    // console.log(new fn())//[1,2,3]
+
+
+
+    // console.log(new '');//报错
+    // console.log(new Date);//现在的时间
+    // console.log(new Date());//同样的效果
+
+
+    </script>
+</body>
+</html>

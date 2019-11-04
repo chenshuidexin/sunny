@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function fn(name, age, sex) { //归类 构造函数(构造对象的函数)
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            // this.say = function () {
+            //     alert('今天是' + age)
+            // }
+        }
+        fn.prototype.say=function(){
+            alert('我叫'+this.name)
+        }
+        let p = new fn('易烊千玺', 20, '男')
+        p.say() //调用
+        let pp = new fn('王凯', 36, '男')
+        // console.log(p.say == pp.say)//false
+    //让上一行的结果出现true
+    console.log(p.say == pp.say)//true
+
+
+    //数组下的属性和方法相同才会相等
+    let arr=[];
+    let ary=[];
+    console.log(arr==ary);//false
+    console.log(arr.push()==ary.push());//true
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+//{}块级   特殊类型
+   console.log(dd)//undefined
+    {
+        function dd(){
+            console.log(1)
+        }
+    }
+    console.log(dd)//函数
+
+
+
+
+    // let a=10;
+    // console.log(window.a)//undefined 有名没值
+    // let arr=[1,2,3,4];
+    // arr.length=0;
+    // console.log(arr[0]);//undefined 没有数字
+//考题1
+    // let ary=[];
+    // for(var i=0;i<4;i++);{//形成块作用
+    //     ary.push(i+1);
+    // }
+    // console.log(ary)//[5]
+//考题2
+    let aa={
+        aa:10
+    }
+    let bb={
+        bb:10
+    }
+    let obj={
+        aa:20
+    }
+    /*
+    *obj={
+    *   {bb:10}:30===>转化为字符串形式
+    *   [object Object]:30
+    *}
+    */
+    obj[bb]=30;//obj[{bb:10}:30]
+    console.log(obj[aa])//30  obj[{aa:10}]=>obj[[object Object]]=>在33行
+    </script>
+</body>
+</html>

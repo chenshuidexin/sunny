@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+   let con={
+       log:function(i){
+           console.log(i);
+           return i;
+       },
+       dir:function(i){
+           console.dir(i);
+           return i
+       },
+       sum:function(log,dir){
+           return log+dir;
+       }
+   }
+   console.log(con.sum(1,1))//2
+   let obj=(function(){
+       let sum=0;
+       function sun(log,dir){
+           return log+dir;
+       }
+       return{
+           sum:sun(5,6)
+       }
+   })()
+   console.log(obj.sum);//11
+   </script> 
+</body>
+</html>
