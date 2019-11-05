@@ -52,16 +52,19 @@
 
 
 //坑2
-    //   function Fn(){
-    //   this.name1='zf'
-    // };
-    // Fn.prototype.name1='xiao';
+      function Fn(){
+      // this.name1='zf'
+    };
+    Fn.prototype.name1='xiao';
     // Fn.name1='ming';
-    // Function.prototype.name1='llo';
-    // console.log(Object.name1)//'llo'
+    Function.prototype.name1='llo';
+    console.log(Object.name1)//'llo'
+    console.log(new Fn().name1)//'xiao'
+    console.log(Fn.name1)
+
 
     /*
-     * function Object(){}此为实例 ->Function.prototype.name1
+     * function Object(){}此为实例 ->Function.prototype.name1  构造函数的原型
      */
 
 
@@ -86,16 +89,16 @@
 
 
 //考题(面试题)
-var name='外面的世界';//window
-var obj={
-  name:'里面也很好',//obj
-  getName:function (){//this->obj
-    return function (){
-      return this.name;//this->window
-    }
-  }
-}
-console.log(obj.getName()()) //外面的世界
+// var name='外面的世界';//window
+// var obj={
+//   name:'里面也很好',//obj
+//   getName:function (){//this->obj
+//     return function (){
+//       return this.name;//this->window
+//     }
+//   }
+// }
+// console.log(obj.getName()()) //外面的世界
 /*
 *obj.getName()()  ===> let oo=obj.getName()
 oo()  ===>  主是window

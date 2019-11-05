@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+//var的用法
+//    var foo=1;
+//    function bar(){
+//        if(!foo){//变量提升 foo为undefined  条件成立
+//            var foo=10;
+//        }
+//        console.log(foo)//10
+//    }
+//    bar();
+//let的用法
+   let foo=1;
+   function bar(){
+       if(!foo){//let没有变量提升，直接赋值为1
+           let foo=10;
+       }
+       console.log(foo)//1
+   }
+   bar();
+   </script> 
+</body>
+</html>
