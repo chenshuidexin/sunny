@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    
+    /*
+    *内置类：浏览器自带的类型
+    所有的类型都是构造函数构造出来的。
+    */
+// console.log(new fn().a)//undefined
+// console.log(new String('111'))//String
+// console.log(typeof Object);//function
+// console.log(typeof new Function());//function
+// console.log(typeof Function);//function
+
+
+let fn1=new Function('a,b','return(a+b)')
+console.log(fn1(2,4))//6
+
+console.log(Object instanceof Function)//true
+console.log(Function instanceof Object)//true
+console.log(Object instanceof Object)//true
+console.log(Function instanceof Function)//true
+
+//一切对象皆函数;一切函数皆对象
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    注意的是：在对象赋值的时候，constructor指向会被修改，指向的是Object，所以手动修正constructor指向。
+    */
+    function Fn(){}
+    Fn.prototype={
+        // constructor:Fn
+    }
+    console.dir(Fn.prototype.constructor)//Fn{}  若隐去48行结果会出现ƒ Object()
+    console.log(Fn.prototype.__proto__.constructor)//ƒ Object() { [native code] }
+    </script>
+</body>
+</html>

@@ -6,16 +6,17 @@
 </head>
 <body>
     <script>
-    // var name='你好设计界'
-    // function fn(){
-    //     console.log(this.name)
-    // }
-    // var obj={
-    //     name:'你好早晨',
-    //     fn:fn
-    // }
-    // obj.fn();//'你好早晨'   this是指向obj
-    // fn();// '你好设计界'   this 指向 window(非严格模式，严格模式下是undefined)
+    var name='你好设计界'
+    function fn(){
+        console.log(this.name)
+    }
+    var obj={
+        name:'你好早晨',
+        fn:fn
+    }
+    obj.fn();//'你好早晨'   this是指向obj
+    fn();// '你好设计界'   this 指向 window(非严格模式，严格模式下是undefined)
+    setTimeout(obj.fn(),1000)//this指向window  '你好设计界'
 
 
 

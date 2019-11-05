@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+//考题 定时器 
+    //   document.onclick=function(){
+    //     setTimeout(function(){
+    //         console.log(this)//window
+    //     },1000)
+    // }
+
+    // document.onclick = function () {
+    //   setTimeout(new fn, 1000)
+
+    //   function fn() {
+    //     console.log(this);//fn {}  之后会报错
+    //   }
+    // }
+
+//考题
+    // var name='外面'
+    // var obj={
+    //     name:'里面',
+    //     fn: function fn(){
+    //     console.log(this.name)
+    // }
+    // }
+    // obj.fn();//'里面'   this是指向obj
+    // setTimeout(obj.fn,1000)//window  外面
+
+
+
+//坑死你了！！！！*************
+    //Object.name==>function Object(){}的属性上有name为'Object'
+    // function Fn(){
+    //   this.name='zf'
+    // };
+    // Fn.prototype.name='xiao';
+    // Fn.name='ming';
+    // Function.prototype.name='llo';
+    // console.log(Object.name);//Object
+
+
+
+
+
+//坑2
+    //   function Fn(){
+    //   this.name1='zf'
+    // };
+    // Fn.prototype.name1='xiao';
+    // Fn.name1='ming';
+    // Function.prototype.name1='llo';
+    // console.log(Object.name1)//'llo'
+
+    /*
+     * function Object(){}此为实例 ->Function.prototype.name1
+     */
+
+
+//坑3
+    // function Fn(){
+    //   this.name1='zf'
+    // };
+    // Fn.prototype.name1=function(){
+    //   console.log(this);//
+    // }
+    // Fn.name1=function(){
+    //   console.log(this);//Fn.name1{}
+    // }
+    // Function.prototype.name1=function(){
+    //   console.log(this)
+    // }
+    // // new Fn().name1();//报错Fn{}.name1.没有这个属性
+    // // Fn.prototype.name1();//{name1: ƒ, constructor: ƒ}
+    // new Fn.name1();
+
+
+
+
+//考题(面试题)
+var name='外面的世界';//window
+var obj={
+  name:'里面也很好',//obj
+  getName:function (){//this->obj
+    return function (){
+      return this.name;//this->window
+    }
+  }
+}
+console.log(obj.getName()()) //外面的世界
+/*
+*obj.getName()()  ===> let oo=obj.getName()
+oo()  ===>  主是window
+*/
+  </script>
+</body>
+
+</html>

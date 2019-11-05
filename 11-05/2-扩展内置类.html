@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //手写mypush
+        // let ary = [1, 2, 3]//实例化对象
+        // Array.prototype.mypush = function (...arr) {//构造函数
+        //     let naa = this.concat(arr);
+        //     let len = naa.length;
+        //     for (var i = 0; i < len; i++) {
+        //         this[i] = naa[i]
+        //     }
+        //     return len
+        // }
+        // console.log(ary.mypush(4, 5, 6))//6
+        // console.log(ary);//[1, 2, 3, 4, 5, 6]
+        // console.log(ary.concat([4,5,6])===ary)//false
+
+
+
+
+    //链接调用
+    let arr=[1,2,3]
+   var aa=arr.concat([4,5]).concat([6,7,8])
+    console.log(aa)//[1, 2, 3, 4, 5, 6, 7, 8]
+    //手写myconcat
+    Array.prototype.myconcat=function(...ass){
+        return [...this,...ass.flat(Infinity)]
+    }
+    console.log(arr.myconcat([1,2,3],[1,2]).myconcat([1,2,3,4,5]));//[1, 2, 3, 1, 2, 3, 1, 2, 1, 2, 3, 4, 5]
+    </script>
+</body>
+
+</html>
