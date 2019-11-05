@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // var name='你好设计界'
+    // function fn(){
+    //     console.log(this.name)
+    // }
+    // var obj={
+    //     name:'你好早晨',
+    //     fn:fn
+    // }
+    // obj.fn();//'你好早晨'   this是指向obj
+    // fn();// '你好设计界'   this 指向 window(非严格模式，严格模式下是undefined)
+
+
+
+// //匿名自执行函数
+//     (function (){
+//         console.log(this)//window或是undefined
+//     })()
+
+
+//this在不同情况下的指向不同
+    // let obj={
+    //     fn:(function(n){
+    //         //把自执行函数的返回结果赋值给fn
+    //         //this：window
+    //         return function (){}
+    //                 //=>fn等于这个返回的小函数
+    //                 //this：obj
+    //     })(10)
+    // }
+    // obj.fn();
+
+
+    // function fn(){
+    //     //this:window
+    //     console.log(this);
+    // }
+    // document.body.onclick=function(){
+    //     fn();
+    //     //this:document.body
+    // }
+
+
+
+    
+    </script> 
+</body>
+</html>
