@@ -48,8 +48,61 @@
     // }
 
 
+//1
+    // console.log(a);//undefined
+    // var a=12;
+    // function fn(){
+    //     console.log(a);//undefined
+    //     var a=13;
+    // }
+    // fn();
+    // console.log(a)//12
+//2
+    // console.log(a);//undefined
+    // var a=12;
+    // function fn(){
+    //     console.log(a);//12
+    //     a=13;//全局作用于下的a重新赋值
+    // }
+    // fn();
+    // console.log(a)//13
+//3
+//程序报错  a未被定义   变量提升是fn()
+    // console.log(a);//报错，需要消去
+    // a=12;
+    // function fn(){
+    //     console.log(a);//12
+    //     a=13;
+    // }
+    // fn();
+    // console.log(a)//13
+/*
+*在全局作用域下，带var或function声明的全局变量相当于给window设置了对应的属性(即使全局变量也是属性)，不带var声明的只是给window设置对应的属性，如果使用let/const声明的，只是全局变量，没有给window设置属性的。会出现undefined。
+*/
 
+
+// console.log(a);//报错  let不会提升变量
+    // let a=12;
+    // function fn(){
+    //     console.log(a);//报错，不应该在前面  若下一行隐去的话结果会出现12，向外面找变量a
+    //     // let a=13;//私有作用域的a
+    // }
+    // fn();
+    // console.log(a)//12
+    //=>在当前作用域下(全局、私有、块作用域)，如果创建变量使用的是let或const等，一定不能在创建代码的前面使用这些变量，否则会报错。
+
+    if(true){
+        var a=12;
+        let b=11;
+    }
+    console.log(a);//12
+    console.log(b);//报错
+
+// let a=122;
+// console.log(window.a)//undefined
+//4
     
+
     </script> 
 </body>
 </html>
