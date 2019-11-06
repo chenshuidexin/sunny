@@ -8,20 +8,26 @@
 
 <body>
     <script>
-        // function New(fn, ...arg) {
-        //     let obj = new Object;
-        //     let callback = fn.call(obj, ...arg)
-        //     this.aa = aa
-        //     obj.__proto__ = fn.prototype;
-        //     return [];
-        //     if (callback !== null && typeof callback === 'object' || typeof callback === 'function') {
-        //         return callback
-        //     }
-        //     return obj
-        // }
-        // let f = New(fn, '111')
-        // console.log(f)
-
+        function New(fn, ...arg) {
+            let obj = new Object;//实例化对象
+            let callback = fn.call(obj, ...arg)//把构造函数的this改成实例
+            //
+            // this.aa = aa
+            //使实例的原型链等于构造函数的原型
+            obj.__proto__ = fn.prototype;//不定义的话会等于Object.prototype。
+            //要么就是对象类型，要么是函数
+            if (callback !== null && typeof callback === 'object' || typeof callback === 'function') {
+                return callback;
+            }
+            return obj;
+        }
+        let f = New(fn, '111')
+        function fn(aa){
+            this.aa=aa;
+        }
+        console.log(f)
+        console.log(f.__proto__)
+//若是没有17行代码，obj.__proto__=Object.prototype的结果为true。
 
 
         

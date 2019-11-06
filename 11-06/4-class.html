@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    class Person{
+        constructor(aa){
+            this.aa=aa
+        }
+        say(){
+            console.log(this.aa);
+        }
+    }
+    // Person.prototype.haha=10;
+    /*
+    *Person.prototype.haha=10;
+    *Person.prototype = {
+        //如果使用类那么不能直接修改类的原型地址
+        haha：10
+    }
+    */
+    let p=new Person('AAA');
+    p.say();
+    console.log(p.haha);
+    console.dir(p);
+
+
+
+    function fn(){
+        console.log(333);
+    }
+    let obj={
+        // fn:function(){
+        //     console.log(1);
+        // },
+        //一种写法
+        // fn(){
+        //     console.log(2);
+        // },
+        //另一种写法，函数在外面
+        // fn:fn,
+        //相同的属性值和变量名一样的时候用一个
+        fn,
+    }
+    obj.fn();
+
+//多余的运算，只是想看看结果而已。
+    console.log(Math.max.apply(null,[1,9,7,6]))//9
+    function move({x, y} = { x: 0, y: 0 }) {
+        return [x, y];
+    }
+    const {log} = console;
+    log(move({x: 3, y: 8}));  //3,8
+    log( move( {x: 3} )); //3,undefined
+    log( move({}));//undefined,undefined
+    log(move());//0,0
+    </script>
+</body>
+</html>
