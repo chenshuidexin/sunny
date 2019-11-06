@@ -70,14 +70,42 @@
         //     console.log(a)//10
         //     console.log(b)//11
         //     console.log(c)//3
-
-
-
-    console.log(typeof (Object)) //function   
-    console.log(typeof (Array))  //function  
-    console.log(typeof (Date))   //function 
-    console.log(typeof (RegExp)) //function   
-    console.log(typeof (Math))//object     
+        //*******************************
+        // "use strict"
+        // var a=4;
+        // function b(x,y,a){//1，2，3
+        //     console.log(a);//3
+        //     arguments[2]=10;//把a改为10
+        //     console.log(a)//10  严格模式下是3
+        // }
+        // a=b(1,2,3)
+        // console.log(a)//undefined  没有return返回值
+        //"use strict"=>开启JS语法的严格模式(ES6或平时开发，一般基于严格模式)
+        //严格JS模式下ARGUMENTS和形参的映射机制就切断了
+        //**************************************************************
+        //逻辑或|| 和 逻辑与&& 在赋值操作中的意义
+        //A||B:先验A的真假，如果A为真，返回A的值；如果A为假，返回B的值
+        //A&&B：先验A的真假，如果A为假，返回A的值；如果A为真，返回B的值
+        //&&的优先级高于||
+        // var foo='hello';
+        // (function(foo){
+        //     console.log(foo);//'hello'
+        //     var foo=foo || 'world';
+        //     console.log(foo)//'hello'
+        // })(foo);
+        // console.log(foo)//'hello'
+        /*
+        function fn(x,callback){
+            typeof x==='undefined'?x=0:null;
+            x=x||0;
+            console.log(x)
+            //callback代表回调函数(传递的是个函数):需要保证它是一个函数才能执行
+            callback&&callback();
+        }
+        fn();
+        fn(10);
+        fn(10,function(){console.log(33)})*/
+        
     </script>
 </body>
 

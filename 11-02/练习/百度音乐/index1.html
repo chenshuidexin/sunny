@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.avtive {
+			background: green;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="baidu.css" />
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="baidu">
+			<ul id="list">
+				<li>
+					<div></div>
+					<span>泡沫</span>
+					<span>邓紫棋</span>
+				</li>
+				<li>
+					<div></div>
+					<span>说爱你</span>
+					<span>蔡依林</span>
+				</li>
+				<li>
+					<div></div>
+					<span>稻香</span>
+					<span>周杰伦</span>
+				</li>
+				<li>
+					<div></div>
+					<span>我的梦</span>
+					<span>张靓颖</span>
+				</li>
+				<li>
+					<div></div>
+					<span>怎么说我不爱你</span>
+					<span>萧敬腾</span>
+				</li>
+				<li>
+					<div>️️</div>
+					<span>无处安放</span>
+					<span>白若溪</span>
+				</li>
+			</ul>
+			<div class="select">
+			<span>
+				<span class="selectAll"></span>
+					<span>全选</span>
+			</span>
+				<div class="others">
+					<span><em></em>收藏</span>
+					<span><em></em>添加</span>
+					<span><em></em>删除</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const lis = document.querySelectorAll('#list li');
+		const divs = document.querySelectorAll('#list div')
+		let sy = document.querySelector('.selectAll')
+		sy.onoff = false;
+		for (let i = 0; i < lis.length; i++) {
+
+			divs[i].onoff2 = true;
+
+			if (i % 2) {
+				lis[i].style.background = 'red';
+				lis[i].color = 'red';
+			} else {
+				lis[i].style.background = 'green';
+				lis[i].color = 'green'
+			}
+
+			lis[i].onmouseover = function () {
+				lis[i].style.background = 'skyblue';
+
+			}
+			lis[i].onmouseout = function () {
+				if (divs[i].innerHTML === '') {
+					lis[i].style.background = lis[i].color;
+				}
+			}
+
+
+			divs[i].onclick = function () {
+				let ary = [];
+				if (this.onoff2) {
+					this.innerHTML = '√';
+				} else {
+					this.innerHTML = '';
+				}
+
+
+				this.onoff2 = !this.onoff2;
+
+				divs.forEach((item) => {
+					ary.push(item.innerHTML)
+				})
+
+				if (ary.every((item) => item === '√')) {
+					sy.innerHTML = '√';
+					sy.onoff = false;
+				} else {
+					sy.innerHTML = '';
+					sy.onoff = true;
+				}
+			}
+
+
+			sy.onclick = function () {
+				if (this.onoff) {
+					sy.innerHTML = '√';
+					divs.forEach((item, i) => {
+						item.innerHTML = '√';
+						item.onoff2 = false;
+						lis[i].style.background = 'skyblue';
+					})
+				} else {
+					sy.innerHTML = '';
+					divs.forEach((item, i) => {
+						item.innerHTML = '';
+						item.onoff2 = true;
+						lis[i].style.background = lis[i].color;
+					})
+				}
+				this.onoff = !this.onoff;
+			}
+		}
+
+	</script>
+</body>
+
+</html>

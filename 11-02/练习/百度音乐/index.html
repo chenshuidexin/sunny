@@ -70,50 +70,31 @@
 		</div>
 	</div>
 	<script>
-		const div = document.querySelectorAll('li div');
-		const lis = document.querySelectorAll('ul li');
-		const kk = document.querySelector('.selectAll')
+		const lis = document.querySelectorAll('li');
+		const div=document.querySelectorAll('li div')
+		console.log(div);
 		let onoff = true;
-		let color = '';
-		let ary = [];
-		lis.forEach((item, i, all) => {
-			if (i % 2 === 0) {
-				item.style.background = 'lightyellow';
-				item.color = 'lightyellow';
-			} else {
-				item.style.background = 'white';
-				item.color = 'white';
+		lis.forEach((ele, i) => {
+			if (i % 2) {
+				ele.classList.add('h')
 			}
-			item.onmouseover = function () {
-				this.classList.add('sky');
+			ele.onmouseover = function () {
+				ele.classList.add('sky')
 			}
-			item.onmouseout = function () {
-				this.classList.remove('sky');
-			}
-			// 点击两次才会出现
-			item.onclick = function () {
-				if (onoff) {
-					div[i].innerHTML = '';
-					this.style.background = color;
-					// this.onoff=true;
-					// ary.push(div[i].innerHTML);
-				} else {
-					div[i].innerHTML = '√';
-					this.style.background = 'skyblue';
-					// this.onoff=false;
-					// ary.push(div[i].innerHTML)
+			ele.onmouseout = function () {
+				ele.onclick = function () {
+					if (this.onoff) {
+						div.innerHTML='√'
+						ele.classList.add('sky')
+					} else {
+						div.innerHTML=''
+						ele.classList.remove('sky')
+					}
+					this.onoff = !this.onoff
 				}
-				ary.push(div[i].innerHTML);
-				this.onoff = !this.onoff;
-				console.log(ary);
-				if (ary.every((item) => item === "√")) {
-					kk.innerHTML = '√';
-				} else {
-					kk.innerHTML = '';
-				}
-			};
-
+			}
 		})
+
 		// for(var i=0;i<div.length;i++){
 		// 	let ary=[];
 		// 	div[i].onclick=function(){

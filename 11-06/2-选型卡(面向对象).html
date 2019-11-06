@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .active {
+            background: yellow;
+        }
+
+        #box div,
+        #box2 div {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+            display: none;
+        }
+
+        #box div.show,
+        #box2 div.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <button class="active" index="0">按钮一</button>
+        <button index="1">按钮二</button>
+        <button index="2">按钮三</button>
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+    </div>
+    <div id="box2">
+        <button class="active" index="0">按钮一</button>
+        <button index="1">按钮二</button>
+        <button index="2">按钮三</button>
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+    </div>
+    <script>
+        //获取元素
+    function Taa(id){
+        this.box=document.getElementById(id);
+        this.div=this.box.querySelectorAll('div');
+        this.btns=this.box.querySelectorAll('button');
+        this.pre=0;
+        this.evens();
+    }
+    //绑定事件
+    Taa.prototype.evens=function(){
+        const that1=this;
+        this.btns.forEach((ele,i)=>{
+            ele.onclick=function(){
+                that1.change(this,i);
+                // console.log(that1)
+            }
+        })
+    }
+    //切换
+    Taa.prototype.change=function(that,i){
+        this.btns[this.pre].className='';
+        this.div[this.pre].className='';
+        that.className='active';
+        this.div[i].className='show';
+        this.pre=i;
+    }
+    let t=new Taa('box');
+    let tt=new Taa('box2');
+    // console.log(t,tt)
+    </script>
+</body>
+
+</html>
