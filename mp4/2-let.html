@@ -1,29 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body>
-   <script>
-//var的用法
-//    var foo=1;
-//    function bar(){
-//        if(!foo){//变量提升 foo为undefined  条件成立
-//            var foo=10;
-//        }
-//        console.log(foo)//10
-//    }
-//    bar();
-//let的用法
-   let foo=1;
-   function bar(){
-       if(!foo){//let没有变量提升，直接赋值为1
-           let foo=10;
-       }
-       console.log(foo)//1
-   }
-   bar();
-   </script> 
+    <script>
+        // ****************var的用法
+        //    var foo=1;
+        //    function bar(){
+        //        if(!foo){//变量提升 foo为undefined  条件成立
+        //            var foo=10;
+        //        }
+        //        console.log(foo)//10
+        //    }
+        //    bar();
+        //****************let的用法
+        //    let foo=1;
+        //    function bar(){
+        //        if(!foo){//let没有变量提升，直接赋值为1
+        //            let foo=10;
+        //        }
+        //        console.log(foo)//1
+        //    }
+        //    bar();
+
+
+        //***************自执行函数不带声明变量
+        // let n=99;
+        // (function(){
+        //     let n=1;
+        //     if(true){
+        //         n=13;//在上一个作用域的基础上重新赋值
+        //     }
+        //     console.log(n);//13 找全局作用域
+        // })()
+        // console.log(n);//99
+        //**************************
+        // var n=0;
+        // function a(){
+        //     var n=10;
+        //     function b(){
+        //         n++;
+        //         console.log(n);//11  第二次调用在基础上++   =>12
+        //     }
+        //     b();
+        //     return b;
+        // }
+        // var c=a();
+        // c();
+        // console.log(n);//0
+        /*
+         *1.函数执行形成私有作用域：私有变量和全局变量
+         *2.作用域链的查找机制：看当前函数是在哪个作用域下创建的，和在哪儿调用执行并没有关系的。
+         *3.栈内存释放问题：一般执行完就会释放，但是如果里面的内容被栈以外的其他事务所占用，则就不能销毁。
+         *==>掌握闭包的机制
+         */
+
+        //**********************
+        //     var a=10,b=11,c=12;
+        //     function text(a){
+        //         a=1;
+        //         var b=2;
+        //         c=3;
+        //     }
+        //     text(10);
+        //     console.log(a)//10
+        //     console.log(b)//11
+        //     console.log(c)//3
+
+
+
+    console.log(typeof (Object)) //function   
+    console.log(typeof (Array))  //function  
+    console.log(typeof (Date))   //function 
+    console.log(typeof (RegExp)) //function   
+    console.log(typeof (Math))//object     
+    </script>
 </body>
+
 </html>
