@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //腾讯面试题
+        function fun() {
+            this.a = 0;
+            this.b = function () {
+                alert(this.a)
+            }
+        }
+        fun.prototype = {
+            b: function () {
+                this.a = 20;
+                alert(this.a);
+            },
+            c: function () {
+                this.a = 30;
+                alert(this.a)
+            }
+        }
+        var my_fun = new fun();
+        my_fun.b(); 
+        my_fun.c(); 
+        console.log(fun.prototype.__proto__)
+        //第二道面试题
+        function c1(name){
+            if(name){
+                this.name=name;
+            }
+        }
+        function c2(name){
+            this.name=name;
+        }
+        function c3(name){
+            this.name=name;
+        }
+        c1.prototype.name='111';
+        c2.prototype.name='222';
+        c3.prototype.name='333';
+        console.log((new c1().name)+(new c2().name)+(new c3().name))
+        //第三道
+        function Fn(num){//10
+            this.x=this.y=num;//10
+        }
+        Fn.prototype={
+            x:20,
+            sum:function(){
+                console.log(this.x+this.y);
+            }
+        }
+        let f=new Fn(10);
+        console.log(f.sum === Fn.prototype.sum);
+        f.sum();
+        Fn.prototype.sum();
+        console.log(f.constructor);
+        //第四题
+        function Fn(){
+            let a=1;
+            this.a=a;
+        }
+        Fn.prototype.say=function (){
+            this.a=2;
+        }
+        Fn.prototype=new Fn;
+        let f1=new Fn;
+        Fn.prototype.b=function(){//公有属性
+            this.a=3;
+        }
+        console.log(f1.a);
+        console.log(f1.prototype);
+        console.log(f1.b);
+        console.log(f1.hasOwnProperty('b'));
+        console.log(Fn.prototype);
+        console.log('b' in f1)
+        console.log(f1.constructor == Fn)
+    </script>
+</body>
+
+</html>

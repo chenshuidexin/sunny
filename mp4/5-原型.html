@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+         *重构类的原型：让某个类的原型指向新的堆内存地址(重定向指向)
+         ****问题：重定向后的空间不一定有constructor属性，(只有浏览器默认给prototype开辟的堆内存中才存在constructor)，这样导致类和原型机制不完整，所以需要我们手动在给新的原型空间设置constructor属性。Fn.prototype={constructor:Fn,}
+         *在重新指向之前，我们要确保原有原型的堆内存中没有设置属性和方法，因为重定向后，原有的属性和方法没有什么用了，(如果需要就克隆到新的原型堆内存，需要额外处理)
+         *批量给原型设置属性方法的时候：设置别名Fn.prototype.getA=function(){}
+         *重构类的原型Fn.prototype={}  常用
+         */
+        //腾讯面试题 
+        // function fun() {
+        //     this.a = 0;
+        //     this.b = function () {
+        //         alert(this.a)
+        //     }
+        // }
+        // fun.prototype = {
+        //     b: function () {
+        //         this.a = 20;
+        //         alert(this.a);
+        //     },
+        //     c: function () {
+        //         this.a = 30;
+        //         alert(this.a)
+        //     }
+        // }
+        // var my_fun = new fun();
+        // my_fun.b(); //0
+        // my_fun.c(); //30
+        // console.log(fun.prototype.__proto__)//Object的构造函数
+        //第二道************************************
+        // function c1(name){
+        //     if(name){
+        //         this.name=name;
+        //     }
+        // }
+        // function c2(name){
+        //     this.name=name;
+        // }
+        // function c3(name){
+        //     this.name=name;
+        // }
+        // c1.prototype.name='111';
+        // c2.prototype.name='222';
+        // c3.prototype.name='333';
+        // console.log((new c1().name)+(new c2().name)+(new c3().name))//111222333
+        //***********************************************
+        // function Fn(num){//10
+        //     this.x=this.y=num;//10
+        // }
+        // Fn.prototype={
+        //     x:20,
+        //     sum:function(){
+        //         console.log(this.x+this.y);
+        //     }
+        // }
+        // let f=new Fn(10);
+        // console.log(f.sum === Fn.prototype.sum);//true
+        // f.sum();//20
+        // Fn.prototype.sum();//NaN
+        // console.log(f.constructor);//Object的构造函数
+        //**************************************************************
+        // function Fn(){
+        //     let a=1;
+        //     this.a=a;
+        // }
+        // Fn.prototype.say=function (){
+        //     this.a=2;
+        // }
+        // Fn.prototype=new Fn;
+        // let f1=new Fn;
+        // Fn.prototype.b=function(){//公有属性
+        //     this.a=3;
+        // }
+        // console.log(f1.a);//1
+        // console.log(f1.prototype);//undefined
+        // console.log(f1.b);//f(){this.a=3;} b的函数
+        // console.log(f1.hasOwnProperty('b'));//false
+        // console.log(Fn.prototype);//Fn {a: 1, b: ƒ}
+        // console.log('b' in f1)//true
+        // console.log(f1.constructor == Fn)//true
+        //*****************************************************
+        /*
+         *编写两个方法plus/minus实现如下效果
+         *let  n=10;
+         *let m=n.plus(10).minus(5)
+         *console.log(m)
+         */
+        // (function () {
+        //     //传入一个加减的数字
+        //     function check(x){//要验证有效数字
+        //         x=Number(x)
+        //         return isNaN(x)?0:x;
+        //     }
+        //     function plus(x) {//this:要操作的原始数值
+        //         x=check(x);
+        //         return this+x
+        //     }
+
+        //     function minus(x) {
+        //         x=check(x);
+        //         return this-x;
+        //     }
+        //     //扩展内置类的原型上
+        //     Number.prototype.plus=plus;
+        //     Number.prototype.minus=minus;
+        // })()
+        // let n = 10;
+        // let m = n.plus(10).minus(5)
+        // console.log(m);
+        //**************************************************************
+        
+    </script>
+</body>
+
+</html>

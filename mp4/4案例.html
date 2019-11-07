@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        <input type="button" value="button_1">
+        <input type="button" value="button_2">
+        <input type="button" value="button_3">
+        <input type="button" value="button_4">
+        <input type="button" value="button_5">
+    </div>
+    <script>
+        const box = document.querySelectorAll('#box');
+        const inputs = document.querySelectorAll('input');
+        console.log(inputs)
+        //自定义属性
+        // for(var i=0,len=inputs.length;i<len;i++){
+        //     inputs[i].index=i;
+        //     inputs[i].onclick=function(){
+        //         alert(this.index)
+        //     }
+        // }
+        //闭包环境
+        // for (var i = 0, len = inputs.length; i < len; i++) {
+        //     function fn(i) {
+        //         inputs[i].onclick = function () {
+        //             alert(i)
+        //         }
+        //     }
+        //     fn(i)
+        // }
+        //另一种方法
+        for (var i = 0, len = inputs.length; i < len; i++) {
+            var item = inputs[i];
+            item.inn=i;
+            item.onclick = function () {
+                alert(this.inn)
+            }
+        }
+    </script>
+</body>
+
+</html>

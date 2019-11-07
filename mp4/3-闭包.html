@@ -1,23 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body>
-   <script>
-   var a=9;
-   function fn(){
-       a=0;
-       return function(b){
-           return b+a++;
-       }
-   }
-   var f=fn();
-   console.log(f(5));//5
-   console.log(fn()(5));//5
-   console.log(f(5));//6
-   console.log(a);//2
-   </script> 
+    <script>
+        //    var a=9;
+        //    function fn(){
+        //        a=0;
+        //        return function(b){
+        //            return b+a++;
+        //        }
+        //    }
+        //    var f=fn();
+        //    console.log(f(5));//5  001  5+0++ ==>5  全局a为1
+        //    console.log(fn()(5));//5  002  5+0++ ==>5  全局为1
+        //    console.log(f(5));//6   001   5+1++ ==>6   全局为2
+        //    console.log(a);//2    找全局a ==> 2
+        //***********************************************************
+        // function fn(i){
+        //     return function (n){
+        //         console.log(n+(i++));
+        //     }
+        // }
+        // var f=fn();
+        // f(20);//NaN
+        // fn(20)(40);//60
+        // fn(30)(50);//80
+        // f(30)//NaN
+        //***************************************************************
+        // var i=10;
+        // function fn(){
+        //     return function (n){
+        //         console.log(n+(++i))
+        //     }
+        // }
+        // var f=fn();
+        // f(20);//31  001 20+10+1 ==>31  全局i是11
+        // fn()(20);//32  002  20+11+1 ==>32  全局i是12
+        // fn()(30);//43  002  30+12+1 ===>43 全局i是13
+        // f(30);//44     001  30+13+1 ===>44 全局i是14
+        //*****************************************************************
+        // var ary=[1,2,3,4];
+        // function fn(ary){
+        //     ary[0]=0;
+        //     ary=[0];
+        //     ary[0]=100;
+        //     return ary;
+        // }
+        // var res=fn(ary);
+        // console.log(ary);//[0,2,3,4]
+        // console.log(res);//[100]
+        //***************************************************************
+        //函数自执行
+        // var test=(function(i){
+        //     return function(){//小函数等于text  没有形参赋值
+        //         alert(i*=2);//4  私有作用域i
+        //     }
+        // })(2);
+        // test(5);//等于小函数
+        //*******************************************************************
+        // var a=1;
+        // var obj={
+        //     'name':"Tom",
+        // }
+        // function fn(){
+        //     var a2=a;
+        //     obj2=obj;
+        //     a2=a;
+        //     obj2.name='jack';
+        // }
+        // fn();
+        // console.log(a);//1
+        // console.log(obj);//{name:'jack'}
+        //**************************************************************
+        //函数体内的函数最大，其次是形参赋值，最后是undefined。
+        // var a=1;
+        // function fn(a){
+        //     console.log(a);//function a(){}
+        //     var a=2;
+        //     function a(){}
+        // console.log(a)//2
+        // }
+        // fn(a)
+        //**************************************************************
+        //败给你了！！！！！！！！阿里面试题
+        // var a = 0,
+        //     b = 0;
+        // function A(a) { //1  a=2
+        //     A = function (b) { //全局变量A重新赋值函数 f(b)
+        //         console.log(a + (b++)); //==> a+b ===>4 ==> 2+2=4
+        //     }
+        //     console.log(a++); //1  a=2
+        // }
+        // A(1); //传第一次A(a)
+        // A(2); //传第二次A(b)
+        //************************************************************
+        
+    </script>
 </body>
+
 </html>
