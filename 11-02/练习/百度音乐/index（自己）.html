@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.h {
+			background: lightyellow;
+		}
+
+		.sky {
+			background: skyblue;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="baidu.css" />
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="baidu">
+			<ul id="list">
+				<li>
+					<div></div>
+					<span>泡沫</span>
+					<span>邓紫棋</span>
+				</li>
+				<li>
+					<div></div>
+					<span>说爱你</span>
+					<span>蔡依林</span>
+				</li>
+				<li>
+					<div></div>
+					<span>稻香</span>
+					<span>周杰伦</span>
+				</li>
+				<li>
+					<div></div>
+					<span>我的梦</span>
+					<span>张靓颖</span>
+				</li>
+				<li>
+					<div></div>
+					<span>怎么说我不爱你</span>
+					<span>萧敬腾</span>
+				</li>
+				<li>
+					<div>️</div>
+					<span>无处安放</span>
+					<span>白若溪</span>
+				</li>
+			</ul>
+			<div class="select">
+				<span class="selectAll"></span><span>全选</span>
+				<div class="others">
+					<span><em></em>收藏</span>
+					<span><em></em>添加</span>
+					<span><em></em>删除</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const lis = document.querySelectorAll('li');
+		const div=document.querySelectorAll('li div')
+		console.log(div);
+		let onoff = true;
+		lis.forEach((ele, i) => {
+			if (i % 2) {
+				ele.classList.add('h')
+			}
+			ele.onmouseover = function () {
+				ele.classList.add('sky')
+			}
+			ele.onmouseout = function () {
+				ele.onclick = function () {
+					if (!onoff) {
+						div.innerHTML='√'
+						ele.classList.add('sky')
+					} else {
+						div.innerHTML=''
+						ele.classList.remove('sky')
+					}
+					onoff = !onoff
+				}
+			}
+		})
+
+		// for(var i=0;i<div.length;i++){
+		// 	let ary=[];
+		// 	div[i].onclick=function(){
+		// 		if(this.onoff){
+		// 			this.innerHTML='√';
+		// 		}else{
+		// 			this.innerHTML='';
+		// 		}
+		// 	}
+		// 	this.onoff=!this.onoff;
+		// 	div.forEach((item)=>{
+		// 		ary.push(item.innerHTML)
+		// 	});
+		// 	if(ary.every((item)=>item ==='√')){
+		// 		kk.innerHTML='√';
+		// 		kk.onoff1=false;
+		// 	}else{
+		// 		kk.innerHTML='';
+		// 		kk.onoff1=true;
+		// 	}
+		// }
+		// kk.onclick=function(){
+		// 	if(this.onoff1){
+		// 		kk.innerHTML='√';
+		// 		div.forEach((item,i)=>{
+		// 			item.innerHTML='√';
+		// 			item.onoff=false;
+		// 			lis[i].style.background='skyblue';
+		// 		})
+		// 	}else{
+		// 		kk.innerHTML='';
+		// 		div.forEach((item,i)=>{
+		// 			item.innerHTML='';
+		// 			item.onoff=true;
+		// 			lis[i].style.background=color;
+		// 		})
+		// 	}
+		// 	this.onoff1=!this.onoff1;
+		// }
+	</script>
+</body>
+
+</html>

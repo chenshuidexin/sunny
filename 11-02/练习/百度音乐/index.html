@@ -13,12 +13,8 @@
 			list-style: none;
 		}
 
-		.h {
-			background: lightyellow;
-		}
-
-		.sky {
-			background: skyblue;
+		.avtive {
+			background: green;
 		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="baidu.css" />
@@ -54,13 +50,16 @@
 					<span>萧敬腾</span>
 				</li>
 				<li>
-					<div>️</div>
+					<div></div>
 					<span>无处安放</span>
 					<span>白若溪</span>
 				</li>
 			</ul>
 			<div class="select">
-				<span class="selectAll"></span><span>全选</span>
+			<span>
+				<span class="selectAll"></span>
+					<span>全选</span>
+			</span>
 				<div class="others">
 					<span><em></em>收藏</span>
 					<span><em></em>添加</span>
@@ -70,70 +69,78 @@
 		</div>
 	</div>
 	<script>
-		const lis = document.querySelectorAll('li');
-		const div=document.querySelectorAll('li div')
-		console.log(div);
-		let onoff = true;
-		lis.forEach((ele, i) => {
+		const lis = document.querySelectorAll('#list li');
+		const divs = document.querySelectorAll('#list div')
+		let sy = document.querySelector('.selectAll')
+		sy.onoff = false;
+		for (let i = 0; i < lis.length; i++) {
+
+			divs[i].onoff2 = true;
+
 			if (i % 2) {
-				ele.classList.add('h')
+				lis[i].style.background = 'red';
+				lis[i].color = 'red';
+			} else {
+				lis[i].style.background = 'green';
+				lis[i].color = 'green'
 			}
-			ele.onmouseover = function () {
-				ele.classList.add('sky')
+
+			lis[i].onmouseover = function () {
+				lis[i].style.background = 'skyblue';
+
 			}
-			ele.onmouseout = function () {
-				ele.onclick = function () {
-					if (this.onoff) {
-						div.innerHTML='√'
-						ele.classList.add('sky')
-					} else {
-						div.innerHTML=''
-						ele.classList.remove('sky')
-					}
-					this.onoff = !this.onoff
+			lis[i].onmouseout = function () {
+				if (divs[i].innerHTML === '') {
+					lis[i].style.background = lis[i].color;
 				}
 			}
-		})
 
-		// for(var i=0;i<div.length;i++){
-		// 	let ary=[];
-		// 	div[i].onclick=function(){
-		// 		if(this.onoff){
-		// 			this.innerHTML='√';
-		// 		}else{
-		// 			this.innerHTML='';
-		// 		}
-		// 	}
-		// 	this.onoff=!this.onoff;
-		// 	div.forEach((item)=>{
-		// 		ary.push(item.innerHTML)
-		// 	});
-		// 	if(ary.every((item)=>item ==='√')){
-		// 		kk.innerHTML='√';
-		// 		kk.onoff1=false;
-		// 	}else{
-		// 		kk.innerHTML='';
-		// 		kk.onoff1=true;
-		// 	}
-		// }
-		// kk.onclick=function(){
-		// 	if(this.onoff1){
-		// 		kk.innerHTML='√';
-		// 		div.forEach((item,i)=>{
-		// 			item.innerHTML='√';
-		// 			item.onoff=false;
-		// 			lis[i].style.background='skyblue';
-		// 		})
-		// 	}else{
-		// 		kk.innerHTML='';
-		// 		div.forEach((item,i)=>{
-		// 			item.innerHTML='';
-		// 			item.onoff=true;
-		// 			lis[i].style.background=color;
-		// 		})
-		// 	}
-		// 	this.onoff1=!this.onoff1;
-		// }
+
+			divs[i].onclick = function () {
+				let ary = [];
+				if (this.onoff2) {
+					this.innerHTML = '√';
+				} else {
+					this.innerHTML = '';
+				}
+
+
+				this.onoff2 = !this.onoff2;
+
+				divs.forEach((item) => {
+					ary.push(item.innerHTML)
+				})
+
+				if (ary.every((item) => item === '√')) {
+					sy.innerHTML = '√';
+					sy.onoff = false;
+				} else {
+					sy.innerHTML = '';
+					sy.onoff = true;
+				}
+			}
+
+
+			sy.onclick = function () {
+				if (!this.onoff) {
+					sy.innerHTML = '√';
+					divs.forEach((item, i) => {
+						item.innerHTML = '√';
+						item.onoff2 = false;
+						lis[i].style.background = 'skyblue';
+					})
+				} else {
+					sy.innerHTML = '';
+					divs.forEach((item, i) => {
+						item.innerHTML = '';
+						item.onoff2 = true;
+						lis[i].style.background = lis[i].color;
+					})
+				}
+				this.onoff = !this.onoff;
+			}
+		}
+
 	</script>
 </body>
 

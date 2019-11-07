@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.h {
+			background: lightyellow;
+		}
+
+		.sky {
+			background: skyblue;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="baidu.css" />
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="baidu">
+			<ul id="list">
+				<li>
+					<div></div>
+					<span>泡沫</span>
+					<span>邓紫棋</span>
+				</li>
+				<li>
+					<div></div>
+					<span>说爱你</span>
+					<span>蔡依林</span>
+				</li>
+				<li>
+					<div></div>
+					<span>稻香</span>
+					<span>周杰伦</span>
+				</li>
+				<li>
+					<div></div>
+					<span>我的梦</span>
+					<span>张靓颖</span>
+				</li>
+				<li>
+					<div></div>
+					<span>怎么说我不爱你</span>
+					<span>萧敬腾</span>
+				</li>
+				<li>
+					<div>️</div>
+					<span>无处安放</span>
+					<span>白若溪</span>
+				</li>
+			</ul>
+			<div class="select">
+				<span class="selectAll" id="all"></span><span>全选</span>
+				<div class="others">
+					<span><em></em>收藏</span>
+					<span><em></em>添加</span>
+					<span><em></em>删除</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	const lis=document.querySelectorAll('li');
+	let ary=[];//为了存储所有的li开关，因为要根据这些开关来判断是否全选
+	all.onoff=false;//给全选按钮添加一个开关，默认为关闭状态
+	//循环lis的每个li
+	lis.forEach((ele,i) => {
+		//把存li的开关的数组添加到一个布尔值
+		ary[i]=false;
+		ele.onoff=false;//给每一个li添加一个开关的属性，默认为关闭状态。
+		//隔行变色
+		if(i%2)ele.classList.add('h');
+		//点击勾选或未勾选
+		ele.onclick=function(){
+			//如果点击li的时候当前li是开状态就关，是关状态就开。
+			if(this.onoff){
+				//清除
+				ele.innerHTML='';
+			}else{
+				ele.innerHTML='√';
+			}
+			this.onoff=!this.onoff;
+			//把当前li的布尔值给数组对应的那一项。
+			ary[i]=this.onoff;
+			//根据数组的布尔值来判断是否全选
+			if(ary.every(item=>item)){
+				//如果是全选状态，就会有√
+				all.innerHTML='√';
+				//在把全选按钮的状态改成开状态
+				all.onoff=true;
+			}else{
+				//没有全选√不存在
+				all.innerHTML='';
+				//把全选状态改为关闭状态
+				all.onoff=false
+			}
+		}
+		ele.onmouseover=function(){
+			//移入添加蓝色
+			this.classList.add('sky');
+		}
+		ele.onmouseout=function(){
+			//如果当前的开关是未勾选状态，就还原刚才那个颜色
+			//如果当前的开关是勾选状态，那就移入的颜色
+			if(!this.onoff){
+				this.classList.remove('sky')
+			}
+		}
+	});
+	all.onclick=function(){
+		//全选的开关
+		this.onoff= !this.onoff;
+		//循环所有的li，把所有li状态变成和全选按钮状态一样
+		lis.forEach((ele,i)=>{
+			ele.onoff=this.onoff;
+			//当前li是否有√，取决于全选按钮状态
+			ele.innerHTML=this.onoff?'√':'';
+			this.onoff?ele.classList.add('sky'):ele.classList.remove('sky');
+			//解决数组问题，数组的成员要么全部为true要么全部为false；
+			ary[i]=this.onoff;
+		})
+		//通过判断全选按钮状态，来显示全选按钮的样式
+		if(this.onoff){
+			all.innerHTML='√';
+			all.onoff=true;
+		}else{
+			all.innerHTML='';
+			all.onoff=false;
+		}
+	}
+	</script>
+</body>
+
+</html>
