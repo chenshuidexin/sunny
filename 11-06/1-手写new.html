@@ -24,8 +24,9 @@
         let f = New(fn, '111')
         function fn(aa){
             this.aa=aa;
+            return 222
         }
-        console.log(f)
+        console.log(f)//无27行return返回值或简单数据，就返回实例；引用类型就返回原值
         console.log(f.__proto__)
 //若是没有17行代码，obj.__proto__=Object.prototype的结果为true。
 
