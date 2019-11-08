@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function  Person(name,age){
+        this.name=name;
+        this.age=age;
+        console.log('这儿万一是万行代码呢！')
+    }
+    Person.prototype.say=function (){
+        console.log('我叫'+this.name+'名字')
+    }
+    function Police (name,age){
+        Person.call(this,name,age)//call改变this指向==>Police实例
+    }
+    function pp(){};
+    pp.prototype=Person.prototype;
+    Police.prototype=new pp;
+
+    /*
+    Police.prototype=new Person
+    ==>会把Person所有的函数内的都调用，性能降低。  所以使用pp过渡一下。只需要该需要的。
+    */
+    Police.prototype.say=function(){
+        console.log(this.name+'真开心')
+    }
+    let p= new Police('凯宝',11)
+    let p3=new Person('阳',16);
+    p.say();
+    p3.say();
+    console.log(p.constructor);//Person函数  此时要指向Police函数;
+    p.constructor=Police;
+    console.log(p.constructor)//Police函数
+    </script>
+</body>
+</html>

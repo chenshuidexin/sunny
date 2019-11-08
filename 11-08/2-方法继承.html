@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+       /*
+        Object.assign(子类.prototype,父类.prototype) :通过浅拷贝，把父类上原型的方法或者属性都赋值给子类的原型。[方法继承]
+       */
+   function Person(name,age){//属性
+       this.name=name;
+       this.age=age;
+   }
+   Person.prototype.say=function(){//方法
+       alert(`我是`+this.name)
+   }
+   function Police(name,age){
+       Person.call(this,name,age);//call的指向Person的实例。
+   }
+   Object.assign(Police.prototype,Person.prototype)//子类   父类
+   /*
+   * 两个原型赋址，修改A就会影响B
+   *Police.prototype=Person.prototype
+   */
+   Police.prototype.say=function(){
+       alert('我是警察'+this.name);
+   }
+   let p2=new Police('王凯',33);
+   let p1=new Person('易烊千玺',29)
+   p2.say();
+   p1.say();
+   </script> 
+</body>
+</html>

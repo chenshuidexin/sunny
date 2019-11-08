@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //工作中常用的方式
+        class Person{
+            static ss(){//静态方法，只有类才能调用，实例是调用不到的。
+                console.log('好好的')
+            }
+            constructor(name,age){
+                this.name=name;
+                this.age=age;
+            }
+            say(){
+                console.log('我的名字'+this.name)
+            }
+        }
+        class Police extends Person{
+            //在继承的constructor中，如果使用this，一定写super
+            constructor(job,...arr){
+                // console.log(this)//报错
+                super(...arr);
+                this.job=job;
+                // console.log(this);//指向父类
+            }
+            say(){
+                console.log(this.name+'开心')
+            }
+        }
+        let p2=new Police('11',11)
+        let p1=new Person('22',22)
+        p2.say();
+        p1.say();
+        // p2.ss()//调用不了 报错
+        Police.ss()
+    </script>
+</body>
+
+</html>

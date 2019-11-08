@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+    *Object.assign  浅拷贝
+    *Object.assign(obj2,obj1,obj0)
+    *从右往左浅拷贝对象的属性，可以放若干个对象。
+    *通过console.dir(Object)下找到assign函数
+    */
+    let obj={
+        aa:11,
+        bb:12,
+    }
+    let obj2={
+        aa:188,
+        vv:33,
+    }
+    let obj3={
+        dd:55,
+    }
+    let obb=Object.assign({},obj3,obj2,obj)//越靠右层级越高
+    console.log(obb);//{dd: 55, aa: 11, vv: 33, bb: 12}
+    
+    </script>
+</body>
+</html>
