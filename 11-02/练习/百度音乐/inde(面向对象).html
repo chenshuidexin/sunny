@@ -71,58 +71,59 @@
 	</div>
 	<script>
 		//input属性：  checkbox.checked  布尔值
+		//Class类写的
 		class Fn {
-			constructor() {
+			constructor() {//获取元素 
 				this.checkboxs = document.querySelectorAll('#list input');
 				this.lis = document.querySelectorAll('#list li');
-				this.ary = [];
+				this.ary = [];//为了存储所有的li开关，因为要根据这些开关来判断是否全选
 				this.all = document.getElementById('all')
 			}
-			init() {
+			init() {//调用某个函数
 				this.setColor();
 				this.events();
 			}
-			setColor() {
+			setColor() {//隔行变色
 				this.lis.forEach((ele, i) => {
 					if (i % 2) ele.classList.add('h')
 				})
 			};
-			events() {
-				const that=this;
+			events() {//点击事件
+				const that=this;//存储当前的this
 				this.lis.forEach((ele,i)=>{
-					this.ary[i]=false;
+					this.ary[i]=false;//先提前给数组赋值
 					ele.onmouseover=function(){
-						that.mouseover(this,'sky')
+						that.mouseover(this,'sky')//鼠标移入调用
 					}
 					ele.onmouseout=function(){
-						that.mouseout(this,'sky',i)
+						that.mouseout(this,'sky',i)//鼠标移出调用
 					}
-					this.checkboxs[i].onclick=function(){
-						that.ary[i]=this.checked;
-						that.all.checked=that.ary.every(item=>item);
+					this.checkboxs[i].onclick=function(){//每个表框点击时间
+						that.ary[i]=this.checked;//数组给当前点击的布尔值重新赋值
+						that.all.checked=that.ary.every(item=>item);//每个表框都选上后all就会选上
 					}
 				})
-				this.all.onclick=function(){
-					that.allChange(this);
+				this.all.onclick=function(){//全选时的点击出现的情况
+					that.allChange(this);//全选时调用函数
 				}
 			}
-			mouseover(that1,color){
+			mouseover(that1,color){//构造鼠标移入的函数
 				that1.classList.add(color);
 			}
-			mouseout(that1,color,i){
-				if(!this.checkboxs[i].checked){
+			mouseout(that1,color,i){//构造鼠标移出的函数
+				if(!this.checkboxs[i].checked){//未勾选状态时鼠标移除后就会恢复原有的颜色
 					that1.classList.remove(color);
 				}
 			}
-			allChange(that1){
+			allChange(that1){//全选时的函数
 				this.checkboxs.forEach((ele,i)=>{
-					ele.checked=that1.checked;
-					that1.checked?this.lis[i].classList.add('sky'):this.lis[i].classList.remove('sky')
-					this.ary[i]=that1.checked;
+					ele.checked=that1.checked;//表框都会选上√
+					that1.checked?this.lis[i].classList.add('sky'):this.lis[i].classList.remove('sky')//其背景颜色也会变成天蓝色
+					this.ary[i]=that1.checked;//存储当前的值
 				})
 			}
 		}
-		new Fn().init()
+		new Fn().init()//实例的函数调用
 	</script>
 </body>
 
