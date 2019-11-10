@@ -133,9 +133,11 @@
                 let {
                     value: v2
                 } = end;
+                // console.log(v2)
                 let {
-                    value: v4
+                    value:v4
                 } = txt1;
+                // console.log(v4)
                 if (v4 || v1 && v2) {
                     let {
                         value: v3
@@ -158,6 +160,7 @@
                     }
                     render(d);
                     console.log(v3)
+                    //还原数据
                     init.onclick = function () {
                         render(data);
                     }
@@ -167,9 +170,7 @@
             };
             sele.onchange = function () {
                 txt1.value = start.value = end.value = '';
-                let {
-                    value
-                } = this;
+                let {value} = this;
                 if (value === 'title') {
                     num.className = 'hide';
                     txt.className = 'show';
