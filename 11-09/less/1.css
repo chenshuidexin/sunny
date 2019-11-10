@@ -1,0 +1,17 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  background: lightgreen;
+  position: relative;
+}
+#box {
+  width: 200px;
+  height: 200px;
+  background: lightpink;
+  border: 2px solid skyblue;
+  position: absolute;
+  left: 340px;
+  top: 200px;
+}

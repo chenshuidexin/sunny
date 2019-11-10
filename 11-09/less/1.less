@@ -1,0 +1,51 @@
+@g:lightgreen;
+@f:lightpink;
+@s:skyblue;
+@p:1px;
+.w(@a){
+    width: @a*@p;
+}
+.h(@a){
+    height: @a*@p;
+}
+.p(@a){
+    padding:@a*@p;
+}
+.m(@a){
+    margin:@a*@p;
+}
+.bg(@a){
+    background:@a;
+}
+.b(@a,@q){
+    border:@a*@p solid @q
+}
+.l(@a){
+    left: @a*@p;
+}
+.t(@a){
+    top:@a*@p;
+}
+.r(@a){
+    right: @a*@p;
+}
+.pr(@a){
+    position: @a;
+}
+*{
+    .m(0);
+    .p(0);
+}
+body{
+    .bg(@g);
+    .pr(relative);
+}
+#box{
+    .w(200);
+    .h(200);
+    .bg(@f);
+    .b(2,@s);
+    .pr(absolute);
+    .l(340);
+    .t(200);
+}
