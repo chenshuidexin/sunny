@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //深拷贝面试题
+        /*
+        1.参数为原始数据类型***在函数内运算不会影响外面的
+        2.参数为引用数据类型***在函数体内改变属性值会影响外面的
+        3.参数为引用数据类型，参数又赋值另一个引用类型(在赋值新地址之后是不会影响外面的引用类型)
+        */
+        /*
+        call：只要是个函数就有call方法===>改变this指向====>多个参数：第一个是改变this指向，之后是实参
+        ***null和undefined都属于window;
+        ****重点核心：
+        只要让一个函数地址，等于某个对象下的方法，this自然就变成了实例化对象。
+        */
+        //原始类型this指向,复杂类型返回原值
+        Function.prototype.mycall = function (that, ...arg) {
+            //此时this的指向是实例化对象fn{}
+            let type = typeof that;
+            if (that === null || that === undefined) {
+                that = window; //this指向window
+            } else { //判断条件swith用法
+                switch (type) {
+                    case 'string':
+                        that = new String(that);
+                        break;
+                    case 'boolean':
+                        that = new Boolean(that);
+                        break;
+                    case 'number':
+                        that = new Number(that);
+                        break;
+                }
+            }
+            that.fn = this;
+            that.fn(...arg)
+        }
+
+        function fn() {
+            console.log(this);
+        }
+        fn.mycall(7777, 1, 2)
+        //比较大的bug：第二个参数在返回值里
+        //面试题*******************************
+        // function fn() {
+        //     console.log(1);
+        // }
+        // function fn2() {
+        //     console.log(2);
+        // }
+        // fn.call(fn2)//1  fn.call()函数调用
+        // fn.call.call(fn2);//==>Function.prototype.call.call(fn2)
+        //多个call，第一个是调用函数，以后是this指向的改变
+    </script>
+</body>
+
+</html>

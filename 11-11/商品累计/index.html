@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="price.css" />
+</head>
+
+<body onselectstart="return false;">
+	<div class="wrap">
+		<div class="box">
+			<ul class="list">
+				<li>
+					<i id='left'></i>
+					<em id="ee">0</em>
+					<i id="right"></i>
+					<span>
+						单价：<strong id="price">12.5元 </strong> 小计：<strong id="sub">0元</strong>
+					</span>
+				</li>
+				<li>
+					<i id="left"></i>
+					<em id="ee">0</em>
+					<i id="right"></i>
+					<span>
+						单价：<strong id="price">10.5元 </strong> 小计：<strong id="sub">0元</strong>
+					</span>
+				</li>
+				<li>
+					<i id="left"></i>
+					<em id="ee">0</em>
+					<i id="right"></i>
+					<span>
+						单价：<strong id="price">8.5元 </strong> 小计：<strong id="sub">0元</strong>
+					</span>
+				</li>
+				<li>
+					<i id="left"></i>
+					<em id="ee">0</em>
+					<i id="right"></i>
+					<span>
+						单价：<strong id="price">8元 </strong> 小计：<strong id="sub">0元</strong>
+					</span>
+				</li>
+				<li>
+					<i id="left"></i>
+					<em id="ee">0</em>
+					<i id="right"></i>
+					<span>
+						单价：<strong id="price">14.5元 </strong> 小计：<strong id="sub">0元</strong>
+					</span>
+				</li>
+			</ul>
+			<div class="info">
+				<span>商品公合计：<em id="total">0</em>件</span>
+				<span>共花费了：<em id="add">0</em>元</span>
+				<br />
+				<br />
+				<span>其中最贵的商品单价是：<em id="max">0</em>元</span>
+			</div>
+		</div>
+	</div>
+	<script>
+		const lis = document.querySelectorAll('li');
+		const iis = document.querySelectorAll('li i');
+		const ems = document.querySelectorAll('li em');
+		const price = document.querySelectorAll('#price');
+		const sub = document.querySelectorAll('#sub');
+		const max = document.querySelector('#max');
+		const total = document.querySelector('#total');
+		const add = document.querySelector('#add')
+		const left = document.querySelectorAll('#left');
+		const right = document.querySelectorAll('#right');
+		const ee=document.querySelectorAll('#ee');
+		// console.log(ee);
+
+		for (let i = 0; i < lis.length; i++) {
+			let m = 0;
+			left[i].onclick = function () {
+				m--;
+				if (m < 0) {
+					m = 0
+				};
+				ee[i].innerHTML=m;
+				sub[i].innerHTML=m*parseFloat(price[i].innerHTML)+'元';
+				// console.log(sub[i].innerHTML);
+				total.innerHTML=Number(ee[1].innerHTML)+Number(ee[2].innerHTML)+Number(ee[3].innerHTML)+Number(ee[4].innerHTML)+Number(ee[0].innerHTML);
+				add.innerHTML=parseFloat(sub[0].innerHTML)+parseFloat(sub[1].innerHTML)+parseFloat(sub[2].innerHTML)+parseFloat(sub[3].innerHTML)+parseFloat(sub[4].innerHTML);
+				if(ee[4].innerHTML>0){
+					max.innerHTML=14.5
+				}else if(ee[0].innerHTML>0){
+					max.innerHTML=12.5
+				}else if(ee[1].innerHTML>0){
+					max.innerHTML=10.5
+				}else if(ee[2].innerHTML>0){
+					max.innerHTML=8.5
+				}else if(ee[3].innerHTML>0){
+					max.innerHTML=8
+				}else{
+					max.innerHTML=0
+				}
+			}
+			right[i].onclick=function(){
+				m++;
+				ee[i].innerHTML=m;
+				sub[i].innerHTML=m*parseFloat(price[i].innerHTML)+'元';
+				total.innerHTML=Number(ee[1].innerHTML)+Number(ee[2].innerHTML)+Number(ee[3].innerHTML)+Number(ee[4].innerHTML)+Number(ee[0].innerHTML);
+				add.innerHTML=parseFloat(sub[0].innerHTML)+parseFloat(sub[1].innerHTML)+parseFloat(sub[2].innerHTML)+parseFloat(sub[3].innerHTML)+parseFloat(sub[4].innerHTML);
+				if(ee[4].innerHTML>0){
+					max.innerHTML=14.5
+				}else if(ee[0].innerHTML>0){
+					max.innerHTML=12.5
+				}else if(ee[1].innerHTML>0){
+					max.innerHTML=10.5
+				}else if(ee[2].innerHTML>0){
+					max.innerHTML=8.5
+				}else if(ee[3].innerHTML>0){
+					max.innerHTML=8
+				}else{
+					max.innerHTML=0
+				}
+			}
+			
+		}
+	</script>
+</body>
+
+</html>

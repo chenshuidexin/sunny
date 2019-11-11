@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+//*************************************************分清this指向 x的全局私有作用域
+        // var x = 2;
+        // var y={
+        //     x:3,
+        //     z:(function(x){
+        //         this.x*=x;
+        //         x+=2;
+        //         return function(n){
+        //             this.x*=n;
+        //             x+=3;
+        //             console.log(x);
+        //         }
+        //     })(x)
+        // }
+        // var m=y.z;
+        // m(4);//7
+        // y.z(5);//10
+        // console.log(x,y.x)//16  15
+    </script>
+</body>
+
+</html>

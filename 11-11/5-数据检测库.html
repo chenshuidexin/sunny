@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //比较重要的手写题
+        //Object.prototype.toString.call(数据)=== [object 类型]
+        class Tooles {
+            static type(data) {
+                if (typeof data !== 'object') {
+                    return typeof data;
+                }
+                let obj = { //用对象属性值一一对应关系
+                    object: 'Object',
+                    array: 'Array',
+                    null: 'Null',
+                }
+                let toS = Object.prototype.toString;
+                for (let attr in obj) {
+                    if (toS.call(data) === `[object ${obj[attr]}]`) {
+                        return attr;
+                    }
+                }
+            }
+        }
+        console.log(Tooles.type(undefined))
+    </script>
+</body>
+
+</html>
