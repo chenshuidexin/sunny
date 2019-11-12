@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //试题：请你把下列字符串的数字挑出来，存到一个数组中。
+        // let stt='x7sdd783af e3332 m723aa8334da77csc78'
+        // let att=[];
+        // for(var i=0;i<stt.length;i++){
+        //     if(!isNaN(parseInt(stt[i]))){//也排除了空格带来的影响  parseInt('')=>NaN [不用Number的原因]
+        //         att.push(stt[i]);
+        //     }
+        // }
+        // console.log(att)
+        // console.log(stt.match(/\d/g))//跟上面是相同的效果
+        //试题：请你把下列字符串的连续数字挑出来，存到一个数组中。
+        let stt = 'x7sdd783af e3332 m723aa8334da77csc78'
+        let ass = [];
+        let temp = '';
+        for (var i = 0; i < stt.length; i++) {//如果是数字就进行字符串拼接
+            if (!isNaN(parseInt(stt[i]))) {//最后一次循环如果字符为数字，那进行拼接并没有push，所以最后一次数字没有进入数组中。
+                temp += stt[i];
+            } else {//当前字符不是数字，那就进入数组中并清空之前拼接好的temp，是为了我保证下一次正常使用
+                if (temp) {//保证不是空字符串进入执行代码//空字符串是false不走执行代码。
+                    ass.push(temp);
+                    temp = '';
+                }
+            }
+        }
+        if (temp) {//是为了万一最后字符是数字时加入数组，不会落下。
+            ass.push(temp);
+            temp = '';
+        }
+        console.log(ass)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div id="bix"></div> -->
+    <input type="text" id="txt"><button id="btn">发送</button>
+    <ul id="ul"></ul>
+    <script>
+        // //过滤敏感词
+        // let stt = '忽然之间，天昏地暗，阳光始终透不进来，人生也就这样荒废过去。'
+        // let arr = ['忽然', '始终', '透', '荒废']
+        // let a = '!@#$%^&*?`~'
+        // let ss = new RegExp(arr.join('|'), 'g')
+        // // console.log(ss)
+        // let zz = stt.replace(ss, (ee) => {
+        //     let temp = '';//字符串拼接
+        //     for (var i = 0; i < ee.length; i++) {
+        //         temp += a[Math.round(Math.random() * (a.length - 1))];//随机取个字符串
+        //     }
+        //     return temp;//返回是拼接好的字符串
+        // })
+        // bix.innerHTML=zz;
+        //创建元素的过滤敏感词***************
+        btn.onclick=function(){//发送按钮点击
+            let {value}=txt;//获取input框中的内容
+            let fhx=value;//需要对其内容进行操作
+            let li=document.createElement('li');//创建li标签的元素
+            let btns=document.createElement('button');//创建bbutton元素
+            let span=document.createElement('span');//创建span标签的元素
+            btns.innerText='和谐掉了'
+            btns.onclick=function(){//和谐掉的字复原
+                span.innerText=fhx;
+            }
+            let sql=['盘','柠檬精','蜂鸟'];//需要和谐的字
+            let saa='!@#$%^*()~';//用来代替和谐的字
+            let re=new RegExp(sql.join('|'),'g');//形成正则规则的样子。
+            // console.log(re);///盘|柠檬精|蜂鸟/g
+            value=value.replace(re,(ee)=>{
+                //ee是每次匹配到的和谐的字
+                //拿到和谐字之后看下length，通过length拿到替换文字的个数
+                //得到和谐之后的个数;
+                let temp='';
+                for(var i=0;i<ee.length;i++){
+                    temp += saa[Math.round(Math.random()*(saa.length-1))];
+                }
+                return temp;
+            })
+            console.log(value);
+            span.innerText=value;
+            li.appendChild(span);
+            li.appendChild(btns);
+            ul.insertBefore(li,ul.children[0]);
+            txt.value='';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,10 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <script>
+        // console.log(a);//函数
+        // var a = 12;
+        // function a() {
+        //     console.log(a);
+        //     a = 13;
+        // }
+        // a();//报错
+        // console.log(a);
+        //*********************************************
+        // let res = Number(':200px');
+        // if (res === 200) {
+        //     alert(200);
+        // } else if (res === NaN) {
+        //     alert(NaN);
+        // } else if (typeof res === 'number') {
+        //     alert('number');//'number'
+        // } else {
+        //     alert('Invalid Number');
+        // }
+        //********************************************
+        // var n = 0;
+        // function a() {
+        //     var n = 10;//11父级
+
+        //     function b() {
+        //         n++;
+        //         console.log(n);//11 12
+        //     }
+        //     b();
+        //     return b;
+        // }
+        // var c = a();
+        // c();
+        // console.log(n);//0
+        //***************************************************
+        // var a1 = 4,
+        //     a2 = [1, 2];
+
+        // function b(x, y) {
+        //     arguments[0] = 10;//a1=10 简单数据类型不会改变
+        //     arguments[1].push(3);//[1,2,3]  引用类型会改变
+        //     y = [];
+        //     console.log(x, y);//10 []
+        // }
+        // b(a1, a2);
+        // console.log(a1, a2);//4  [1,2,3]
+        //********************************************************
+        // function fn(i) {//10   11 //20  21//30
+        //     return function (n) {//20  30 //40//50
+        //         console.log(n + (i++));//30  //60//80  41
+        //     }
+        // }
+        // var f = fn(10);
+        // f(20);
+        // fn(20)(40);
+        // fn(30)(50);
+        // f(30);
+        //*********************************************************
+        var x = 3,
+            obj = {
+                x: 5
+            };
+        obj.fn = (function () {
+            this.x *= ++x;
+            return function (y) { //6
+                this.x *= (++x) + y; //this指向obj 5*6+6
+                console.log(x);
+            }
+        })();
+        var fn = obj.fn;
+        obj.fn(6);
+        fn(4);
+        console.log(obj.x, x)
+        //***************************************************************
+        //example 1****************************************************
+        // let a = {},
+        //     b = '0',
+        //     c = 0;
+        // a[b] = '珠峰';
+        // a[c] = '培训';
+        // console.log(a[b]);//培训
+        //example 2**************************************************
+        // let a = {},
+        //     b = Symbol('1'),
+        //     c = Symbol('1');
+        // a[b] = '珠峰';
+        // a[c] = '培训';
+        // console.log(a[b]);//'珠峰'
+        // //example 3************************************************
+        let a = {},
+            b = {
+                n: '1'
+            },
+            c = {
+                m: '2'
+            };
+        a[b] = '珠峰';
+        a[c] = '培训';
+        console.log(a[b]);//'培训'
+    </script>
 </body>
+
 </html>

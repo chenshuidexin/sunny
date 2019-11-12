@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="price.css" />
+	</head>
+
+	<body onselectstart="return false;">
+		<div class="wrap">
+			<div class="box">
+				<ul class="list" id="ul">
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>12.5元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>10.5元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>8.5元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>8元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+					<li>
+						<i></i>
+						<em>0</em>
+						<i></i>
+						<span>
+							单价：<strong>14.5元 </strong> 小计：<strong>0元</strong>
+						</span>
+					</li>
+				</ul>
+				<div class="info">
+					<span>商品公合计：<em>0</em>件</span>
+					<span>共花费了：<em>0</em>元</span>
+					<br />
+					<br />
+					<span>其中最贵的商品单价是：<em>0</em>元</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			function Fn(id){
+				this.ul=document.getElementById(id);
+				this.i1s=this.ul.querySelectorAll('li i:nth-of-type(1)');
+				// console.log(this.ul);
+				this.ems=this.ul.querySelectorAll('li em');
+				this.i2s=this.ul.querySelectorAll('li i:nth-of-type(2)');
+				this.st1s=this.ul.querySelectorAll('li span:nth-of-type(1)');
+				this.st2s=this.ul.querySelectorAll('li span:nth-of-type(2)');
+				this.hjj=this.ul.querySelector('info span:nth-of-type(1) em');
+				this.hjy=this.ul.querySelector('info span:nth-of-type(2) em');				this.zg=this.ul.querySelector('info span:nth-of-type(3) em');
+				// this.aa();
+			}
+			Fn.prototype.aa=function(){
+				let that=this;
+				this.i2s.forEach((ele,i) => {
+					let num=1;
+					ele.onclick=function(){
+						that.ems[i].innerText=num++;
+						// console.log(num);
+						that.st2s[i].innerText=parseFloat(that.st1s[i].innerText)*that.ems[i].innerText+'元'
+						// console.log(that.st2s[i].innerText)
+						f.bb();
+					}
+					this.i1s[i].onclick=function(){
+						if(that.ems[i].innerText>0){
+							that.ems[i].innerText--;
+							num--;
+							that.st2s[i].innerText=parseFloat(that.st1s[i].innerText)*that.ems[i].innerText+'元';
+							f.bb();
+						}
+					}
+					
+				});
+			}
+			Fn.prototype.bb=function(){
+				let emss=0;
+				let st2ss=0;
+				let st1sMax=0;
+				this.ems.forEach((ele,i)=>{
+					emss+=parseFloat(this.ems[i].innerText)
+					st2ss+=parseFloat(this.st2s[i].innerText)
+					if(parseFloat(this.st1s[i].innerText)>st1sMax){
+						if(this.ems[i].innerText>0){
+							st1sMax=parseFloat(this.st1s[i].innerText)
+						}
+					}
+				})
+				this.hjj.innerText=emss;
+				this.hjy.innerText=st2ss;
+				this.zg.innerText=st1sMax;
+			}
+			new Fn('ul').aa();
+		</script>
+	</body>
+
+</html>

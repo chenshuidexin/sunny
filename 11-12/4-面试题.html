@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+  
+        2019年11月12日
+        2019/11/12
+        2019-11-12
+        2019-_-!~11_-__-_^_^!12
+  */
+        // let str = '2019/11/12';
+        // let s = str.replace(/((\d)+)\D+(\d+)\D+(\d+)/, function ($0, $1, $2, $3, $4, $5, $6) {
+        //     console.log($0,$1,$2,$3,$4,$5,$6);
+        //     console.log($2); //9
+        //     // console.log($6)//2019/11/12
+        //     return $1 + '年' + $3 + '月' + $4 + '日';
+        // });
+        // console.log(s);//2019年11月12日
+
+        // let ary=str.match(/\d+/g);
+        // console.log(ary[0]+'年'+ary[1]+'月'+ary[2]+'日')//2019年11月12日
+        // 16-108岁才能注册，如何进行验证？*************
+        // let ssa='23';
+        // console.log(/^(1[6-9]|[2-9][0-9]|10[0-8])$/.test(ssa));
+        //根据字符串的变化而变化，加上^()$更加精准。
+        //计算出下列的字符字节，假设英文是1个字节，中文是2个字节。*************
+        let str='你好,这个!世界的阳光,sunny,!loving';
+        let num=0;//用来计数
+        //先从英文和符号开始
+        for(var i=0;i<str.length;i++){
+            if(/[a-z,!]/i.test(str[i])){
+                num++;
+            }else{
+                num+=2;
+            }
+        }
+        console.log(num)
+        //从中文开始空格除外单拎出来
+        //  for(var i=0;i<str.length;i++){
+        //     if(/[\u4e00-\u9fa5]/i.test(str[i])){
+        //         num+=2;
+        //     }else{
+        //         num++;
+        //     }
+        // }
+        console.log(num);//34
+
+    </script>
+</body>
+
+</html>
