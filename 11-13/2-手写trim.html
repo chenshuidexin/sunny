@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log(/\s/.test(' ')); //去掉前后空格==>trim()
+
+        let str = '   a   w  r   wa   '
+        // console.log(str.match(/\s+/g))
+        //手写trim()方法************************
+        // for (var i = 0; i < str.length; i++) {
+        //     if (str[i] !== ' ') {//不是空格符
+        //         console.log(str.substring(i));//从非空字符截取到结尾
+        //         break;
+        //     }
+        // }
+        //用法
+        console.log(str.replace(/^\s+|\s$/g,''))//开头为空格或是结尾为空格的，被非空字符串所代替
+        console.log(str.replace(/\S+/g,'*'));//非空字符串被*所替代
+    </script>
+</body>
+
+</html>

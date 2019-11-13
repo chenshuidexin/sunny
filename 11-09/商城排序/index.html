@@ -113,7 +113,7 @@
                     this.onoff = !this.onoff;
                     //根据newdata的位置
                     //原位置的数据  排完序的数据 DOM数据
-                    //render(newdata)
+                    render(newdata)
                     newdata.forEach((item, i) => {
                         li[item.id - 1].style.left = ary[i].l + 'px';
                         li[item.id - 1].style.top = ary[i].t + 'px';

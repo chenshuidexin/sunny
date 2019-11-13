@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li class="li clear li1">11</li>
+        <li>22</li>
+        <li class="li">33</li>
+    </ul>
+    <script>
+        // let lis =document.getElementsByTagName('li');
+        // for(var i=0;i<lis.length;i++){
+        //     if(lis[i].className === 'li'){
+        //         lis[i].style.background='yellow';
+        //     }
+        // }
+        /*
+        1.找到页面中所有的标签
+
+        2.从这些标签中获取带class为li的元素
+        
+        3.找到它们并且放到数组中。
+        */
+        //a：数组*************************************
+        // function getBy(cname) {
+        //     let ele = document.getElementsByTagName('*') //找到所有的标签
+        //     let ary = [];
+        //     for (var i = 0; i < ele.length; i++) {
+        //         //获取到所有的class类名
+        //         let scn = ele[i].className;
+        //         //把获取到的class用split用空格分割
+        //         let arr = scn.split(' ');
+        //         //循环分割之后的数组
+        //         arr.forEach(cc => {
+        //             if (cc === cname) {//找到需要的名
+        //                 ary.push(ele[i]);//添加需要的标签的名
+        //             }
+        //         });
+        //         if (ele[i].className === 'li') {
+        //             ary.push(ele[i])//寻找li标签名
+        //         }
+        //     }
+        //     return ary;//返回的是含有li标签的名
+        // }
+        // let lis = getBy('li');
+        // for (let i = 0; i < lis.length; i++) {//只有里面含有li的就会使其背景颜色改变。
+        //     lis[i].style.background = 'red';
+        // }
+        // console.log(lis);
+        //正则解决问题*********************
+        function dd(cname){
+            let ele=document.getElementsByTagName('*');//获取所有的标签。
+            let arr=[];
+            let rr=new RegExp('\\b'+cname+'\\b');//利用正则来获取变量名的规则对象==>|li|
+            for(var i=0;i<ele.length;i++){
+                if(rr.test(ele[i].className)){
+                    arr.push(ele[i])//只要包含|li|就会添加到新数组中
+                }
+            }
+            return arr;
+        }
+        let lis=dd('li');
+        for(var i=0;i<lis.length;i++){
+            lis[i].style.background='skyblue';
+        }
+    </script>
+</body>
+
+</html>

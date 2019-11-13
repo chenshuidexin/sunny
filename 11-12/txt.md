@@ -14,8 +14,9 @@
 - \D:一个非数字
 - 量词：+ 至少出现一次，最多不限
 - 修饰符： 
-     - g：global 全局查找
+     - g：global     全局查找
      - i:ignoreCase 忽略大小写
+     - m:mutiline   多行匹配
 - 正则身上的方法：
     - /a/.exec(字符串)：查看字符串中是否有正则匹配项。找到这个正则匹配的字符串(首次出现的数字字符串(只出现一次))，并返回到数组中找不到就返回null。
     ```js
@@ -77,7 +78,7 @@ console.log(aa.match(/s/ig))//跟上面一样的效果===>gi顺序不妨碍
     - 排除 ==>[^abc]排除字符a或b或c
 ```js
    let str = 'a12ca456ca6789ca123456caca1ca78c';
-    console.log(str.match(/a[^123]+c/g));//a开头c结尾，中间排除1
+    console.log(str.match(/a[^123]+c/g));//a开头c结尾，中间排除1或2或3
 ```
 
 

@@ -66,21 +66,21 @@
         // fn(30)(50);
         // f(30);
         //*********************************************************
-        var x = 3,
+        var x = 1, //2
             obj = {
-                x: 5
+                x: 2 //3
             };
         obj.fn = (function () {
-            this.x *= ++x;
-            return function (y) { //6
-                this.x *= (++x) + y; //this指向obj 5*6+6
-                console.log(x);
+            this.x *= ++x; //window.x=1*2=2
+            return function (y) { //1//1
+                this.x *= (++x) + y; //2*1+1=3 obj.x=3//3*
+                console.log(x); //3 15
             }
         })();
         var fn = obj.fn;
-        obj.fn(6);
-        fn(4);
-        console.log(obj.x, x)
+        obj.fn(1);
+        fn(1);
+        console.log(obj.x, x) //8 15
         //***************************************************************
         //example 1****************************************************
         // let a = {},
@@ -88,25 +88,98 @@
         //     c = 0;
         // a[b] = '珠峰';
         // a[c] = '培训';
-        // console.log(a[b]);//培训
+        // console.log(a[b]);//培训==》a[0]='培训'重新赋值
         //example 2**************************************************
         // let a = {},
         //     b = Symbol('1'),
         //     c = Symbol('1');
         // a[b] = '珠峰';
         // a[c] = '培训';
-        // console.log(a[b]);//'珠峰'
+        // console.log(a[b]);//'珠峰'  Symbol()唯一值
         // //example 3************************************************
-        let a = {},
-            b = {
-                n: '1'
+        // let a = {},
+        //     b = {
+        //         n: '1'
+        //     },//引用类型
+        //     c = {
+        //         m: '2'
+        //     };
+        // a[b] = '珠峰';
+        // a[c] = '培训';
+        // console.log(a[b]);//'培训' ==>a[object Object]='培训' 重新赋值
+        //*************************************************************
+        // function Fn() {
+        //     this.x = 10;
+        //     this.y = 20;
+        //     this.getX = function () {
+        //         console.log(this.x);
+        //     }
+        // }
+        // Fn.prototype.y = 40;
+        // Fn.prototype = {
+        //     x: 30,
+        //     getY: function () {
+        //         this.y += 1;
+        //         console.log(this.y);
+        //     },
+        //     sum: function () {
+        //         console.log(this.x + this.y);
+        //     }
+        // };
+        // let f1 = new Fn;
+        // let f2 = new Fn;
+        // console.log(f1.getX === f2.getX);//false
+        // console.log(f1.getY === f2.getY);//true
+        // console.log(f1.constructor);//ƒ Object() { [native code] }
+        // f1.getX();//10
+        // f2.getY();//21 直接就赋值就好
+        // f1.sum()//30
+        //************************************************************
+        // var F = function () {};
+        // Object.prototype.a = function () {
+        //     console.log('a()')
+        // };
+        // Function.prototype.b = function () {
+        //     console.log('b()')
+        // };
+        // var f = new F();
+        // f.a();//a()
+        // // f.b();//报错
+        // F.a();//a()==>构造函数最终指向就是Object。
+        // F.b();//b()
+        //***********************************************************
+        // function A1(name) {
+        //     this.name = name;
+        // }
+
+        // function A2(name) {
+        //     this.name = name || 'Jerry';
+        // }
+
+        // function A3(name) {
+        //     // name && this.name = name;
+        // }
+        // A1.prototype.name = 'Tom';
+        // A2.prototype.name = 'Tom';
+        // A3.prototype.name = 'Tom';
+        // alert((new A1().name) + (new A2().name)+ (new A3().name));//undefinedJerryTom
+        //**********************************************************************
+        var name = "WINDOW",
+            obj = {
+                name: "OBJ",
+                fn: (function () {
+                    console.log(this.name);//'WINDOW' 
+                    return function () {
+                        console.log(this.name);//'OBJ'
+                    }
+                })()
             },
-            c = {
-                m: '2'
+            fn = () => {
+                console.log(this.name);//'WINDOW' 'WINDOW'
             };
-        a[b] = '珠峰';
-        a[c] = '培训';
-        console.log(a[b]);//'培训'
+        fn();
+        obj.fn();
+        fn.call(obj);//改变this的指向。
     </script>
 </body>
 
