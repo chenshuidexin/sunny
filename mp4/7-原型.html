@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //第一题*******************************************
+        // function Fn() {
+        //     this.x = 1;
+        //     y = 2;
+        //     this.getX = function () {
+        //         console.log(this.x);
+        //     }
+        // }
+        // Fn.prototype.getX = function () {
+        //     this.y += 1;
+        //     this.y = 2;
+        //     console.log(this.x, this.y);
+        // };
+        // Fn.prototype = {
+        //     x: 'zhufeng',
+        //     getY: function () {
+        //         this.y += 1;
+        //         console.log(this.y);
+        //     },
+        //     sum: function () {
+        //         console.log(this.x + this.y);
+        //     }
+        // };
+        // let f1 = new Fn;
+        // let f2 = new Fn;
+        // console.log(f1.getX === f2.getX);//false
+        // console.log(f1.getY === f2.getY);//true
+        // console.log(f1.__proto__.getX === Fn.prototype.getX);//true
+        // console.log(f1.prototype);//undefined
+        // console.log(f1.constructor);//Object
+        // f1.getX();//1
+        // // Fn.prototype.getX();//报错
+        // let fn = f2.getY;
+        // fn();//3
+        // Fn.prototype.getY();//NaN
+        // f1.sum();//NaN
+        //第二题***********************************************************************************
+        // function Fn() {
+        //     var a = 1;
+        //     this.a = a;
+        // }
+        // Fn.prototype.say = function () {
+        //     this.a += 2;
+        //     return this.a
+        // };
+        // var f2 = new Fn();
+        // Fn.prototype = new Fn;
+        // var f1 = new Fn;
+        // f1.__proto__.b = function () {
+        //     this.a = 3;
+        //     // console.log(this.a)
+        //     return this.a
+        // };
+        // console.log(f1.a);//1
+        // // console.log(f1.prototype.say());//报错
+        // console.log(f1.hasOwnProperty('b'));//false
+        // console.log('b' in f1);//true
+        // console.log(f1.constructor == Fn);//true
+        // console.log(Fn.prototype);//Fn {a: 1, b: ƒ}
+        // f1.b();//不出任何结果
+        // f2.b();//报错 不是函数
+        //第三题**************************************************************
+        // var F = function () {};
+        // Object.prototype.a = function () {
+        //     console.log('a()')
+        // };
+        // Function.prototype.b = function () {
+        //     console.log('b()')
+        // };
+        // var f = new F();
+        // f.a();//a()
+        // // f.b();//报错
+        // F.a();//a()
+        // F.b();//b()
+        //第四题***************************************************************
+        // var x = 1;
+        // var obj = {
+        //     x: 2,
+        //     fn: function (x) {
+        //         this.x += ++x;
+        //         console.log(x, this.x);//5  7   //6  7
+        //     }
+        // };
+        // var fn = obj.fn;
+        // obj.fn(4);
+        // fn(5);
+        // console.log(x, obj.x);//7 7
+        //第五题*********************************************************
+        // var print = function () {alert(1);}
+        // function Fn() {
+        //     print = function () {alert(2);}
+        //     return this;
+        // }
+        // function print() {alert(3);}//提升变量重新赋值被pass掉
+        // // Foo.prototype.print = function () {alert(4);}//
+        // Fn.print = function () {alert(5);}
+        // print();//1
+        // Fn.print();//5
+        // Fn().print();//2
+        // new Fn.print();//5  实例是Fn.print{}
+        // new Fn().print();//报错  实例是Fn{}.print()
+        //第六题***************************************************
+        // function Fn(n, m) {
+        //     n = n || 0;
+        //     m = m || 0;
+        //     this.x = n;
+        //     this.y = m;
+        //     this.getX = function () {console.log(this.x);}
+        //     return n + m;
+        // }
+        // Fn.prototype.sum = function () {console.log(this.x + this.y);}
+        // Fn.prototype = {
+        //     getX: function () {
+        //         this.x += 1;
+        //         debugger;
+        //         console.log(this.x);
+        //     },
+        //     getY: function () {
+        //         this.y -= 1;
+        //         console.log(this.y);
+        //     }
+        // };
+        // let f1 = new Fn(10, 20);
+        // let f2 = new Fn;
+        // console.log(f1.getX === f2.getX);//false
+        // console.log(f1.getY === f2.getY);//true
+        // console.log(f1.__proto__.getY === Fn.prototype.getY);//*********true
+        // console.log(Fn.prototype.getX === f2.getX);//**************false
+        // console.log(f1.constructor);//Object{}
+        // f1.getX();//10
+        // Fn.prototype.getX();//NaN************非有效数字
+        // f2.getY();//-1
+        // Fn.prototype.getY();//NaN***************非有效数字
+        // f1.sum();//报错*********************
+    </script>
+</body>
+
+</html>

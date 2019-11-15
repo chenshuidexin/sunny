@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="dd"></div>
+    <script>
+        /*
+       把下面str的name，age，say换成obj中的value值
+    */
+        // let obj = {
+        //     name: '小明',
+        //     age: 18,
+        //     say: '好好学习，天天向上'
+        // }
+        // let str = `我的名字叫${name},年龄是${age}岁,我想说:${say}`;
+        //第一种for in 循环加入数组中逐一添加******************************
+        // let str = '';
+        // let arr = [];
+        // for (var attr in obj) {//枚举
+        //     arr.push(obj[attr])//添加新数组中
+        //     str = `我的名字叫${arr[0]},年龄是${arr[1]}岁,我想说:${arr[2]}`;
+        // }
+        // console.log(str);
+        //另一种办法  赋值解构***********************
+        // let {name,age,say}=obj;
+        // var ss=`我的名字叫${name},年龄是${age}岁,我想说:${say}`
+        // console.log(ss);
+
+        /*
+            计算下面字符串中哪个字符出现的次数最多,它是谁，出现了多少次
+        */
+
+        let str2 = 'hd82nxa89a3axdma2naejaaxaa8n2xdanja2cah2hnadhioamwajexnad8mdahiodn';
+        // let str2='12323122'
+        //利用对象和数组之间的关系来进行数字相加，最后得出最大数值的字符
+        //     let arr=str2.split('');//形成新数组
+        //     let obb={};//建立空对象
+        //     arr.forEach((ele,i)=>{//循环每一个数组
+        //         if(ele in obb){//判断当前的字符是否在新对象中
+        //             obb[ele]++;//相同的字符相加
+        //         }else{
+        //             obb[ele]=1//添加的新字符从1开始
+        //         }
+        //     })
+        //     // console.log(obb);
+        //     let num=0;//储值次数
+        //     let ss='';//出现最多的字符
+        //     for(var aa in obb){//循环obb中的属性值
+        //         if(obb[aa]>num){//obb[aa]在其中取最大值
+        //             num=obb[aa];//num重新赋值
+        //             ss=aa;//当前的字符
+        //         }
+        //     }
+        //     dd.innerHTML=`${ss}字符出现${num}次，次数最多`
+        //另一种方法**********************************************
+        function tee(str) {
+            var arr = str.split(''); //分割成新数组
+            arr.sort(); //编码排序
+            str = arr.join(''); //新字符串为顺序字符串
+            var as=/(\w)\1+/g;//相同的子项在一起
+            var num = 0;
+            var val = '';
+            str.replace(as, function($0, $1){
+                if (num < $0.length) {//获取出现最多次数的字符串
+                    num = $0.length;//次数
+                    val = $1;//字符串
+                }
+                // console.log($0,$1);
+            })
+                return `${val}是出现最多的字符，最多次数是${num}`
+        }
+        let ww = tee(str2);
+        console.log(ww)
+    </script>
+</body>
+
+</html>

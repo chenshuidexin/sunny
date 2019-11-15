@@ -18,8 +18,8 @@
 
 	<body onselectstart="return false;">
 		<div class="wrap">
-			<div class="box">
-				<ul class="list" id="ul">
+			<div class="box" id="ul">
+				<ul class="list">
 					<li>
 						<i></i>
 						<em>0</em>
@@ -77,29 +77,27 @@
 				// console.log(this.ul);
 				this.ems=this.ul.querySelectorAll('li em');
 				this.i2s=this.ul.querySelectorAll('li i:nth-of-type(2)');
-				this.st1s=this.ul.querySelectorAll('li span:nth-of-type(1)');
-				this.st2s=this.ul.querySelectorAll('li span:nth-of-type(2)');
-				this.hjj=this.ul.querySelector('info span:nth-of-type(1) em');
-				this.hjy=this.ul.querySelector('info span:nth-of-type(2) em');				this.zg=this.ul.querySelector('info span:nth-of-type(3) em');
-				// this.aa();
+				this.st1s=this.ul.querySelectorAll('li span strong:nth-of-type(1)');
+				this.st2s=this.ul.querySelectorAll('li span strong:nth-of-type(2)');
+				this.hjj=this.ul.querySelector('.info span:nth-of-type(1) em');
+				this.hjy=this.ul.querySelector('.info span:nth-of-type(2) em');				this.zg=this.ul.querySelector('.info span:nth-of-type(3) em');
+				this.aa();
 			}
 			Fn.prototype.aa=function(){
 				let that=this;
 				this.i2s.forEach((ele,i) => {
 					let num=1;
 					ele.onclick=function(){
-						that.ems[i].innerText=num++;
-						// console.log(num);
-						that.st2s[i].innerText=parseFloat(that.st1s[i].innerText)*that.ems[i].innerText+'元'
-						// console.log(that.st2s[i].innerText)
-						f.bb();
+						that.ems[i].innerHTML=num++;
+						that.st2s[i].innerHTML=parseFloat(that.st1s[i].innerHTML)*that.ems[i].innerHTML+'元'
+						that.bb();
 					}
 					this.i1s[i].onclick=function(){
-						if(that.ems[i].innerText>0){
-							that.ems[i].innerText--;
+						if(that.ems[i].innerHTML>0){
+							that.ems[i].innerHTML--;
 							num--;
-							that.st2s[i].innerText=parseFloat(that.st1s[i].innerText)*that.ems[i].innerText+'元';
-							f.bb();
+							that.st2s[i].innerHTML=parseFloat(that.st1s[i].innerHTML)*that.ems[i].innerHTML+'元';
+							that.bb();
 						}
 					}
 					
@@ -110,19 +108,19 @@
 				let st2ss=0;
 				let st1sMax=0;
 				this.ems.forEach((ele,i)=>{
-					emss+=parseFloat(this.ems[i].innerText)
-					st2ss+=parseFloat(this.st2s[i].innerText)
-					if(parseFloat(this.st1s[i].innerText)>st1sMax){
-						if(this.ems[i].innerText>0){
-							st1sMax=parseFloat(this.st1s[i].innerText)
+					emss+=parseFloat(this.ems[i].innerHTML)
+					st2ss+=parseFloat(this.st2s[i].innerHTML)
+					if(parseFloat(this.st1s[i].innerHTML)>st1sMax){
+						if(this.ems[i].innerHTML>0){
+							st1sMax=parseFloat(this.st1s[i].innerHTML)
 						}
 					}
 				})
-				this.hjj.innerText=emss;
-				this.hjy.innerText=st2ss;
-				this.zg.innerText=st1sMax;
+				this.hjj.innerHTML=emss;
+				this.hjy.innerHTML=st2ss;
+				this.zg.innerHTML=st1sMax;
 			}
-			new Fn('ul').aa();
+			new Fn('ul');
 		</script>
 	</body>
 

@@ -10,11 +10,13 @@
       你好这个世界
       我真的喜欢世界
       你看看这个世界`
-      console.log(ss.match(/界/g));// ["界", "界", "界"]
-      console.log(ss.match(/界/m));//["界".....]在第一个界
-      console.log(ss.match(/界$/g));//["界"]在最后一个
-      console.log(ss.match(/界$/m));//与14行类似
-      console.log(ss.match(/界$/mg));//["界", "界", "界"] ==> 比较常见的方式
+      // console.log(ss.match(/界/g));// ["界", "界", "界"]
+      // console.log(ss.match(/界/m));//["界".....]在第一个界
+      // console.log(ss.match(/界$/g));//["界"]在最后一个
+      // console.log(ss.match(/界$/m));//与14行类似
+      // console.log(ss.match(/界$/mg));//["界", "界", "界"] ==> 比较常见的方式
+      let ww='   123  34   56 12 '
+      console.log((ww.match(/\S+/g)).join(''))//123345612
 
    </script> 
 </body>

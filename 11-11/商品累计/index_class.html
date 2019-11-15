@@ -71,7 +71,46 @@
 			</div>
 		</div>
 		<script>
-			
+			class Fn{
+				constructor(){
+					this.i1s=document.querySelectorAll('li i:nth-of-type(1)')
+					this.ems=document.querySelectorAll('li em')
+					this.i2s=document.querySelectorAll('li i:nth-of-type(2)')
+					this.st1s=document.querySelectorAll('li span strong:nth-of-type(1)')
+					this.st2s=document.querySelectorAll('li span strong:nth-of-type(2)')
+					this.hjj=document.querySelector('.info span:nth-of-type(1) em')
+					this.hjy=document.querySelector('.info span:nth-of-type(2) em')
+					this.zg=document.querySelector('.info span:nth-of-type(3) em')
+				}
+				a(){
+					this.ems.forEach((item,i)=>{
+						item.num=0
+						let that=this
+						this.i2s[i].onclick=function(){
+							item.innerHTML=++item.num;
+							that.st2s[i].innerHTML=`${parseFloat(that.st1s[i].innerHTML)*item.innerHTML}元`
+							that.b();
+						}
+						this.i1s[i].onclick=function(){
+							item.num>0?item.innerHTML=--item.num:null
+							that.st2s[i].innerHTML=`${parseFloat(that.st1s[i].innerHTML)*item.innerHTML}元`
+							that.b();
+						}
+					})
+				}
+				b(){
+					let emss=0,st2ss=0,st1sMax=0;
+					this.ems.forEach((item,i)=>{
+						emss+=parseFloat(item.innerHTML);
+						st2ss+=parseFloat(this.st2s[i].innerHTML);
+						this.ems[i].innerHTML>0?parseFloat(this.st1s[i].innerHTML)>st1sMax?st1sMax=parseFloat(this.st1s[i].innerHTML):null:null
+					})
+					this.hjj.innerHTML=emss;
+					this.hjy.innerHTML=st2ss;
+					this.zg.innerHTML=st1sMax;
+				}
+			}
+			new Fn().a();
 		</script>
 	</body>
 
