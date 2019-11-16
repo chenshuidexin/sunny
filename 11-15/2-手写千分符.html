@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str = '12332110'
+        let temp = '';
+        let num = 0;
+        for (let i = str.length - 1; i >= 0; i--) {//倒着找三位数加','
+            if ((temp.length - num) % 3) {//三位数为一组
+                temp += str[i];//挨着添加数据
+            } else {
+                temp += ',' + str[i];//三位数里添加','
+                num++;//为解决数组的塌陷性
+            }
+        }
+        temp = temp.substring(1);//不要开头的','所以形成新的数组。
+        temp = temp.split('').reverse().join('');//把字符串给正过来带着','
+        console.log(temp)//如结果显示[12,332,110]
+    </script>
+</body>
+
+</html>

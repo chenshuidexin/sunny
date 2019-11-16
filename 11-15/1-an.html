@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 800px;
+            height: 200px;
+            overflow: hidden;
+            border: 1px dashed lightgray;
+            margin: 40px auto;
+        }
+
+        .box ul {
+            height: 200px;
+        }
+
+        .box ul li {
+            float: left;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .box ul li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .clearfix:after {
+            display: block;
+            content: '';
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="ulBox clearfix" id="ulBox">
+            <li><img src="./img/1.jpg" alt=""></li>
+            <li><img src="./img/2.jpg" alt=""></li>
+            <li><img src="./img/3.jpg" alt=""></li>
+            <li><img src="./img/4.jpg" alt=""></li>
+        </ul>
+    </div>
+
+    <script>
+        let ul = document.querySelector('#ulBox');
+        let box = document.querySelector('.box');
+
+        ul.innerHTML += ul.innerHTML; // 为了实现无缝轮播需要把 ul 里面的所有 li 复制一份放到 ul 中；
+
+        ul.style.width = '1600px';
+
+        let timer = setInterval(() => {
+            box.scrollLeft += 1;
+            if (box.scrollLeft >= 800) {
+                // 当满足这个条件时，说明此时正好滚出去 4 个 li，在 box 里展示的正是我们复制出来的 4 个 li，这个时候需要把 box.scrollLeft 设置成 0，但是因为设置成 0 时展示的也是这 4 张图片，给人的感觉好像没有换，所以还是无缝的轮播的
+                box.scrollLeft = 0;
+            }
+        }, 10);
+    </script>
+</body>
+
+</html>
