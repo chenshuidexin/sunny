@@ -74,4 +74,14 @@ getComputedStyle(box).width
 - 有时候需要隐藏某个元素，但是又要存一个当前元素的尺寸，这个时候使用getComputedStyle(element).attr
 ***注意：这种方法获取的值是带单位的***
 **下面的属性结果都为不带单位的数字**
-- clientWidth
+- clientWidth/clientHeight  盒子可视的宽度(支持padding)
+- clientLeft/clientTop 左边框和上边框
+- offsetWidth/offsetHeight  盒子可视的宽度(支持padding+border)
+- offsetParent  定位父级(元素)
+- offsetLeft/offsetTop 定位父级到当前元素的距离(当前元素的左外边框到定位父级的左内边框的距离)
+```js
+//在课件3
+```
+- scrollHeight/scrollWidth被内容撑开的高度和宽度，不计算边框在内。
+- 在低版本IE下要触发haslayout属性，使用起来才不会出问题
+- scrollTop/scrollLeft 滚动条的距离(每个浏览器的距离都不同)

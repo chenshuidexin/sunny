@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    div{
+        padding: 100px;
+    }
+    #box{
+        background: lightgreen;
+        _position:relative;
+    }
+    #box1{
+        background: lightsalmon;
+        position: relative;
+        border: 30px dashed lightseagreen;
+    }
+    #box2{
+        background: lightsteelblue;
+        position: absolute;
+        top: 150px;
+        border: 50px dashed lightpink;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box1">
+            <div id="box2"></div>
+        </div>
+    </div>
+    <script>
+    /*
+    offsetLeft/offsetTop在实际中页面复杂的情况下，要谨慎使用，获取的距离是根据定位父级来的
+    绝对位置才是最稳妥的一个距离(当前元素到页面顶部的距离)
+    1.先定义一个元素(作为当前元素)
+    2.先求当前元素的距离(包含定位距离和边框距离)
+    3.把这次的定位父级变成下一次循环的当前
+    */
+    //面向过程****************************
+    // let now=box2;
+    // let l=0;
+    // //只有有当前这个元素就会一直循环
+    // while(now){
+    //     l+=(now.offsetLeft+now.clientLeft);
+    //     now=now.offsetParent
+    //     //把当前元素改为父级元素进行循环。
+    // }
+    // l=l-box2.clientLeft;
+    // console.log(l);//238
+    //class类名****************************
+    class Tools{
+        position(now){
+            let l=0;
+            let t=0;
+            let cl=now.clientLeft;
+            let ct=now.clientTop;
+            while(now){
+                l+=(now.offsetLeft+now.clientLeft);
+                t+=(now.offsetTop+now.clientTop);
+                now=now.offsetParent;
+            }
+            l=l-cl;
+            t=t-ct;
+            return{l,t}
+        }
+    }
+    let tt=new Tools;
+    let {l,t}=tt.position(box2);
+    console.log(l,t);
+    </script>
+</body>
+</html>

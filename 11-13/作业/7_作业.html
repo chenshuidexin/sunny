@@ -17,7 +17,7 @@
         //     age: 18,
         //     say: '好好学习，天天向上'
         // }
-        // let str = `我的名字叫${name},年龄是${age}岁,我想说:${say}`;
+        // let str = '我的名字叫${name},年龄是${age}岁,我想说:${say}';
         //第一种for in 循环加入数组中逐一添加******************************
         // let str = '';
         // let arr = [];
@@ -30,6 +30,13 @@
         // let {name,age,say}=obj;
         // var ss=`我的名字叫${name},年龄是${age}岁,我想说:${say}`
         // console.log(ss);
+        //正则方法**********************************************
+        // let s=str.replace(/\${(\w+)}/g,(...arg)=>{
+        //     let [,value]=arg;
+        //     return obj[value];
+        //     // return obj[$1];//报错，需要提前赋值
+        // })
+        // console.log(s);
 
         /*
             计算下面字符串中哪个字符出现的次数最多,它是谁，出现了多少次
@@ -57,25 +64,54 @@
         //         }
         //     }
         //     dd.innerHTML=`${ss}字符出现${num}次，次数最多`
+        //思路：==> 把对象的key名和key值交换。对象中就会自动按数字大小排序，直接取最后一项
+        //***********************************************未解决
+        // let obj = {};
+        // let num = null;
+        // for (var i = 0; i < str2.length; i++) {
+        //     if (obj[str2[i]]) {
+        //         num = 1;
+        //     } else {
+        //         num++;
+        //     }
+        //     obj[num] = str2[i];
+        // }
+        // console.log(obj);
         //另一种方法**********************************************
-        function tee(str) {
-            var arr = str.split(''); //分割成新数组
-            arr.sort(); //编码排序
-            str = arr.join(''); //新字符串为顺序字符串
-            var as=/(\w)\1+/g;//相同的子项在一起
-            var num = 0;
-            var val = '';
-            str.replace(as, function($0, $1){
-                if (num < $0.length) {//获取出现最多次数的字符串
-                    num = $0.length;//次数
-                    val = $1;//字符串
-                }
-                // console.log($0,$1);
-            })
-                return `${val}是出现最多的字符，最多次数是${num}`
+        // function tee(str) {
+        //     var arr = str.split(''); //分割成新数组
+        //     arr.sort(); //编码排序
+        //     str = arr.join(''); //新字符串为顺序字符串
+        //     var as=/(\w)\1+/g;//相同的子项在一起
+        //     var num = 0;
+        //     var val = '';
+        //     str.replace(as, function($0, $1){
+        //         if (num < $0.length) {//获取出现最多次数的字符串
+        //             num = $0.length;//次数
+        //             val = $1;//字符串
+        //         }
+        //         // console.log($0,$1);
+        //     })
+        //         return `${val}是出现最多的字符，最多次数是${num}`
+        // }
+        // let ww = tee(str2);
+        // console.log(ww);
+        //另一种方法************************************************
+        let ovv = {};
+        let ass = [];
+        for (var i = 0; i < str2.length; i++) {
+            if (!ass.includes(str2[i])) {
+                let ss = new RegExp(str2[i], 'g');
+                let len = str2.match(ss).length;
+                ovv[len] = str2[i];
+                ass.push(str2[i]);
+            } else {
+                continue;
+            }
         }
-        let ww = tee(str2);
-        console.log(ww)
+        console.log(ovv); //相同的value名会被覆盖
+        console.log(ass) //存储所有的value值。
+        console.log(ovv.keys());
     </script>
 </body>
 

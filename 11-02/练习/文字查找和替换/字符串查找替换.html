@@ -88,6 +88,7 @@
             position: absolute;
             padding-top: 15px;
             cursor: pointer;
+            transform:.8s;
 
         }
         #top .top_func ul li img{
@@ -114,13 +115,15 @@
         #top .top_func ul .func_find{
             background-color: rgb(168,166,245);
             _display: none;
-            top:95px;
+            _top:95px;
+            top:0;
 
         }
         #top .top_func ul .func_replace{
             background-color: rgb(159,231,169);
             _display: none;
-            top:190px;
+            _top:190px;
+            top:0;
 
         }
 
@@ -137,7 +140,7 @@
             color: white;
             padding: 0px 22px;
             box-shadow: 0px 0 7px rgb(147,208,221) ;
-            _display: none;
+            display: none;
         }
         #bottom div{
             height: 40px;
@@ -216,10 +219,6 @@
         }
 
     </style>
-
-    <script>
-       
-    </script>
 </head>
 <body>
 
@@ -270,9 +269,9 @@
                 <a class="close"></a>
 
             </div>
-            <input id="text1" class="bg" type="text" value="输入要查找的内容">
-            <input id="text2" class="bg" type="text" value="输入要查找的内容">
-            <input id="text3" class="bg" type="text" value="输入要替换的内容">
+            <input id="text1" class="bg" type="text" placeholder="输入要查找的内容">
+            <input id="text2" class="bg" type="text" placeholder="输入要查找的内容">
+            <input id="text3" class="bg" type="text" placeholder="输入要替换的内容">
             <div id="btn1">
                 <img src="images/images/li_bg_12.png">
             </div>
@@ -282,6 +281,109 @@
 
     </div>
 </section>
-
+<script>
+//展开系列按钮
+const btns=document.querySelectorAll('.top_func li');
+const p=document.querySelector('.top_container p');
+const aa=document.querySelectorAll('#bottom a');
+btns.forEach((ele,i) => {
+    ele.onoff=false;//默认关闭状态
+    ele.onclick=function(){
+        //展开收缩
+        if(i === 2){
+            //拿到它的下一个兄弟节点和下下兄弟节点
+            let nextli=this.previousElementSibling;
+            let lastli=nextli.previousElementSibling;
+            if(this.onoff){
+                nextli.style.top=lastli.style.top=0;
+                this.children[0].style.transform='rotate(0deg)';
+                this.children[1].innerText='展开';
+                setTimeout(()=>{
+                    bottom.style.display='none';
+                },500);
+            }else{
+                nextli.style.top='95px';
+                lastli.style.top='195px';
+                this.children[0].style.transform='rotate(45deg)';
+                this.children[1].innerText='收缩';
+            }
+            this.onoff=!this.onoff;
+        }else if(i === 1){
+            //查找功能
+            text1.style.display=bottom.style.display='block';
+            text2.style.display=text3.style.display='none';
+            this.onoff=true;
+            btns[0].onoff=false;
+        }else if(i === 0){
+            //替换功能
+            bottom.style.display=text2.style.display=text3.style.display='block';
+            text1.style.display='none';
+            this.onoff=true;
+            btns[1].onoff=false;
+        }
+    }
+});
+let ptext=p.innerText;//最初始化的文本内容
+btn1.onclick=function(){
+    if(btns[1].onoff){
+        //查找
+        let {value}=text1;
+        value=value.trim();
+        if(!value){
+            alert('请输入查找内容！');
+            return;
+        }
+        //当前页面中是否有想查找的内容
+        let re = new RegExp(value);
+        // console.log(re);
+        if(re.test(ptext)){
+            p.innerHTML=ptext.split(value).join('<span>'+value+'</span>')
+            text1.value='';
+        }else{
+            alert('真的没有嗯？')
+        }
+    }
+    if(btns[0].onoff){
+        //替换功能
+        let {value:v1}=text2;
+        let {value:v2}=text3;
+        v1=v1.trim();
+        v2=v2.trim();
+        if(!v1||!v2){
+            alert('请输入替换的内容');
+            return ;
+        }
+        //查找的内容没有
+        if(!ptext.includes(v1)){
+            alert('请找隔壁币！');
+            return;
+        }
+        p.innerHTML=ptext.split(v1).join(`<span>${v2}</span>`);
+        ptext=ptext.split(v1).join(`${v2}`);
+        text2.value=text3.value='';
+    }
+}
+aa.forEach((ele,i)=>{
+    ele.onclick=function(){
+        switch(this.className){
+            case 'find':
+            text1.style.display='block';
+            text2.style.display=text3.style.display='none';
+            btns[1].onoff=true;
+            btns[0].onoff=false;
+            break;
+            case 'replace':
+            text2.style.display=text3.style.display='block';
+            text1.style.display='none';
+            btns[0].onoff=true;
+            btns[1].onoff=false;
+            break;
+            case 'close':
+            bottom.style.display='none';
+            break;
+        }
+    }
+})
+</script>
 </body>
 </html>
