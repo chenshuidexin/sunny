@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let arr = [1, 2, 3, 4, 5];
+        // Array.prototype.myForEach = function (callback, that) {
+        //     //this指向是aryshili
+        //     for(var i=0;i<this.length;i++){
+        //         callback(that,this[i],i,this);
+        //         //指向  每一项  索引  所有的值
+        //     }
+        // }
+        // let f=arr.myForEach(function(item,index,all){
+        //     console.log(item,index,all,this);//出结果
+        // },document)//document可以用别的元素替代
+        // console.log(f);//返回undefine;
+        //***********************************************************************
+        let arr = [1, 2, 3, 4, 5];
+        Array.prototype.myMap=function(callback,that){
+            let ary=[];
+            for(var i=0;i<this.length;i++){
+                ary.push(callback.call(that,this[i],i,this))
+            }
+            return ary;
+        }
+        let m=arr.myMap(function(item,index,all){
+            console.log(this);
+            return '<p>'+item+'</p>';//返回新数组和旧数组的长度一致。
+        },window)
+        console.log(m);//return的返回值。
+    </script>
+</body>
+
+</html>

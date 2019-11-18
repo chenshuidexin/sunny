@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回到顶部</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        height: 3000px;
+        _overflow: hidden;
+    }
+    #box{
+        width: 100px;
+        height: 50px;
+        font-size: 20px;
+        background: lightcoral;
+        color: lightgrey;
+        position: absolute;
+        top:100%;
+        right: 0;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">回到顶部</div>
+    <script>
+    //onscroll：滚轮事件=>当有滚动条的时候，滚轮即触发该事件
+    const {log}=console;
+    const {offsetTop}=box;
+    onscroll=function(){
+       let {scrollTop}=document.documentElement;
+       //元素的定位距离小于等于滚动条的距离，就让box.fixed定位
+       if(offsetTop<=scrollTop){//固定定位
+           box.style.position='fixed';
+           box.style.top='50%';
+       }else{//绝对定位
+           box.style.position='absolute';
+           box.style.top='90%';
+       }
+       /*
+       offsetTop[可视高度]<=scrollTop[滚轮距离]===>
+       滚轮的距离(scrollTop)大于可视高度(offsetTop)的时候，可视高度不会改变(fixed)，滚轮距离依旧增加
+
+       滚轮的距离(scrollTop)小于可视高度(offsetTop)的时候。可视高度在增加(absolute)，滚轮距离依旧增加。
+       */
+    //    log(scrollTop);
+    //    log(offsetTop);
+       box.onclick=function(){
+           //点击盒子时滚动条距离为0;
+           document.documentElement.scrollTop=0;
+       }
+    }
+    </script>
+</body>
+</html>

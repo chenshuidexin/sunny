@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    img{
+        width: 380px;
+        height: 300px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        /*
+        一般使用的方式是css属性：<img onerror=src='2.jpg'; data-src="${img}">
+        图片加载失败时默认的图片
+        */
+        const img = document.createElement('img');
+        img.src='1.jpg';
+        img.onload=function(){//图片加载成功触发
+            console.log('真的成功了呢！')
+        }
+        img.onerror=function(){
+            console.log('换成默认的图片了')
+            this.src='2.jpg';
+        }
+        box.appendChild(img);
+    </script>
+</body>
+
+</html>
