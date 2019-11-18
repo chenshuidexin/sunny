@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 450px;
+            border: 1px solid #6C9C2C;
+            height: 25px;
+        }
+
+        #bar {
+            background: chartreuse;
+            float: left;
+            height: 100%;
+            text-align: center;
+            line-height: 150%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="bar" style="width:0%;"></div>
+    </div>
+    <span id="total"></span>
+    <script>
+        function run() {
+            var bar = document.getElementById("bar");
+            var total = document.getElementById("total");
+            bar.style.width = parseInt(bar.style.width) + 1 + "%";
+            total.innerHTML = bar.style.width;
+            if (bar.style.width == "100%") {
+                window.clearTimeout(timeout);
+                return;
+            }
+            var timeout = window.setTimeout("run()", 100);
+        }
+        window.onload = function () {
+            run();
+        }
+    </script>
+</body>
+
+</html>

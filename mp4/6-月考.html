@@ -66,21 +66,24 @@
         // fn(30)(50);
         // f(30);
         //*********************************************************
-        // var x = 1, //2
+        //函数自执行要自己运行再到自执行函数体内的函数在执行
+        //加法(+)级别比乘法(*=)
+        // var x = 3,
         //     obj = {
-        //         x: 2 //3
+        //         x: 5 
         //     };
-        // obj.fn = (function () {
-        //     this.x *= ++x; //window.x=1*2=2
-        //     return function (y) { //1//1
-        //         this.x *= (++x) + y; //2*1+1=3 obj.x=3//3*
-        //         console.log(x); //3 15
+        // obj.fn = (function () {  
+        //     this.x *= ++x; 
+        //     return function (y) { 
+        //         // debugger;
+        //         this.x *= (++x) + y;
+        //         console.log(x); 
         //     }
         // })();
         // var fn = obj.fn;
-        // obj.fn(1);
-        // fn(1);
-        // console.log(obj.x, x) //8 15
+        // obj.fn(6);
+        // fn(4);
+        // console.log(obj.x, x) //
         //***************************************************************
         //example 1****************************************************
         // let a = {},
@@ -130,7 +133,7 @@
         // let f2 = new Fn;
         // console.log(f1.getX === f2.getX);//false
         // console.log(f1.getY === f2.getY);//true
-        // console.log(f1.constructor);//ƒ Object() { [native code] }
+        // console.log(f1.constructor);//ƒ Object() { [native code] }本地函数
         // f1.getX();//10
         // f2.getY();//21 直接就赋值就好
         // f1.sum()//30
@@ -157,51 +160,51 @@
         // }
 
         // function A3(name) {
-        //     // name && this.name = name;
+        //      name && (this.name = name);
         // }
         // A1.prototype.name = 'Tom';
         // A2.prototype.name = 'Tom';
         // A3.prototype.name = 'Tom';
         // alert((new A1().name) + (new A2().name)+ (new A3().name));//undefinedJerryTom
         //**********************************************************************
-        //     var name = "WINDOW",
-        //         obj = {
-        //             name: "OBJ",
-        //             fn: (function () {
-        //                 console.log(this.name);//'WINDOW' 
-        //                 return function () {
-        //                     console.log(this.name);//'OBJ'
-        //                 }
-        //             })()
-        //         },
-        //         fn = () => {
-        //             console.log(this.name);//'WINDOW' 'WINDOW'
-        //         };
-        //     fn();
-        //     obj.fn();
-        //     fn.call(obj);//改变this的指向。
+            // var name = "WINDOW",
+            //     obj = {
+            //         name: "OBJ",
+            //         fn: (function () {
+            //             console.log(this.name);//'WINDOW' 
+            //             return function () {
+            //                 console.log(this.name);//'OBJ'
+            //             }
+            //         })()
+            //     },
+            //     fn = () => {
+            //         console.log(this.name);//'WINDOW' 'WINDOW'
+            //     };
+            // fn();
+            // obj.fn();
+            // fn.call(obj);//改变this的指向。箭头函数的call方法指向上下文
         // **************************************************************************
         // function A() {
         //     alert(1);
         // }
 
-        // function Func() {
-        //     A = function () {
+        // function Fn() {
+        //     A = function () {//函数调用后会干掉187行重新给A赋值。
         //         alert(2);
         //     };
         //     return this;
         // }
-        // Func.A = A;
-        // Func.prototype = {
+        // Fn.A = A;//->此时赋值为function(){alert(1)}
+        // Fn.prototype = {
         //     A: () => {
         //         alert(3);
         //     }
         // };
         // A();//1
-        // Fn.A();//报错
-        // Fn().A();//报错
-        // new Fn.A();////报错
-        // new Fn().A();//报错
+        // Fn.A();//1 => A() =>1
+        // Fn().A();//2
+        // new Fn.A();//1  => new A() =>调用A的函数
+        // new Fn().A();//3 Fn原型上找A()
         // new new Fn().A();//报错
         //************************************************************************
     </script>

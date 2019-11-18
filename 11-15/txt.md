@@ -85,3 +85,6 @@ getComputedStyle(box).width
 - scrollHeight/scrollWidth被内容撑开的高度和宽度，不计算边框在内。
 - 在低版本IE下要触发haslayout属性，使用起来才不会出问题
 - scrollTop/scrollLeft 滚动条的距离(每个浏览器的距离都不同)
+```js
+{scrollTop}=document.documentElement
+```
