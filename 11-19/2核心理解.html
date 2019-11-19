@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+    1.防抖:当频率很高触发事件的时候都不执行事件函数中的代码  只有停下来的时候在执行
+    debounce(回调函数，延迟多少时间)
+    2.节流：每隔固定时间执行一次事件函数中的代码
+    */
+        //事件函数的第一个参数为事件对象   
+        //    function fn(ev){
+        //        console.log('1111',ev,this);
+        //        console.log(this);
+        //    }
+        //    function debounce(cb,time){
+        //        let timer;
+        //        return function(...arg){
+        //            if(timer){
+        //                clearTimeout(timer);
+        //            }
+        //            timer = setTimeout(()=>{
+        //                cb.call(this,...arg)
+        //                console.log(this)
+        //            },time)
+        //        }
+        //    }
+        //    document.onclick=debounce(fn,200);
+        //*******************************************
+        document.onclick = throttling(fn, 200);
+        function fn(ev) {
+            console.log('1111', ev, this);
+            // console.log(this);
+        }
+        function throttling(cb, time) {
+            let prevtime = 0;
+            return function (...arg) {
+                let nowTime = +new Date;
+                if (nowTime - prevtime > time) {
+                    cb.call(this, ...arg);
+                }
+                prevtime = nowTime;
+            }
+        }
+    </script>
+</body>
+
+</html>

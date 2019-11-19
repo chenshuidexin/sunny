@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+    re:匹配的正则
+    str：整个字符串
+    cb：回调函数
+    返回的是一堆字符串
+    */
+        function replace(str, re, cb) {
+            let str2 = ''; //最后改变的结果
+            let ary = re.exec(str); //让第一次能够进去while循环中(找到第一次的位置)
+            let rep = '' //函数return的结果
+            let reAry = []; //每次返回要修改字符的数组
+            let noRep = []; //不需要替换的数组
+            let num = 0;
+            while (ary) {
+                let {
+                    index
+                } = ary; //解构匹配到的索引值index
+                reAry.push(cb(...ary, index, str));
+                noRep.push(str.substring(num, re.lastIndex - ary[0].length));
+                num = re.lastIndex;
+                ary = re.exec(str);
+            }
+            //返回新的字符串
+            noRep.forEach((old, i) => {
+                str2 += (old + reAry[i])
+            });
+            // console.log(str2);
+            return str2;
+        };
+        String.prototype.myplace = function (...arg) {
+            let [a, b] = arg;
+            let str = this.valueOf();
+            if (typeof a !== 'string' && a.constructor !== RegExp || typeof b !== 'string' && b.constructor !==
+                RegExp) {
+                return str;
+            }
+            //如果是字符串，那就查找一次。正则就按着规则来
+            let s = '';
+            if (typeof a === 'string') {
+                let i = str.indexOf(a);
+                if (i === -1) { //如果没有要替换的内容就直接返回原字符串
+                    return str;
+                } else {
+                    if (typeof b === 'srting') {
+                        let aa = str.substring(0, i);
+                        let bb = str.substring(i + a.length);
+                        return aa + b + bb;
+                    } else if (typeof b === 'function') {
+                        let aa = str.substring(0, i);
+                        let bb = str.substring(i + a.length);
+                        return aa + b(a, i, str) + bb;
+                    }
+                }
+            } else if (a.constructor === RegExp) {
+                let ary = str.match(a);
+                if (ary === null) { //如果找不到匹配项就返回原字符串
+                    return str
+                }
+                let i = str.search(a);
+                if (typeof b === 'string') {//g
+                    if (ary.length > 1) {
+                        return str.split(ary[0]).join(b);
+                    } else {
+                        let aa = str.substring(0, i);
+                        let bb = str.substring(i + ary[0].length);
+                        return aa + b + bb;
+                    }
+                } else if (typeof b === 'function') {
+                    if (ary.length > 1) {
+                        //需要循环把每次匹配的索引值拿到
+                        return fn(str, b, a);
+                    } else {
+                        let aa = str.substring(0, i);
+                        let bb = str.substring(i + ary[0].length);
+                        return aa + b(ary[0], i, str) + bb;
+                    }
+                }
+            }
+        }
+        let i=0;
+        let str = 'ababaab';
+        let s=replace(str,/ab/g,function($0,$1,$2,$3,$4,$5){
+            console.log($0,$1,$2);
+            return 'as'+i++;
+        })
+        console.log(s);
+        
+    //   console.log(str.myplace(/a/g,'aaa'));
+    </script>
+</body>
+
+</html>
