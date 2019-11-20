@@ -16,30 +16,31 @@
     *rest:剩余运算符，在左边形参上====>被赋值的一方
     *spread:扩展运算符，在右边实参上==>赋值的一方
     */
-    // let arr=[1,2,3,4,5,6];
-    // Array.prototype.mypush=function(arr,...arg){//rest 剩余运算符
-    //     let newArr=[...arr,...arg]//spread 扩展运算符
-    //     for(var i=0;i<newArr.length;i++){
-    //         arr[i]=newArr[i]
-    //     }
-    //     console.log(newArr);// [1, 2, 3, 4, 5, 6, 7, 8]
-    //     return newArr.length;
-    // }
-    // let p=arr.mypush(arr,7,8)
-    // console.log(p);//8
-    //另一种方法**************************************************************************
     let arr=[1,2,3,4,5,6];
-    Array.prototype.newPush=function(){//利用argumentss实参集合
-        let ary=arguments[0];//索引值为0的是开始的数组
-        let len=ary.length;
-        for(var i=1;i<arguments.length;i++){//从索引值为1的开始
-            ary[len+i-1]=arguments[i];//在ary.length的长度的基础上在增加长度
-        }
-        console.log(ary);//[1, 2, 3, 4, 5, 6, 7, 8]
-        return ary.length;//返回数组的新长度
+    Array.prototype.mypush=function(arr,...arg){//rest 剩余运算符
+        let newArr=[...arr,...arg]//spread 扩展运算符
+        console.log(newArr);
+        // for(var i=0;i<newArr.length;i++){
+        //     arr[i]=newArr[i]
+        // }
+        // console.log(newArr);// [1, 2, 3, 4, 5, 6, 7, 8]
+        return newArr.length;
     }
-    let a=arr.newPush(arr,7,8);
-    console.log(a);//8
+    let p=arr.mypush(arr,7,8)
+    console.log(p);//8
+    //另一种方法**************************************************************************
+    // let arr=[1,2,3,4,5,6];
+    // Array.prototype.newPush=function(){//利用argumentss实参集合
+    //     let ary=arguments[0];//索引值为0的是开始的数组
+    //     let len=ary.length;
+    //     for(var i=1;i<arguments.length;i++){//从索引值为1的开始
+    //         ary[len+i-1]=arguments[i];//在ary.length的长度的基础上在增加长度
+    //     }
+    //     console.log(ary);//[1, 2, 3, 4, 5, 6, 7, 8]
+    //     return ary.length;//返回数组的新长度
+    // }
+    // let a=arr.newPush(arr,7,8);
+    // console.log(a);//8
 
     </script>
 </body>

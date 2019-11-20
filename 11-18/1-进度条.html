@@ -37,6 +37,7 @@
 <body>
     <div id="progress">
         <div id="filldiv"></div>
+        <!-- 百分比 -->
         <span id="percent">0</span>
     </div>
     <script>
@@ -48,7 +49,7 @@
         //开启一个定时器
         var timer = setInterval(function () {
             //filldiv的宽度递增
-            //filldiv.offsetWidth，每一次获取的都是当前的宽
+            //filldiv.offsetWidth(可视宽度)，每一次获取的都是当前的宽
             filldiv.style.width = filldiv.offsetWidth + 1 + "px";
             //filldiv添加一个随机背景颜色 
             filldiv.style.background = getColor();
@@ -59,7 +60,7 @@
                 clearInterval(timer) //当进度达到100%时，关闭定时器，进度停止。
 
             }
-        }, 10);
+        }, 100);
         //获取十六进制的随机颜色值
         function getColor() {
             var str = "0123456789abcdef"
@@ -70,7 +71,7 @@
             //获取随机字符      
             //获取六个随机字符拼成一个字符串      
             for (var i = 0; i < 6; i++) {
-                rand = getRand(0, 15);
+                rand = getRand(0, 15);//获取两数之间的整数
                 color += str.charAt(rand);
             }
             return color;

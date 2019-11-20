@@ -32,6 +32,7 @@
         //    }
         //    document.onclick=debounce(fn,200);
         //*******************************************
+        //this指向的改变是为了更好的操作document文档
         document.onclick = throttling(fn, 200);
         function fn(ev) {
             console.log('1111', ev, this);
