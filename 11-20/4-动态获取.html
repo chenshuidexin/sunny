@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        //静态的结果******************************
+        // let lis = document.querySelectorAll('li');
+        // for (var i = 0; i < lis.length; i++) {
+        //     ul.appendChild(lis[i]); //页面显示为1234
+        // }
+        //动态结果*****************************
+        let lis = document.getElementsByTagName('li');//不会无限循环只是剪切而已
+        for (var i = 0; i < lis.length; i++) {
+            ul.appendChild(lis[i]); //页面显示为2431 ==>  数组塌陷问题
+        }
+        /*
+        动态结果出现2431的过程==>核心：数组塌陷
+        索引0 --> 2341
+        索引1 --> 2413
+        索引2 --> 2431
+        索引3 --> 2431
+        数组项的位置会变动
+        */
+    </script>
+</body>
+
+</html>

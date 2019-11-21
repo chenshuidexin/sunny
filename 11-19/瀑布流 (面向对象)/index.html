@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div id="box">
+        <ul class="body">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <script>
+        class Tools{
+            //获取最小值和相对应的索引值 
+            getMinIndex(obj){
+                //如果是数组
+                if(!Array.isArray(obj)){
+                    obj=[...obj].map((item)=>{
+                        return item.scrollHeight;
+                    })
+                }
+                console.log(obj);
+                let min=Math.min(...obj);
+                let index=obj.findIndex(item=>item===min);
+                return {
+                    min,index
+                }
+            }
+            //节流环节
+            throttling(cb,time){
+                let prevtime = 0;
+                return function(...arg){
+                    let nowTime=+new Date;
+                    if(nowTime - prevtime > time){
+                        cb.call(this,...arg);
+                    }
+                    prevtime=nowTime;
+                }
+            }
+            //防抖环节
+            debounce(cb,time){
+                let timer;
+                return function(...arg){
+                    if(timer){
+                        clearTimeout(timer);
+                    }
+                    timer=setTimeout(()=>{
+                        cb.call(this,...arg);
+                    },time);
+                }
+            }
+        }
+        //Class继承
+        class Waterfall extends Tools{
+            constructor(name){
+                super();//为了this的指向
+                this.box=document.querySelector(name);
+                this.list=this.box.children;//li
+                console.log(list);
+                this.wh=window.innerHeight;//可视区高度
+            }
+            //数据请求
+            Api(url,cb){
+                let that=this;
+                fetch(url).then(d=>d.json()).then((data)=>{
+                    cb.call(that,data);
+                });
+            }
+            //返回数据
+            render(){
+                this.Api('./json/index.json',function(data){
+                    data.forEach((d,i)=>{
+                        let {index}=this.getMinIndex(this,list);
+                        let div=this.create(d);
+                        this.list[index].append(div);
+                        setTimeout(()=>{
+                            div.children[0].style.opacity=1;
+                        },i*100);
+                    })
+                })
+            }
+            //数据渲染
+            creat({pic,desc,author,hright}){
+                let div=document.createElement('div');
+                div.className='img_box';
+                //为了性能优化，使用字符串拼接
+                div.innerHTML=`<img height="${height}" src="${pic}">
+                <p class="desc">${desc}</p>
+                <p class="author">${author}</p>`
+                return div;
+            }
+            //触底事件
+            scroll(){//重新计算
+                let fn=()=>{
+                    let {index}=this.getMinIndex(this,list);
+                    if((window.pageYOffset+this.wh)>this.list[index].scrollHeight){
+                        this.render();
+                    }
+                }
+                window.onscroll=this.debounce(fn,200);
+                window.onresize=()=>{//缩放事件
+                    this.wh=window.innerHeight;
+                }
+            }
+        }
+        let w=new Waterfall('.body');
+        w.render();
+        w.scroll();
+        
+    </script>
+</body>
+
+</html>

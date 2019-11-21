@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 第二个例子 -->
+    <style>
+        div {
+            padding: 100px;
+        }
+        #box {
+            background: red;
+        }
+        #box1 {
+            background: slateblue;
+        }
+        #box2 {
+            background: teal;
+        }
+        #btn {
+            background: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <button id="btn">选择</button> -->
+    <!-- 第二个例子 -->
+    <div id="box">
+        <div id="box1">
+            <div id="box2">
+                <button id="btn">按钮</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        //问问度娘DOM和DOM2
+        // btn.onclick=function(){
+        //     alert('假期快乐')
+        // }
+        // btn.onclick=function(){
+        //     alert('好好敲代码吧')
+        // }//后面会覆盖前面只能出现一次
+        //冒泡的好处********************************
+        // btn.addEventListener('click',function(){
+        //     alert('好好敲代码！')
+        // },false)//加false和不加false一样的效果=>冒泡
+        // btn.addEventListener('click',()=>{
+        //     alert('去寻找远方')
+        // })//加false和不加false一样的效果=>冒泡
+        //另一个个例子**********************************
+        box.addEventListener('click',()=>{
+            alert('box_冒泡');
+        },false) 
+         box1.addEventListener('click',()=>{
+            alert('box1_冒泡');
+        },false)  
+        box2.addEventListener('click',()=>{
+            alert('box2_冒泡');
+        },false)  
+        // btn.addEventListener('click',()=>{
+        //     alert('btn_冒泡');
+        // },false)  
+        btn.addEventListener('click',()=>{
+            alert('box_捕获');
+        },true) 
+        /*
+        先捕获后冒泡，目标元素的执行代码改变后顺序也会改变，但是其他的按照基本的顺序来出现。
+        */
+        btn.addEventListener('click',()=>{
+            alert('btn_冒泡');
+        },false)  
+        box2.addEventListener('click',()=>{
+            alert('box2_捕获');
+        },true)  
+        box1.addEventListener('click',()=>{
+            alert('box1_捕获');
+        },true)  
+        box.addEventListener('click',()=>{
+            alert('box_捕获');
+        },true)
+    </script>
+</body>
+
+</html>

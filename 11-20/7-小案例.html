@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 50px;
+        height: 50px;
+        background: coral;
+        position: absolute;
+        top:0;
+        left: 0;
+        transition: .2s;
+    }
+    .box2{
+        width: 8px;
+        height: 8px;
+        background: green;
+        border-radius: 50% ;
+        position: absolute;
+        top: 0;
+        left:25px;
+        transition: 1s;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="box2"></div>
+    </div>
+    <script>
+    document.onkeydown=function(ev){
+        switch(ev.keyCode){
+            case 87:
+            box.style.top=box.offsetTop-15+'px';
+            break;
+            case 83:
+            box.style.top=box.offsetTop+15+'px';
+            break;
+            case 65:
+            box.style.left=box.offsetLeft-15+'px';
+            break;
+            case 68:
+            box.style.left=box.offsetLeft+15+'px';
+            break;
+            case 13:
+            let div=document.createElement('div');
+            div.className='box2';
+            box.appendChild(div);
+            setTimeout(() => {
+                div.style.top= -1000+'px';   
+            });
+        }
+        console.log(ev.keyCode);
+    }
+    </script>
+</body>
+</html>

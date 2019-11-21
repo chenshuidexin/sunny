@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    input{
+        width: 600px;
+        font-size: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- <input type="text" id="txt"> -->
+    <!-- 微博字数限制案例 -->
+    <input type="text" id="txt" maxlength="30"><span id="span">0</span>/300字
+    <!-- <input type="file" id="f"> -->
+    <!-- 文件类型 -->
+    <script>
+        // console.dir(txt);
+        //*********************************
+        txt.oninput=function(){
+            span.innerText=this.value.length;
+        }
+    </script>
+</body>
+
+</html>

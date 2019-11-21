@@ -25,8 +25,8 @@
         1.防抖：事件触发的频率较高，但是只要停下来在加载
         2.节流:每个固定的时间在加载图片
         */
-        const box = document.querySelector('.body');
-        const lis = box.querySelectorAll('li');
+        const box = document.querySelectorAll('.body');
+        // const lis = box.querySelectorAll('li');
         // console.log(lis);
 
         function minIndex(ary) {
@@ -42,7 +42,7 @@
             let timer;
             return function (...arg) {
                 //事件触发的时候就关闭上次的timer
-                if (timer) {
+                if (timer) {//第一次没有就不执行这个代码
                     clearTimeout(timer);
                 }
                 timer = setTimeout(() => {
@@ -72,8 +72,10 @@
         const picw = 236; //图片的宽度
         const ml = 10;
         const boxt = 66;
-        let clientW = document.documentElement.clientWidth //可视区的宽度
+        let clientW = document.documentElement.clientWidth;//可视区的宽度
+        //取照片的张数
         let len = Math.floor(clientW / (picw + ml));
+        // console.log(len);
         //计算ul的宽度
         box.style.width = (len * (picw + ml)) - ml + 'px';
         let aryx = []; //搜集水平方向的宽度
@@ -121,6 +123,7 @@
         render();
         //滚轮的时候判断触底
         let iH = window.innerHeight; //可视区高度
+        // console.log(iH);
         //************************************
         window.onscroll = debounce(fn,200);
         // window.onscroll = throttling(fn,1000);
@@ -135,11 +138,12 @@
         }
         //window.onresize:当浏览器窗口缩放的时候会触发
         //当浏览器缩放的时候重新计算一下，可视区能够放多少图片
-        window.onresize=function(){
+        window.onresize=function(){//里面放的是需要重新计算的值
             clientW=document.documentElement.clientWidth;
             //可视区的宽度
             len=Math.floor(clientW/(picw+ml));
             box.style.width=(len*(picw+ml))-ml+'px';
+            //数组重新归零
             aryx.length=0;
             aryy.length=0;
             iH=window.innerHeight;
