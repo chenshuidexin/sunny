@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 50px;
+            height: 50px;
+            background: coral;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .box2 {
+            width: 8px;
+            height: 8px;
+            background: green;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 25px;
+            transition: 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="box2"></div>
+    </div>
+    <script>
+        //在一定程度上不会抖动[不会卡顿]，两个按键会斜着跑
+        //第一种方案:
+        let timer;
+        // txt.onkeydown = function(){
+        //     let old=new Date;
+        //     timer = setInterval(()=>{
+        //         let now=new date;
+        //         console.log(old - now);
+        //         old=now;
+        //     },20);
+        // }
+        document.onkeydown = function (ev) {
+            clearInterval(timer); //能切换方向但是不能松开键盘时停止运动，此方法不可取
+            timer = setInterval(() => { //常按键盘会持续运动
+                switch (ev.keyCode) {
+                    case 87:
+                        box.style.top = box.offsetTop - 5 + 'px';
+                        break;
+                    case 83:
+                        box.style.top = box.offsetTop + 5 + 'px';
+                        break;
+                    case 65:
+                        box.style.left = box.offsetLeft - 5 + 'px';
+                        break;
+                    case 68:
+                        box.style.left = box.offsetLeft + 5 + 'px';
+                        break;
+                    case 13:
+                        let div = document.createElement('div');
+                        div.className = 'box2';
+                        box.appendChild(div);
+                        setTimeout(() => {
+                            div.style.top = -1000 + 'px';
+                        });
+                }
+            }, 16.7) //最新的屏幕频率
+        }
+        //通过document控制键盘抬起的话就停止
+        document.onkeyup = function () {
+            clearInterval(timer)
+        }
+        //解决不了两键同时起作用的问题
+        //另一种解决方案完美解决这个问题
+        //核心是利用数组的every方法
+        let e = 0;
+        let obj = {};
+        document.onkeydown = function (ev) {
+            e = ev.keyCode //键码
+            obj[e] = true;//提前赋值方便做数组判断
+            if (!timer) { //不是空的话就就开启定时器
+                timer = setInterval(fn, 16.7)
+            }
+        }
+        let fn = () => {
+            //不能给e判断是因为obj没有捕捉到这个值
+            if (obj['87']) {
+                box.style.top = box.offsetTop - 5 + 'px';
+            }
+            if (obj['83']) {
+                box.style.top = box.offsetTop + 5 + 'px';
+            }
+            if (obj['65']) {
+                box.style.left = box.offsetLeft -
+                    5 + 'px';
+            }
+            if (obj['68']) {
+                box.style.left = box.offsetLeft +
+                    5 + 'px';
+            }
+            if (obj['13']) {
+                let div = document.createElement('div');
+                div.className = 'box2';
+                box.appendChild(div);
+                setTimeout(() => {
+                    div.style.top = -1000 + 'px';
+                });
+            }
+        }
+        // timer = setInterval(fn, 16.7);
+        document.onkeyup = function (ev) { //键盘抬起的话就是清除定时器
+            obj[ev.keyCode] = false;
+            console.log(Object.values(obj))
+            // Object.values()方法返回存储对象所有可枚举属性值的数组
+            if (Object.values(obj).every(item => !item)) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+    </script>
+</body>
+
+</html>

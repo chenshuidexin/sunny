@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    #ul{
+        width: 200px;
+        border: 1px solid #e29c45;
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #ul li{
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-bottom: 1px dashed paleturquoise;
+    }
+    #ul li:hover{
+        background: #2edfa3;
+        color: #fff;
+    };
+    </style>
+</head>
+<body>
+    <ul id="ul">
+        <li>我的关注</li>
+        <li>用户管理</li>
+        <li>我的精选</li>
+        <li>点赞文章</li>
+    </ul>
+    <script>
+    document.oncontextmenu=function(ev){
+        ul.style.cssText=`display:block;top:${ev.clientY}px;left:${ev.clientX}px`
+        return false;
+    }
+    ul.onclick=function(ev){
+        ev.stopPropagation()//阻止冒泡
+    }
+    document.onclick=function(ev){
+        ul.style.display='none';
+    }
+    </script>
+</body>
+</html>

@@ -25,7 +25,7 @@
             //在继承的constructor中，如果使用this，一定写super
             constructor(job,...arr){
                 // console.log(this)//报错
-                super(...arr);
+                super(...arr);//this指向Police类，传给子类私有属性
                 this.job=job;
                 // console.log(this);//指向父类
             }
@@ -38,7 +38,7 @@
         p2.say();
         p1.say();
         // p2.ss()//调用不了 报错
-        Police.ss()
+        Police.ss()//只有类能调用
     </script>
 </body>
 

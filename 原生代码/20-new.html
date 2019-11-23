@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function mynew(fn,...arg){
+        let obj=new Object//实例化对象
+        let cb=fn.call(obj,...arg)//this指向实例 实参
+        obj.__proto__=fn.prototype;//实例的原型链全等于构造函数的原型
+        //对象类型或是函数类型
+        if(cb !==null && typeof cb === 'object'||typeof cb === 'function'){
+            return cb;
+        }//返回值实例化对象
+        return obj//实例化对象
+    }
+    let f=mynew(fn,'雪花')
+    function fn(aa){//形参
+        this.aa=aa;
+        console.log(aa);
+        return 'asd';
+    }
+    console.log(f);
+    console.log(f.constructor)//指向构造函数
+    </script>
+</body>
+</html>

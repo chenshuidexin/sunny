@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //数组累计相加[1,2,3].reduce((q,a)=>q+a)
+    Array.prototype.myreduce=function(cb,prev){
+        for(var i=0;i<this.length;i++){
+            if(typeof prev === 'undefined'){
+                prev=cb(this[i],this[i+1],this);
+            }else{
+                prev=cb(prev,this[i],this[i+1],i+1,this);
+            }
+        }
+        return prev
+    }
+    let r=[1,2,3].myreduce(function(pp,value,index,ary){
+        return pp+value
+    },0)
+    console.log(r);
+    </script>
+</body>
+</html>

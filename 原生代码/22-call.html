@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    Function.prototype.mycall=function(that,...arg){
+        //因为是函数的原型下所以this指向是实例fn{}
+        let ty=typeof that;
+        if(that === null|| that === undefined){
+            that = window;//null和undefined默认指向window
+        }else{
+            switch(ty){
+                case 'string':
+                that=new String(that);
+                break;
+                case 'number':
+                that=new Number(that);
+                break;
+                case 'boolean': 
+                that=new Boolean(that);
+                break;
+            }
+        }
+        that.fn= this;//赋值为实例对象
+        that.fn(...arg);//传参
+    }
+    function fn(){console.log(this)};
+    fn.mycall('dd')
+    </script>
+</body>
+</html>

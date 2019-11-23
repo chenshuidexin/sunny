@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    let ass=[1,2,3,[1,2,{name:'凯宝'}]];
+    function deepclone(obj){
+        //判断obj是不是一个对象
+        if(typeof obj !=='object')return null;
+        //利用数组方法来进行布尔值运算
+        let o=obj.push?[]:{};
+        for(let attr in obj){//循环对象中的每一项
+            if(typeof obj[attr] === 'object'){//对象类型{}继续循环
+                o[attr]=deepclone(obj[attr]);
+            }else{//[]数组添加
+                o[attr]=obj[attr];
+            }
+        }
+        return o;
+    }
+    let azz=deepclone(ass);
+    console.log(azz);
+    //简易版深度克隆
+    let asz=[1,2,3,[1,2,{name:'凯宝'}]];
+    ss=JSON.parse(JSON,stringify(asz))
+    console.log(ss);
+    </script>
+</body>
+</html>

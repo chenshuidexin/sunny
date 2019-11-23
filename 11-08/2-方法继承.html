@@ -17,7 +17,8 @@
        alert(`我是`+this.name)
    }
    function Police(name,age){
-       Person.call(this,name,age);//call的指向Person的实例。
+       Person.call(this,name,age);//call的指向Police的实例。
+       console.log(this)
    }
    Object.assign(Police.prototype,Person.prototype)//子类   父类
    /*
