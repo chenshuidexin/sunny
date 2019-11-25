@@ -27,7 +27,7 @@
         */
         const box = document.querySelector('.body');
         const lis = box.querySelectorAll('li');
-        console.log(lis);
+        // console.log(lis);
 
         function minEle(lis) { //ary是每个li被内容撑开的高度
             let ary = [...lis].map(ele => ele.scrollHeight) //找到li高度最短的值
@@ -50,6 +50,7 @@
                     clearTimeout(timer);
                 }
                 timer = setTimeout(() => {
+                    // console.log(this);
                     cb.call(this, ...arg);
                 }, time)
             }
@@ -76,12 +77,10 @@
         //请求数据
         function render() {
             fetch('./json/index.json').then(s => s.json()).then(ary => {
-                console.log(ary)
+                // console.log(ary)
                 //在循环数组的过程中去计算每个li的高度，找到最短的li
                 ary.forEach((item, i) => {
-                    let {
-                        ele
-                    } = minEle(lis);
+                    let {ele} = minEle(lis);
                     //搭建框架
                     let div = document.createElement('div');
                     div.className = 'img_box';
@@ -109,11 +108,10 @@
         window.onscroll = debounce(fn, 200);
 
         function fn() {
+            console.log(this)
             //ul的高度是否比可视区要大，如果小于可视区高度，那就终止加载代码执行
             if (box.scrollHeight < iH) return;
-            let {
-                min
-            } = minEle(lis); //最短的距离
+            let {min} = minEle(lis); //最短的距离
             let scroll = window.pageYOffset; //滚动条的距离
             if (iH + scroll >= min) {
                 render();

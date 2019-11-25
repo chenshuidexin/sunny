@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <button>选择1</button>
+   <button>选择2</button>
+   <button>选择3</button> 
+   <input type="checkbox">
+   <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+   <script>
+   $('button:first').click(()=>{
+       $(':checkbox').attr('checked',true);
+   })
+   $('button:eq(1)').click(()=>{
+       $(':checkbox').attr('checked',false);
+   })
+   $('button:last').click(()=>{
+       if($(':checkbox').prop('checked') === true){
+        $(':checkbox').attr('checked',false);
+       }else{
+        $(':checkbox').attr('checked',true);
+       }
+   })
+   /*
+
+   prop==> 转化为表单的布尔值会更好符合代码的进行
+   console.log($(':checkbox').attr('checked'))//会出现undefined和checked，会造成错误。
+    -->if($(':checkbox').attr('checked') === true)造成错误
+    -->if($(':checkbox').attr('checked'))不严谨
+   */
+   </script>
+</body>
+</html>
