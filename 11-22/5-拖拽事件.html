@@ -17,15 +17,16 @@
 <body>
     <div id="box"></div>
     <script>
-    box.onmousedown=function(ev){
+    box.onmousedown=function(ev){//获取当时点击时的位置[鼠标]
         let disx=ev.pageX-box.offsetLeft;
         let disy=ev.pageY-box.offsetTop;
-        document.onmousemove=function(ev){
+        document.onmousemove=function(ev){//获得滑过时当前的准确位置
             box.style.left=ev.pageX-disx+'px';
             box.style.top=ev.pageY-disy+'px';
         }
         document.onmouseup=function(){
-            document.onmouseover=null;
+            document.onmousemove=null;//清除滑过事件
+            document.onmouseup=null;//为了防止到处点击，降低浏览器性能
         }
     }
     </script>

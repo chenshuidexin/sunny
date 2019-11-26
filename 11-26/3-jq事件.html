@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 200px;height: 200px;background: lightsalmon;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button>按钮</button>
+        <ul>
+            
+        </ul>
+    </div>
+    <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+    $('#box').on('click.a',function(){
+        console.log(111);
+    })
+    // $('#box').on('click.b',function(){
+    //     console.log(222);
+    // })
+    //解绑
+    $('button').on('click',function(){
+        console.log(222);
+        return false;//阻止冒泡事件
+    })
+    $('button').mousedown(function(){
+        return false;//阻止默认行为
+    })
+    //////另一个小李子
+    //利用on事件和ev.data.data的属性方法
+    let arr=['王凯','胡歌','易烊千玺','凯宝'];
+    arr.forEach((item,i)=>{
+        let $li = $(`<li>${i+1}</li>`);
+        $li.on('click',{data:item},function(ev){
+            console.log(`我的最爱是${ev.data.data}`)//存储数据的
+        })
+        $('ul').append($li);
+    })
+    </script>
+</body>
+</html>

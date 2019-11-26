@@ -27,7 +27,7 @@
                         return item.scrollHeight;
                     })
                 }
-                console.log(obj);
+                // console.log(obj);
                 let min=Math.min(...obj);
                 let index=obj.findIndex(item=>item===min);
                 return {
@@ -35,16 +35,16 @@
                 }
             }
             //节流环节
-            throttling(cb,time){
-                let prevtime = 0;
-                return function(...arg){
-                    let nowTime=+new Date;
-                    if(nowTime - prevtime > time){
-                        cb.call(this,...arg);
-                    }
-                    prevtime=nowTime;
-                }
-            }
+            // throttling(cb,time){
+            //     let prevtime = 0;
+            //     return function(...arg){
+            //         let nowTime=+new Date;
+            //         if(nowTime - prevtime > time){
+            //             cb.call(this,...arg);
+            //         }
+            //         prevtime=nowTime;
+            //     }
+            // }
             //防抖环节
             debounce(cb,time){
                 let timer;
@@ -78,17 +78,17 @@
             render(){
                 this.Api('./json/index.json',function(data){
                     data.forEach((d,i)=>{
-                        let {index}=this.getMinIndex(this,list);
+                        let {index}=this.getMinIndex(this.list);
                         let div=this.create(d);
                         this.list[index].append(div);
                         setTimeout(()=>{
                             div.children[0].style.opacity=1;
                         },i*100);
                     })
-                })
+                },1000)
             }
             //数据渲染
-            creat({pic,desc,author,hright}){
+            create({pic,desc,author,height}){
                 let div=document.createElement('div');
                 div.className='img_box';
                 //为了性能优化，使用字符串拼接
@@ -100,7 +100,7 @@
             //触底事件
             scroll(){//重新计算
                 let fn=()=>{
-                    let {index}=this.getMinIndex(this,list);
+                    let {index}=this.getMinIndex(this.list);
                     if((window.pageYOffset+this.wh)>this.list[index].scrollHeight){
                         this.render();
                     }

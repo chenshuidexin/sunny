@@ -15,8 +15,11 @@
            width:100,
            height:50,
        })
-       $li.click(function(){//不能用箭头函数
-        //    console.log(this,$(this))//window fn.init[window]
+    //    $li.click(function(){//不能用箭头函数
+    //     //    console.log(this,$(this))//window fn.init[window]
+    //        $(this).remove();
+    //    });
+    $li.click(()=>{//不能用箭头函数
            $(this).remove();
        });
        //看最前面的主是谁，就会给谁添加

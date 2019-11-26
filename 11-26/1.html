@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+    <div id="11"></div>
+    <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        const $box = $('#box');
+        // setInterval(() => {
+        //     $box.css({
+        //         width: 200,
+        //         height: 200,
+        //         background: 'lightskyblue',
+        //         // display:'none',
+        //     })
+        //     $box.animate({
+        //         opacity: 0.25,
+        //         width: 400,
+        //         height: 400,
+        //     }, 3000, function () {
+        //         console.log('动画已结束');
+        //         // 恢复至初始状态: 
+        //         $(this).css({
+        //             opacity: 1,
+        //             width: 200,
+        //             height: 200,
+        //         });
+        //     })
+        // },4000)
+        $box.css({
+                width: 200,
+                height: 200,
+                background: 'lightskyblue',
+                // display:'none',
+            })
+        $box.slideUp(6000);
+    </script>
+</body>
+
+</html>

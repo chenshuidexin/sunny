@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: lightseagreen;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #boxShadow {
+            width: 100px;
+            height: 100px;
+            background: lightseagreen;
+            position: absolute;
+            opacity: .3;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="box"></div>
+    <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        /*
+    offset() -->  绝对位置
+    position() --> 基于父级的(offset)
+    */
+        // //简单的拖拽行为三大事件的结合********************
+        // $('#box').mousedown(function(ev){
+        //     let disx=ev.pageX - $('#box').offset().left;
+        //     let disy=ev.pageY - $('#box').offset().top;
+        //     $(document).mousemove(function(ev){
+        //         $('#box').css({
+        //             left:ev.pageX-disx,
+        //             top:ev.pageY-disy,
+        //         })
+        //     })
+        //     $(document).mouseup(function(){
+        //         $(document).off('mousemove');//解绑鼠标滑过事件
+        //         $(document).off('mouseup');//解绑鼠标抬起事件，为了防止客户乱点页面降低浏览器的性能
+        //     })
+        // })
+        //好玩的透明度玩法*****************************
+        // let num = 1;
+        // $('#box').mousedown(function (ev) {
+        //     //创建box2元素
+        //     let $box2 = $('<div id="boxShadow"></div>');
+        //     $box2.css({ //为了阴影停留在当前位置，重新赋值
+        //         left: $('#box').offset().left,
+        //         top: $('#box').offset().top,
+        //     });
+        //     $('#body').append($box2);
+        //     let disx = ev.pageX - $('#box').offset().left;
+        //     let disy = ev.pageY - $('#box').offset().top;
+        //     $(document).mousemove(function (ev) {
+        //         let t = ev.pageY - disy;
+        //         if (t < 100) {
+        //             t = 0
+        //         }; //悬浮吸铁
+        //         $box2.css({
+        //             left: ev.pageX - disx,
+        //             top: t,
+        //         })
+        //     })
+        //     $(document).mouseup(function (ev) {
+        //         $(document).off('mousemove');
+        //         $(document).off('mouseup');
+        //         $('#box').css({
+        //             //获取当前的位置，存值
+        //             left: $box2.offset().left,
+        //             top: $box2.offset().top,
+        //         })
+        //         $box2.remove(); //阴影消失
+        //         // num -= .1;
+        //         // $('#box').css({opacity:num})
+
+        //     })
+        //     return false; //阻止默认行为
+        // })
+        //**************透明度的变化************************
+        let num = 1;
+        $('#box').mousedown(function (ev) {
+            //创建box2元素
+            let $box2 = $('<div id="boxShadow"></div>');
+            $box2.css({ //为了阴影停留在当前位置，重新赋值
+                left: $('#box').offset().left,
+                top: $('#box').offset().top,
+            });
+            $('#body').append($box2);
+            let disx = ev.pageX - $('#box').offset().left;
+            let disy = ev.pageY - $('#box').offset().top;
+            $(document).mousemove(function (ev) {
+                $box2.css({
+                    left: ev.pageX - disx,
+                    top: ev.pageY - disy,
+                })
+            })
+            $(document).mouseup(function (ev) {
+                $(document).off('mousemove');
+                $(document).off('mouseup');
+                // $('#box').css({
+                //     //获取当前的位置，存值
+                    // left: $box2.offset().left,
+                    // top: $box2.offset().top,
+                // })
+                // $box2.remove(); //阴影消失
+                //box消失后仍然可以拿到，所以可以加if判断去限制范围，不然会取之不尽用之不竭。
+                num -= .1;
+                $('#box').css({opacity:num})
+
+            })
+            return false; //阻止默认行为
+        })
+    </script>
+
+</body>
+
+</html>

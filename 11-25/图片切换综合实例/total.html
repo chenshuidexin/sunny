@@ -131,7 +131,6 @@
             right: 0;
         }
 
-
         #imgBox a img {
             padding: 12px 0 0 0px;
         }
@@ -221,6 +220,15 @@
             font-size: 14px;
             color: #fff;
         }
+        #shadow{
+            width: 678px;
+            height: 504px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, .5);
+            display: none;
+        }
     </style>
 
 </head>
@@ -243,6 +251,7 @@
                 <strong>图片文字加载中……</strong>
             </div>
         </div>
+        <div id="shadow"></div>
         <div id="tanBox">
             <em></em>
             <span><img src="img/close.png" /></span>
@@ -262,77 +271,57 @@
         const $next = $imgBox.find('#next');
         const $pic = $imgBox.find('#pic');
         const $strong = $imgBox.find('strong');
-        const $l = $("h2 a:first");
-        const $r = $("h2 a:last");
-        const $tanBox=$('#tanBox');
-        // console.log($tanBox[0])
-
-
+        const $aa = $('h2 a');
+        let onoff = false; //默认为是循环播放
 
 
         let len = arrImg.length;
         let num = 0;
 
         function init() {
-            $span.html((num + 1) + '/' + len); //切换的张数
-            $strong.text(arrText[num]); //设置文字
-            $pic.attr('src', arrImg[num]); //设置图片
+            $span.html((num + 1) + '/' + len); //切换张数
+            $strong.text(arrText[num]); //文字变化
+            $pic.attr('src', arrImg[num]) //设置图片
         }
+
         init();
-        $l.click(function () {
-            $l.attr('class', 'active');
-            $r.removeAttr('class');
-            $tanBox.hide();
-            zuo();
-        })
 
-        function zuo() {} 
-            $next.click(function () {
-                num ++;
-                num %= len;
-                init();
-                debugger;
-                // alert(222);
-            });
-            $prev.click(function () {
-                num --;
-                if (num < 0) {
+        $next.click(function () {
+            num++;
+            if (onoff) {//默认是循环切换
+                num %= len;//循环
+            } else {//否则是顺序切换
+                if (num > len - 1) {//到达最后一张时有弹框出现并且是点其他的没有效果
                     num = len - 1;
-                    num %= len;
+                    $('#tanBox').show();
+                    $('shadow').show();
                 }
-                init();
-
-                // alert(9999)
-            })
-        
-
-        //顺序切换
-        $r.click(function () {
-            $l.removeAttr('class');
-            $r.attr('class', 'active');
-            change();
+            }
+            init();
         })
 
-        function change() {
-            $next.click(function () {
-                num++;
-                if(num>len-1){
-                    num=len-1;
-                    $tanBox.show();
-                }else{
-                    $tanBox.hide();
+        $prev.click(function () {//都是相同的效果
+            num--;
+            if (num < 0) {
+                num = len - 1;
+            }
+            init();
+        })
+        let that = $aa[1];
+        $aa.each(function (i, ele) {//切换的两个框在来回切换样式使其改变
+            $(ele).click(function () {
+                $aa.removeClass('active');
+                $(this).addClass('active');
+                if (that !== this) {
+                    onoff = !onoff;
                 }
-                init();
-            });
-            $prev.click(function () {
-                num--;
-                $tanBox.hide();
-                if (num < 0) {
-                    num = 0;
-                }
-                init();
+                that = this;
             })
-        }
+        })
+        $('#tanBox a,#tanBox span').click(function(){//弹框出现时的确定或×号来使其隐藏
+            $('#tanBox').hide();
+            $('shadow').hide();
+        })
     </script>
 </body>
 
