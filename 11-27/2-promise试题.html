@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //结果 ---->  步数
+        // const first = () => (new Promise((resolve, reject) => {
+        //     console.log(3);//3------>1
+        //     let p = new Promise((resolve, reject) => {
+        //         console.log(7);//7------->2
+        //         setTimeout(() => {
+        //             console.log(5);//5------>6
+        //             resolve(6);
+        //         }, 0)
+        //         resolve(1);
+        //     });
+        //     resolve(2);
+        //     p.then((arg) => {
+        //         console.log(arg);//1----->4
+        //     });
+        // }));
+        // first().then((arg) => {
+        //     console.log(arg);//2--->5
+        // });
+        // console.log(4);//4----->3
+        //then的位置决定着出现结果的顺序
+        //********************************************************************
+        // console.log('1'); //1-----》1
+        // setTimeout(function () {
+        //     console.log('2'); //2------》4
+        //     new Promise(function (resolve) {
+        //         console.log('3');//3-----》5 
+        //         resolve();
+        //     }).then(function () {
+        //         console.log('4'); //4-----》6
+        //     })
+        // }, 0);
+        // new Promise(function (resolve) {
+        //     console.log('5'); //5------》2
+        //     resolve();
+        // }).then(function () {
+        //     console.log('6'); //6-------》3
+        // });
+        // setTimeout(function () {
+        //     console.log('7'); //7----------》7
+        //     new Promise(function (resolve) {
+        //         console.log('8');//8---------》8 
+        //         resolve();
+        //     }).then(function () {
+        //         console.log('9'); //9-----------》9
+        //     });
+        // })
+        //**************************************************
+        // const promise = new Promise((resolve, reject) => {
+        //     console.log(1)//1---------->1
+        //     resolve()
+        //     console.log(2)//2----------->2
+        // })
+        // promise.then(() => {
+        //     console.log(3)//3--------->4
+        // })
+        // console.log(4)//4------------>3
+        //******************************************************
+        // const promise1 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         resolve('success')
+        //     }, 1000)
+        // })
+        // const promise2 = promise1.then(() => {
+        //     throw new Error('error!!!')//3报错
+        // })
+        // console.log('promise1', promise1)//1
+        // console.log('promise2', promise2)//2
+        // setTimeout(() => {
+        //     console.log('promise1', promise1)//4
+        //     console.log('promise2', promise2)//5
+        // }, 2000)
+    </script>
+</body>
+
+</html>

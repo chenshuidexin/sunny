@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //第一个then的返回值是第二个then的参数，依次类推  //平时请求数据的流程
+    //当进入第一个then的时候，s就是返回的数据，但是这个数据被promise包了一层
+    fetch('xxx.json').then(function(s){
+        return s.json()//返回值是下一个函数的实参
+    }).then(function(data){
+        console.log(data)//s.json()
+    })
+    /*
+    JSON -> 长得像对象和数组的字符串，本质是字符串。
+    '[]' JSON -> []数组
+    '{}' JSON -> {}对象
+    JSON 取值是不方便的，可以使用JSON.parse()方法把JSON转成对象
+    parse必须为标准的JSON格式才能成功转化
+    '{"name":"kaibao"}'
+    对象转JSON是使用JSON.stringify()的副作用是函数和undefined会被过滤掉
+    */
+   let p=new Promise((resolve,reject)=>{
+       setTimeout(()=>{
+           resolve({
+               data:{"name":"凯宝"},
+               json:function(){
+                   return JSON.parse(this.data)
+               }
+           })
+       },2000)
+   })
+   p.then(function(d){
+       return d.json();
+   }).then(function(data){
+       //json是字符串，把json转成对象使用JSON.parse
+       console.log(data.name)
+   })
+   //"{'name':'zf'}"  ==》 报错，不是标准格式
+   //'{"name":"zf"}'  ==》 正常，标准格式
+    </script>
+</body>
+</html>

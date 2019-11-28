@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+   <script>
+   /*
+   race:在数组中只要有一个异步成功就返回这次成功的结果，all是数组中的异步操作都要成功才能返回成功结果
+   */ 
+  function myFetch(url){
+      return new Promise(function(resolve,reject){
+          $.ajax({
+              url,
+              success:function(data){
+                  //请求之后
+                  resolve(data);
+              },
+              error:reject
+          })
+      })
+  }
+//   let p=Promise.race([myFetch('2.json'),myFetch('1.json')])
+  /*
+   then的第二个参数为失败函数，也可以不用写，直接在then函数之后.catch()即可
+  */
+//  p.then(d=>{
+//      console.log(d)
+//  },error=>{
+//      console.log(error)
+//  })
+ let p=myFetch('1.json')
+ p.then(s=>{
+     console.log(s[0].name)
+ })
+   </script> 
+</body>
+</html>
