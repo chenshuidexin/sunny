@@ -116,7 +116,7 @@
                     //框架从外到里构建  越靠里的就在上面
                     setTimeout(() => {
                         img.style.opacity = 1;
-                    },200)
+                    },i*100)
                     //每一次添加完一个li之后，把当前的li的高度+间距赋值到当前数组对应项中，以便下次比较
                     aryy[index] += (boxt + item.length * 1 + 20);
                 });
@@ -134,7 +134,6 @@
             let {index} = minIndex(aryy); //最短的距离
             let scroll = window.pageYOffset; //滚动条的距离
             if (iH + scroll >= aryy[index]) {
-                console.log(333);
                 render();
             }
         }

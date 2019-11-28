@@ -98,7 +98,7 @@
                     ele.appendChild(div); //框架从外到里构建  越靠里的就在上面
                     setTimeout(() => {
                         img.style.opacity = 1;
-                    })
+                    },i*100)
                 });
             })
         }
@@ -108,7 +108,7 @@
         window.onscroll = debounce(fn, 200);
 
         function fn() {
-            console.log(this)
+            // console.log(this)
             //ul的高度是否比可视区要大，如果小于可视区高度，那就终止加载代码执行
             if (box.scrollHeight < iH) return;
             let {min} = minEle(lis); //最短的距离
