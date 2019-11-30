@@ -1,0 +1,30 @@
+@p:1px;//根据情况可以换算单位
+.w(@a){width:@a*@p};//宽度
+.h(@a){height:@a*@p};//高度
+.t(@a){top:@a*@p};//高度
+.b(@a){bottom:@a*@p}//底部
+.l(@a){left:@a*@p}//左边
+.r(@a){right:@a*@p}//右边
+.c(@a){color:@a}//字体颜色
+.b(@a){background-color:@a}//背景颜色
+.ms(@a,@b){margin:@a*@p @b*@p}//内边距 数值
+.mz(@a,@b){margin:@a*@p @b};//内边距 数字 auto
+.b(@a,@b,@c){border:@a*@p @b @c};//边框线大小类型颜色
+.f(@a){float:@a};//浮动
+.p(@a){position:@a};//定位类型
+.o(@a){overflow:@a}//溢出内容的解决方式
+.cl(@a){clear:@a};//清除浮动
+.p(@a){padding: @a*@p};//外间距
+.d(@a){display:@a};//display 控制显示
+.w(@a){white-space:@a}//控制空白 
+.ta(@a){text-align:@a};//水平对齐方式
+.va(@a){vertical-align: @a;}//垂直对齐方式
+.cur(@a){cursor:@a};//鼠标样式
+.fz(@a){font-size: @a*@p;}//字体大小
+.ff(@a){font-family:@a};//字体类型
+.fw(@a){font-weight: @a;}//字体粗细
+.ls(@a){letter-spacing:@a}//字间距离
+.td(@a){text-decoration:@a}//文本修饰
+.ts(@a){text-shadow: @a;}//阴影颜色
+.lh(@a){line-height:@a*@p}//字体行高
+.tt(@a){text-transform: @a;}//字体大小写
