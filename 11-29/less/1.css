@@ -1,0 +1,41 @@
+* {
+  margin: 0px 0px;
+  padding: 0px;
+}
+body {
+  bottom: #f0fcff;
+  background-color: #f0fcff;
+  letter-spacing: none;
+  list-style: none;
+  font-size: 12px;
+}
+.folder {
+  float: left;
+  margin: 10px 10px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  width: 100px;
+  white-space: 100;
+  text-align: center;
+}
+.folder img {
+  width: 80px;
+  white-space: 80;
+}
+.folder input {
+  width: 80px;
+  white-space: 80;
+  margin: 0px auto;
+  display: inline-block;
+  text-align: center;
+}
+.folder p {
+  width: 80px;
+  white-space: 80;
+  margin: 0px auto;
+  display: inline-block;
+  text-align: center;
+}
+#btn {
+  margin-bottom: 10px;
+}

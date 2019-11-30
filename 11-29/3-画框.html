@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 0;
+        height: 0;
+        background: lightskyblue;
+        border:1px solid blue;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: none;
+    }
+    </style>
+</head>
+<body style="height:3000px">
+   <div id="box"></div> 
+   <script>
+       //****************************class写法
+   class Drag{
+       constructor(id){
+           this.disx=this.disy=0;//初始化
+           this.box=document.getElementById(id);//获取id元素
+       }
+       init(){//DOM中按下事件的调用
+           //bind() -> 并规定事件发生时运行的函数。
+           document.addEventListener('mousedown',this.d=this.down.bind(this));
+       }
+       down(ev){//鼠标按下的事件
+        //获取box的绝对位置
+           let {left,top}=this.box.getBoundingClientRect();
+           //当前点击的水平垂直方向的具体位置
+           this.disx=ev.pageX;
+           this.disy=ev.pageY;
+           //当前的box要显示出来
+           this.box.style.display='block';
+           //当前的高度宽度就是点击的位置
+           this.box.style.top=this.disy+'px';
+           this.box.style.left=this.disx+'px';
+           //添加鼠标滑过和鼠标抬起事件
+           //事件添加有名函数方便移出事件
+           document.addEventListener('mousemove',this.mv=this.move.bind(this));
+           document,addEventListener('mouseup',this.u=this.up.bind(this));
+       }
+       move(ev){//滑过事件
+        /*
+        小规律：往右移动的时候  left和top是不会变化的。
+                往左移动的时候  left和top的数值在变化
+                move值- down值  < 0 是往左移动
+                                >0  是往右移动
+            down值大于move值，那么left值就是move值
+            down值小于move值，那么left值就是down值
+        */
+        //取当前的最小值确定其left和top值
+           this.box.style.top=Math.min(ev.pageY,this.disy)+"px";
+           this.box.style.left=Math.min(ev.pageX,this.disx)+"px";
+           //数学方法取绝对值
+           this.box.style.width=Math.abs(ev.pageX-this.disx)+"px";
+           this.box.style.height=Math.abs(ev.pageY-this.disy)+"px";
+       }
+       up(){//鼠标抬起事件
+       //初始化
+           this.box.style.height=this.box.width=0
+           //隐藏
+           this.box.style.display='none';
+           //移出滑过事件和抬起事件
+           document.removeEventListener('mousemove',this.mv);
+           document.removeEventListener('mouseup',this.u);
+       }
+   }
+   let d=new Drag('box');
+   d.init();
+   </script>
+</body>
+</html>

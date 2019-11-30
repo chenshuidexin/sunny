@@ -3,8 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>新建文件夹</title>
+    <link rel="stylesheet" href="./less/1.css">
 </head>
 <body>
-    
+    <button id="btn">新建文件夹</button>
+    <div id="box"></div>
+    <script src="../jq/node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+    let arr=[
+        {
+            title:"新建文件夹",
+            id:0
+        },
+        {
+            title:"新建文件夹(1)"
+        },
+    ];
+    //数据渲染页面
+    function render(arr){
+        $("#box").html('');//box的样式清空
+        $.each(arr,(i,item)=>{//forEach相同的效用=> $.each(数组，(索引值，每一项的值))
+            //创建文件夹
+            //创建样式
+            let $folder=$(`<div class="folder">
+            <img src="./img/folder-b.png">
+            <input type="text">
+            <p>${item.title}</p>
+            </div>`);
+            $folder.find('input').hide();//表框隐藏
+            $("#box").append($folder);//在box里插入元素及其样式
+        })
+    }
+    render(arr);//函数调用
+    //点击创建文件夹
+    //先在box中创建一个folder元素，然后folder中的input失焦之后在添加数据到arr中
+    //新的arr在重新渲染页面
+    $('#btn').click(function(){
+            let $folder=$(`<div class="folder">
+            <img src="./img/folder-b.png">
+            <input type="text" placeholder="新建文件夹" value="新建文件夹">
+            </div>`);
+            $("#box").append($folder);//在box里插入元素及其样式
+            let $txt=$folder.find("input");
+            $txt.select()//选中聚焦
+            $txt.blur(function(){
+                //当失焦的时候把新的数据push到arr中，并通过新的数据重新渲染页面
+                let val=$txt.val();
+                //检查是否有相同的名字通过布尔值去判断
+                let bool=arr.map(item=>item.title).includes(val);
+                let nval="";
+                let num=1;
+                nval=val;//新添加的值重新赋值
+                while(bool){//如果没有重复的名字就执行这个条件
+                    let s=val.replace(/\(\d\)$/,'')+`(${num++})`;//新建文件夹() -> 不变  变得是里面的数字
+                    //重新再计算名字是否重名问题
+                    bool=arr.map(item=>item.title).includes(s);
+                    nval=s;//新的val确认是要替换的内容
+                }
+                //添加新的内容在arr里
+                arr.push({
+                    id:+new Date,//确保id的唯一性
+                    title:nval,//新添加的值
+                })
+                //重新调用
+                render(arr);
+            })
+        })
+        /*
+        总结：所有的数据都有其规律，比如名字是否重名问题，先把不变的内容给完全保留下来，并通过某个条件(是否包含而返回的布尔值)判断是否改变该改变的内容
+        失焦聚焦问题，内容要重新赋值本有的数组通过方法在添加新的数据，依次类推。页面不断重新渲染。
+        */
+    </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 .p(@a){position:@a};//定位类型
 .o(@a){overflow:@a}//溢出内容的解决方式
 .cl(@a){clear:@a};//清除浮动
-.p(@a){padding: @a*@p};//外间距
+.pa(@a){padding: @a*@p};//外间距
 .d(@a){display:@a};//display 控制显示
 .w(@a){white-space:@a}//控制空白 
 .ta(@a){text-align:@a};//水平对齐方式
@@ -28,3 +28,19 @@
 .ts(@a){text-shadow: @a;}//阴影颜色
 .lh(@a){line-height:@a*@p}//字体行高
 .tt(@a){text-transform: @a;}//字体大小写
+.ls(@a){list-style:@a}//表格描述
+*{
+    .ms(0,0);
+    .pa(0);
+}
+body{.b(#f0fcff);.ls(none);.fz(12)};
+.folder{.f(left);.ms(10,10);.pa(4);.b(1,solid,#ccc);.w(100);.ta(center)};
+.folder img{.w(80)}
+.folder input{
+    .w(80);
+    .mz(0,auto);
+    .d(inline-block);
+    .ta(center);
+}
+.folder p{.w(80);.mz(0,auto);.d(inline-block);.ta(center)}
+#btn{margin-bottom: 10px;}

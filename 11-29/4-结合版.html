@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 0;
+        height: 0;
+        background: lightskyblue;
+        border: 1px solid blue;
+        position:absolute;
+        left: 0;
+        top: 0;
+        display: none;
+    }
+    #box2{
+        width: 100px;
+        height: 100px;
+        background:#2add9c;
+        position:absolute;
+        top: 300px;
+        left:300px;
+    }
+    #box3{
+        width: 100px;
+        height: 100px;
+        background: #2add9c;
+        position: absolute;
+        top: 300px;
+        left: 500px;
+    }
+    #box4{
+        width: 100px;
+        height: 100px;
+        background: #2add9c;
+        position: absolute;
+        top: 300px;
+        left: 700px;
+    }
+    </style>
+</head>
+<body style="height:3000px">
+    <div id="box"></div>
+    <div id="box2" class="b"></div>
+    <div id="box3" class="b"></div>
+    <div id="box4" class="b"></div>
+<script src="./duang.js"></script>
+<script>
+    //获取除画框之外的所有关于box的元素
+let b=document.querySelectorAll('.b');
+class Drag{
+    constructor(id){//初始化
+        this.disx=this.disy=0;
+        //获取id名称
+        this.box=document.getElementById(id);
+    }
+    init(){
+        //添加鼠标按下事件
+        document.addEventListener('mousedown',this.d=this.down.bind(this))
+    }
+    down(ev){//down事件
+    //获得box的绝对位置
+        let {left,top}=this.box.getBoundingClientRect();
+        //从当前的位置开始[变化]
+        this.disx=ev.pageX;
+        this.disy=ev.pageY;
+        //让当前的box显示出来
+        this.box.style.display='block';
+        //获取当前down事件box.top/left的值
+        this.box.style.top=this.disy+'px';
+        this.box.style.left=this.disx+'px';
+        //添加滑过事件和抬起事件
+        document.addEventListener('mousemove',this.mv=this.move.bind(this));
+        document.addEventListener('mouseup',this.u=this.up.bind(this));
+        ev.preventDefault();//阻止事件默认行为
+    }
+    move(ev){//滑过事件
+    //根据当前的down值和move值的大小来判断去结果最小值 参考课件3
+        this.box.style.top=Math.min(ev.pageY,this.disy)+"px";
+        this.box.style.left=Math.min(ev.pageX,this.disx)+"px";
+        b.forEach(ele=>{
+            //触碰事件变化
+            if(duang(box,ele)){
+                ele.style.background='lightgreen'
+            }else{
+                ele.style.background='#2add9c'
+            }
+        })
+        //得到move事件box.left/top的值
+        this.box.style.width=Math.abs(ev.pageX - this.disx)+'px';
+        this.box.style.height=Math.abs(ev.pageY - this.disy)+'px';
+    }
+    up(){//抬起事件
+    //初始化
+        this.box.style.height=this.box.style.width=0;
+        //让box消失
+        this.box.style.display="none";
+        //解绑滑过和抬起事件
+        document.removeEventListener('mousemove',this.mv);
+        document.removeEventListener('mouseup',this.u)
+    }
+}
+let d=new Drag('box');
+d.init();
+</script>
+</body>
+</html>

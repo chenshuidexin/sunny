@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #box2{
+        width: 100px;
+        height: 100px;
+        background: lightskyblue;
+        position: absolute;
+        top:300px;
+        left: 300px;    
+    }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box2"></div>
+    <script src="./duang.js"></script>
+    <script>
+        //碰撞的box.top/left都不变
+    //*************1.通俗版
+    // box.addEventListener('mousedown',function(ev){
+    //     //获取当前时间的决定位置
+    //     let {left,top:t}=this.getBoundingClientRect();
+    //     let disx=ev.pageX-left;
+    //     let disy=ev.pageY-t;
+    //     function m(ev){
+    //         let l= ev.pageX - disx;
+    //         let t=ev.pageY- disy;
+    //         let r=l+box.offsetWidth;
+    //         let b=t+box.offsetHeight;
+    //         //获取box2的绝对位置
+    //         let {left:l2,top:t2,right:r2,bottom:b2}=box2.getBoundingClientRect();
+    //         if(r<l2||b<t2||l>r2||t>b2){
+    //             console.log("还没有碰到呢！")
+    //             box2.style.background="lightskyblue";
+    //         }else{
+    //             console.log("碰到了啊！");
+    //             box2.style.background="lightgreen"
+    //         }
+    //         box.style.cssText=`left:${l}px;top:${t}px`;
+    //     }
+    //     function up(ev){
+    //         document.removeEventListener('mousemove',m)
+    //         document.removeEventListener('mouseup',up);
+    //     }
+    //         document.addEventListener('mousemove',m)
+    //         document.addEventListener('mouseup',up);
+    //         ev.preventDefault();     
+    // })
+    //精简版==> duang函数精装
+    box.addEventListener('mousedown',function(ev){
+        let {left,top:t}=this.getBoundingClientRect();
+        let disx=ev.pageX - left;
+        let disy=ev.pageY - t;
+        function m(ev){
+            if(duang(box,box2)){
+                box2.style.background = 'lightgreen';
+            }else{
+                box2.style.background = 'lightskyblue';
+            }
+            box.style.cssText=`left:${ev.pageX-disx}px;top:${ev.pageY-disy}px;`
+        }
+        function up(ev){
+            document.removeEventListener('mousemove',m)
+            document.removeEventListener('mouseup',up);
+        }
+        document.addEventListener('mousemove',m);
+        document.addEventListener('mouseup',up);
+        ev.preventDefault();
+    })
+    /*
+    小小总结：当判断一个条件的时候，如果发现还是太复杂，不如先用逆向思维来判断，先想错误的然后再出现正确的执行代码。
+    */
+    
+    </script>
+</body>
+</html>
