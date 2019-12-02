@@ -262,65 +262,67 @@
     </div>
 
     <script src="./jq/node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script>
+    //以数组形式把文字内容给存值出来  =》 创建元素样式
         let arrImg = ['img/img01.jpg', 'img/img02.jpg', 'img/img03.jpg', 'img/img04.jpg'];
         let arrText = ['文字描述一', '文字描述二', '文字描述三', '文字描述四'];
         const $imgBox = $('#imgBox'); //模块缓存
-        const $span = $imgBox.find('span'); //getElementsByTagName
+        const $span = $imgBox.find('span'); //getElementsByTagName ==》 某个父元素下创建某个子元素
         const $prev = $imgBox.find('#prev');
         const $next = $imgBox.find('#next');
         const $pic = $imgBox.find('#pic');
         const $strong = $imgBox.find('strong');
-        const $aa = $('h2 a');
+        const $aa = $('h2 a');//获取某个元素-> a标签
         let onoff = false; //默认为是循环播放
 
 
-        let len = arrImg.length;
-        let num = 0;
+        let len = arrImg.length;//获取数组的新长度
+        let num = 0;//提前赋值文本显示
 
         function init() {
-            $span.html((num + 1) + '/' + len); //切换张数
-            $strong.text(arrText[num]); //文字变化
-            $pic.attr('src', arrImg[num]) //设置图片
+            $span.html((num + 1) + '/' + len); //=》 innerHTML => 切换张数
+            $strong.text(arrText[num]); //对应当前索引值而出现的项 文字变化
+            $pic.attr('src', arrImg[num]) //=>设置src属性是对应的项
         }
 
-        init();
+        init();//当前页面的调用
 
-        $next.click(function () {
-            num++;
+        $next.click(function () {//下一张的点击事件
+            num++;//每一次点击是num自增1
             if (onoff) {//默认是循环切换
-                num %= len;//循环
+                num %= len;//循环状态是轮播
             } else {//否则是顺序切换
                 if (num > len - 1) {//到达最后一张时有弹框出现并且是点其他的没有效果
-                    num = len - 1;
-                    $('#tanBox').show();
-                    $('shadow').show();
+                    num = len - 1;//点到最后一张就停在当前的页面
+                    $('#tanBox').show();//提示页面出现
+                    $('shadow').show();//阴影出现
                 }
             }
-            init();
+            init();//每一次点击就重新调用页面的布局
         })
 
-        $prev.click(function () {//都是相同的效果
-            num--;
-            if (num < 0) {
-                num = len - 1;
+        $prev.click(function () {//下一张的点击事件
+            num--;//每一次点击时num自减1
+            if (num < 0) {//num不能为0和负数
+                num = len - 1;//化成最后一张的图片
             }
-            init();
+            init();//每一次点击就重新调用页面的布局
         })
-        let that = $aa[1];
+        let that = $aa[1];//默认为循环顺序的样式
+        // console.log(that)
         $aa.each(function (i, ele) {//切换的两个框在来回切换样式使其改变
-            $(ele).click(function () {
-                $aa.removeClass('active');
-                $(this).addClass('active');
-                if (that !== this) {
-                    onoff = !onoff;
+            $(ele).click(function () {//每一项点击的事件
+                $aa.removeClass('active');//所有的样式要清空
+                $(this).addClass('active');//添加当前ele点击的样式
+                if (that !== this) {//如果两者不相等
+                    onoff = !onoff;//重新赋值并取反
                 }
-                that = this;
+                that = this;//给ele重新赋值
             })
         })
         $('#tanBox a,#tanBox span').click(function(){//弹框出现时的确定或×号来使其隐藏
-            $('#tanBox').hide();
-            $('shadow').hide();
+            $('#tanBox').hide();//弹框隐藏
+            $('shadow').hide();//阴影隐藏
         })
     </script>
 </body>

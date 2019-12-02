@@ -44,18 +44,19 @@
                 //ee是每次匹配到的和谐的字
                 //拿到和谐字之后看下length，通过length拿到替换文字的个数
                 //得到和谐之后的个数;
-                let temp='';
+                let temp='';//为了方便存值
                 for(var i=0;i<ee.length;i++){
+                    //随机用某个符号代替和谐掉的字符
                     temp += saa[Math.round(Math.random()*(saa.length-1))];
                 }
-                return temp;
+                return temp;//返回相对应的字符
             })
-            console.log(value);
+            // console.log(value);
             span.innerText=value;
-            li.appendChild(span);
-            li.appendChild(btns);
-            ul.insertBefore(li,ul.children[0]);
-            txt.value='';
+            li.appendChild(span);//第二个
+            li.appendChild(btns);//第一个
+            ul.insertBefore(li,ul.children[0]);//新添加的在前面
+            txt.value='';//清空表格的内容
         }
     </script>
 </body>
