@@ -70,33 +70,41 @@
 		</div>
 	</div>
 	<script>
+		//获取元素
 		const checkboxs=document.querySelectorAll('#list input');
 		const lis=document.querySelectorAll('#list li');
+		//数组为了存值
 		let ary=[];
 		lis.forEach((ele,i)=>{
+			//提前对数组每一项进行赋值
 			ary[i]=false;
+			//隔行变色
 			if(i%2)ele.classList.add('h');
-			ele.onmouseover=function(){
+			ele.onmouseover=function(){//鼠标移入事件
 				this.classList.add('sky');
 			}
-			ele.onmouseout=function(){
-				if(!checkboxs[i].checked){
-					this.classList.remove('sky')
+			ele.onmouseout=function(){//鼠标移出事件
+				if(!checkboxs[i].checked){//如果没有点击成功为false
+					this.classList.remove('sky')//移出颜色
 				}
 			}
-			checkboxs[i].onclick=function(){
-				ary[i] = this.checked;
-			    all.checked = ary.every(item=>item)
-			    console.log(ary);
+			checkboxs[i].onclick=function(){//每一个表框的点击事件
+				ary[i] = this.checked;//重新给ary的某一项进行赋值
+			    all.checked = ary.every(item=>item)//所有表框都勾选时all为勾选状态
+			    // console.log(ary);
 			}
 		})
-		all.onclick=function(){
-			checkboxs.forEach((ele,i)=>{
-				ele.checked=this.checked;
-				this.checked?lis[i].classList.add('sky'):lis[i].classList.remove('sky')
-				ary[i]=this.checked;
+		all.onclick=function(){//all的事件成立
+			checkboxs.forEach((ele,i)=>{//表框循环每一项和索引值
+				ele.checked=this.checked;//每一项的值为true
+				this.checked?lis[i].classList.add('sky'):lis[i].classList.remove('sky')//true为有颜色否则没有效果
+				ary[i]=this.checked;//重新进行存值
 			})
 		}
+		/*
+		多多练习页面布局
+		坚持详细注释，不懂要搞懂！
+		*/
 	</script>
 </body>
 

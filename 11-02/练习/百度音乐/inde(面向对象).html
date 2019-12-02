@@ -70,7 +70,7 @@
 		</div>
 	</div>
 	<script>
-		//input属性：  checkbox.checked  布尔值
+		//input属性：  checkbox.checked  布尔值 点击成功时返回布尔值是true，否则是false。
 		//Class类写的
 		class Fn {
 			constructor() {//获取元素 
@@ -80,31 +80,31 @@
 				this.all = document.getElementById('all')
 			}
 			init() {//调用某个函数
-				this.setColor();
-				this.events();
+				this.setColor();//颜色变化
+				this.events();//事件
 			}
-			setColor() {//隔行变色
+			setColor() {//隔行变色事件
 				this.lis.forEach((ele, i) => {
 					if (i % 2) ele.classList.add('h')
 				})
 			};
 			events() {//点击事件
-				const that=this;//存储当前的this
+				const that=this;//存储当前的this指向=》实例
 				this.lis.forEach((ele,i)=>{
 					this.ary[i]=false;//先提前给数组赋值
 					ele.onmouseover=function(){
 						that.mouseover(this,'sky')//鼠标移入调用
 					}
 					ele.onmouseout=function(){
-						that.mouseout(this,'sky',i)//鼠标移出调用
+						that.mouseout(this,'sky',i)//鼠标移出调用 多个参数传参
 					}
-					this.checkboxs[i].onclick=function(){//每个表框点击时间
-						that.ary[i]=this.checked;//数组给当前点击的布尔值重新赋值
-						that.all.checked=that.ary.every(item=>item);//每个表框都选上后all就会选上
+					this.checkboxs[i].onclick=function(){//每个表框点击事件
+						that.ary[i]=this.checked;//数组给当前(this=>点击事件的主儿)点击的布尔值重新赋值
+						that.all.checked=that.ary.every(item=>item);//每个表框都选上后all就会选上利用数组的every方法
 					}
 				})
 				this.all.onclick=function(){//全选时的点击出现的情况
-					that.allChange(this);//全选时调用函数
+					that.allChange(this);//全选时调用函数(this=>点击事件的主儿)
 				}
 			}
 			mouseover(that1,color){//构造鼠标移入的函数
@@ -124,6 +124,12 @@
 			}
 		}
 		new Fn().init()//实例的函数调用
+		/*
+		小小总结：出现数组的原因是为了方便给每个事件的变化进行储值，为了用数组的方法来进行判断，从而实现某个效果
+		多多熟悉操作元素(DOM)的方法
+		面向对象是一个个封装函数的调用，每一个函数对应着每一个事件(某一个效果)。
+		最后不要忘记new 一下
+		*/
 	</script>
 </body>
 
