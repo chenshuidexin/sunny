@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: lightpink;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script src="tween.js"></script>
+    <script>
+        /*
+    易用性  默认值  可扩展  极致的性能
+    
+    */
+   //只需要调用函数即可，但是不可能多次调用，所以继续封装
+      box.onclick=function(){
+          move({
+              el:box,
+              attr:{
+                  width:200,
+                  height:200,
+                  top:300,
+                  left:500,
+                  opacity:1,
+              },
+              time:1000,
+              fx:'elasticOut',
+              cb:function(){
+                 move({
+                    el:box,
+                    attr:{
+                        top:'-100px'
+                    },
+                    fx:'elasticOut',
+                 })
+              }
+          })
+      }
+    </script>
+</body>
+
+</html>

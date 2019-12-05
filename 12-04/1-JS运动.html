@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: lightgray;
+        position: absolute;
+        top: 0;
+        left: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+    let timer;
+    /*
+    c:count走的总长度。
+    t:timer当前走的时间
+    d:duration 总时间
+    b: begin初始的距离
+
+    当前走了多少时间(动)/总时间(总时间)*总长度(固定的)+初始的距离(固定的)
+    */
+
+    let count=500;//总路长
+    let duration = 1000;//总时间
+    box.onclick=function(){
+        let t1=+new Date;
+        //getComputedStyle().left  =>  带单位的值
+        let b=parseFloat(getComputedStyle(box).left);
+        count =count-b;
+        timer=setInterval(()=>{
+            let t= +new Date - t1;
+            if(t>=duration){
+                //如果当前时间大于总时间，那就让当前时间等于总时间，并且清除定时器
+                t=duration;
+                clearInterval(timer);
+            }
+            box.style.left=b+t/duration*count+'px';
+        },16.7)//浏览器刷新的频率
+
+    }
+    </script>
+</body>
+</html>

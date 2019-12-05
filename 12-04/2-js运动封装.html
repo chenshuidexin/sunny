@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 100px;
+        height: 100px;
+        background: lightgrey;
+        position: absolute;
+        top: 0;
+        left: 100px;
+    }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script src="tween.js"></script>
+    <script>
+    let count=500;
+    let duration=1000;
+    box.onclick=function(){
+        move(box,500,1000,'left');
+    }
+    function move(obj,c,d,attr){
+        let t=0;
+        let b=parseFloat(getComputedStyle(obj)[attr]);//带单位
+        c=c-b;
+        timer=setInterval(()=>{
+            t+=16.7;//每一次调用就加一次16.7，加起来的时间要是大于总时间就让t=总时间并且清除定时器。
+            if(t>=d){
+                t=d;
+                clearInterval(timer);
+            }
+            obj.style[attr]=Tween.easeBoth(t,b,c,d)+'px'//根据Tween.js里换曲线方程。
+        },16.7);
+
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: lightpink;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script src="tween.js"></script>
+    <script>
+        /*
+    易用性  默认值  可扩展  极致的性能
+    
+    */
+   //只需要调用函数即可，但是不可能多次调用，所以继续封装
+        move({
+                el: box,
+                attr: 'width',
+                time: 1000,
+                count: 200,
+                cb: function () {}
+            });
+        move({
+            el: box,
+            attr: 'height',
+            count: 200,
+            time: 1000
+        });
+        //解构赋值,有参数传参，米有就默认值
+        function move({
+            el: obj = null,
+            attr = 'left',
+            time: d = 500,
+            count: c = 100,
+            cb = function () {}
+        }) {
+            var t=0;
+            var b=parseFloat(getComputedStyle(obj)[attr])
+            c=c-b;
+            (function start(){
+                obj.timer=requestAnimationFrame(function(){
+                    start();
+                    t+=16.7;
+                    if(t>=d){
+                        t=d;
+                    }
+                    obj.style[attr]=c*(t/d)+b+'px';
+                    if(t===d){
+                        cancelAnimationFrame(obj.timer)
+                        cb();
+                        console.log(obj.timer)
+                    }
+                })
+            })()
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background: lightgrey;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script src="tween.js"></script>
+    <script>
+        // let timer;
+        box.onclick = function () {
+            move(box, 1000, 1000, 'left')
+        }
+//定时器*******************************
+        function move(obj, c, d, attr) {
+            //定时器应用于运动容易掉帧而且性能会差，所以使用requestAnimationFrame
+            var timer;
+            var t = 0;
+            var b = parseFloat(getComputedStyle(obj)[attr]);
+            c = c - b;
+            (function start() {//有名自执行函数在函数体内自己调用才会有效，方便除错。
+                timer = setInterval(function () {
+                    start();
+                    t += 16.7;
+                    if (t >= d) {
+                        t = d;
+                        clearInterval(timer);
+                    }
+                    obj.style[attr] = Tween.linear(t, b, c, d) + 'px'
+                },16.7)//动画容易失真
+            })()
+        }
+
+
+
+
+        //*******************************requestAnimationFrame
+        // function move(obj,c,d,attr){
+        //     //定时器应用于运动容易掉帧而且性能会差，所以使用requestAnimationFrame
+        //     var timer;
+        //     var t=0;
+        //     var b=parseFloat(getComputedStyle(obj)[attr]);
+        //     c=c-b;
+        //     (function start(){
+        //         timer=requestAnimationFrame(function(){
+        //             start();
+        //             t+=16.7;
+        //             if(t>=d){
+        //                 t=d;
+        //                 cancelAnimationFrame(timer);
+        //             }
+        //             obj.style[attr]=Tween.linear(t,b,c,d)+'px'
+        //         })
+        //     })()
+        // }
+    </script>
+</body>
+
+</html>

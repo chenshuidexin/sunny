@@ -127,8 +127,51 @@
 	</div>
 </body>
 <script>
-	fetch('./data.json').then(d => d.json()).then(arr =>console.log(arr))
-	parseJson(arr);
+	//递归的应用案例
+	// fetch('./data.json').then(d=>d.text()).then(d=>console.log(JSON.parse(d)))//与下文是相同的效果
+	//数据请求
+	fetch('./data.json').then(d => d.json()).then(d => {
+		function render(d) {
+			//用于字符串拼接
+			let temp = '';
+			d.forEach((item, i) => {//循环每一个数据
+				temp += `
+				<li>
+					<span class="${item.child?'add':''}"></span>
+					<div>${item.title}</div>
+					${item.child?`<ul>${render(item.child)}</ul>`:''}
+				</li>`;
+			})
+			//根据item.child是否存在在类对象中，如果没有就不添加"add" item.child存在的话就需要进行递归
+			return temp;
+		}
+		oUl.innerHTML = render(d);//返回值是为oUl的样式渲染
+		oUl.onclick = function (ev) {
+			if (ev.target.tagName === 'DIV') {
+				// console.log(ev.target.tagName)//获得大写"DIV"元素
+				// console.dir(ev.target)//根据当前target属性来获取某个功能
+				//当前点击的div的下一个兄弟元素
+				let ul = ev.target.nextElementSibling;
+				if (ul) {//如果有的话正确走进执行代码
+				//获得ul的父亲的第一个娃
+					let b = ul.parentNode.children[0].classList.toggle('line');
+					// console.log(b);//展开结果为true;收缩结果为false
+					if (b) {//展开=>显示出来当前的子级
+						ul.style.display = 'block';
+					} else {//收缩=>让子级消失并且-换成+
+						ul.querySelectorAll('ul').forEach(ele => {//获取当前的所有ul元素
+							ele.style.display = 'none';
+							ele.parentNode.children[0].className = 'add';
+						})
+					}
+				}
+			}
+		}
+	})
+	/*
+	小小总结：请求数据的方式有很多种，不仅仅限于fetch(url)、$.jaxj()[JQ]、等
+	获取到数据之后看看有没有相同的地方可以供我们进行操作，要尽快熟悉DOM操作的一系列。
+	*/
 </script>
 
 </html>
