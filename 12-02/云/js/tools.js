@@ -34,8 +34,8 @@ let tools=(function(){
     }
     function guang(obj,obj2){
         //obj是画框，需要移动
-        let {left:l,top:t,bottom:b,right:r}=obj.getBoundingClienct();
-        let {left:l2,top:t2,bottom:b2,right:r2}=obj2.getBoundingClienct();
+        let {left:l,top:t,bottom:b,right:r}=obj.getBoundingClientRect();
+        let {left:l2,top:t2,bottom:b2,right:r2}=obj2.getBoundingClientRect();
         if(r<l2||l>r2||t>b2||b<t2){
             return false;
         }else{

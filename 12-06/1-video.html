@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    #vi{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+    </style>
+</head>
+<body style="height:3000px">
+    <video id="vi" controls width="300" height="400" src="1.mp4"></video>  
+    <!-- video格式的宽度和高度   不带单位！！！-->
+    <script>
+    let h=window.innerHeight;
+    window.onscroll=function(){
+        if(window.pageYOffset >=h){
+            vi.style.position='fixed';
+            vi.style.width='100px';
+            vi.style.height='120px'
+        }else{
+            vi.style.position='static';
+            vi.style.width='300px';
+            vi.style.height='200px';
+        }
+    }
+    </script>
+</body>
+</html>

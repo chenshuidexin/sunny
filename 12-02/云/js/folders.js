@@ -2,8 +2,13 @@
 const $folders=$('.folders');
 const $f_empty=$('.f-empty');
 const $checkedAll=$('#checkedAll');
+let every=true;
+let returnVal=false;
 //渲染页面
 function render(num=0){//默认num为0
+    //提前赋值给每个every为true 暴露在window下
+    //每一次循环时给当前元素的every重新进行赋值
+    every=true;
     $folders.html('');//清空文件夹样式，为了下一次更好的操作
     //通过数据和数值来获取当前的元素的子级
     let d=tools.getChild(data,num);
@@ -15,11 +20,7 @@ function render(num=0){//默认num为0
         return;
     }
     $f_empty.hide();
-    //提前赋值给每个every为true
-    let every=true;
-    //每一次循环时给当前元素的every重新进行赋值
-    //******************************************************* */
-    $.each(d,(i,item)=>{
+    $.each(d,(i,item)=>{//只要有一个数据的布尔值为false就不会全选中，checkedAll不会打勾
         if(!item.checked){//为false的值
             every=false;
             //移出类名checked
@@ -56,11 +57,15 @@ function render(num=0){//默认num为0
             render(id);
             createMenu(id);
         });
+        //阻止鼠标按下的默认行为
+        $folder.mousedown(function(){return false})
         //添加文件夹样式
         $folders.append($folder)
     });
     //all点击事件 => 为了方便下一次点击前进行清除
     $checkedAll.off().click(function(){
+        //如果list是个空数组，就不需要重新渲染页面
+        if(!list.length)return;
         d.forEach(item=>item.checked = !every);
         //重新渲染整个页面
         render(num);

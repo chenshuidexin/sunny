@@ -1,5 +1,5 @@
 //面包屑过程
-const {getParents}=tools;//获得一堆父级元素
+const {getParents,guang,getChild,getChilds}=tools;//获得一堆父级元素
 const $breadnNav=$('.bread-nav');//获取横条导航
 let list=null;//为以后进行赋值
 function createMenu(id){//创建菜单

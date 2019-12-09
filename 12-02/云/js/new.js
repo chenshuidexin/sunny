@@ -1,6 +1,5 @@
 const $create=$('#create');
-// const $folders=$('.folders');
-// console.log($folders);
+console.log($create)
 $create.click(function(){
 const $floder=$(
     ` <li>
@@ -10,5 +9,22 @@ const $floder=$(
     </li>`
 )
 $folders.append($floder);
-let 
+let $txt=$floder.find('input');
+$txt.select();
+$txt.blur(function(){
+    let val =$txt.val();
+    let nval='';
+    let num=1;
+    nval=val;
+    while(bool){
+        let s=val.replace(/\(\d)$/,'')+'('+num++ +')';
+        bool=ary.map(item=>item.title).includes(s);
+        navl=s;
+    }
+    ary.push({
+        id:+new Date,
+        title:nval,
+    })
+    render(ary);
+})
 })
