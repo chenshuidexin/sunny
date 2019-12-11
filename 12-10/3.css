@@ -44,3 +44,6 @@ nav{
     width: 28px;
     height: 28px;
 }
+#nav_1 li .icon_1{
+    background-position: 0 0;
+}
