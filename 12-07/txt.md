@@ -25,3 +25,25 @@ document.addEventListener('DOMContentLoaded',function(){alert(999)})
 -  订阅的过程给某个事件订阅一个事件函数
 - 订阅池就要为一个(能够存储多个值的空间)对象，这个对象存储的是同一个元素下的多个事件。
 - 在同一事件下又有事件池，它为数组[],这个列表在每次订阅事件和事件函数的时候，在订阅池中存储某个相同事件，在相同事件的事件池中添加不同的事件函数。
+- 当事件触发以后，发布之前订阅的所有事件函数(循环订阅池，去调用订阅池中的每个函数)
+```js
+//订阅器(存储器)
+addEvent(btn,'click',function(){
+    alert(1);
+})
+addEvent(btn,'click',function(){
+    alert(2);
+})
+addEvent(btn,'click',ff);
+function ff(){
+    alert(3);
+    console.log(this);
+    removeEvent(btn,'click',ff);
+}
+addEvent(btn,'mouseover',function(){
+    alert(99)
+})
+```
+```
+在课件1
+```

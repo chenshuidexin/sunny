@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transform: scale(.8);
+    }
+    #warp{
+        width: 510px;
+        height: 510px;
+        margin: 6% auto;
+        perspective: 5000px;
+    }
+    #warp:hover > #box{
+        transform:rotateY(-60deg) rotateX(60deg);
+    }
+    #box{
+        width: 510px;
+        height: 510px;
+        position: relative;
+        transform-origin:255px 255px 255px;
+        transform-style: preserve-3d;
+        transition: 1s;
+        transform:rotateX(-80deg) rotateY(80deg)
+    }
+    li{
+        width: 510px;
+        height: 510px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    ul li:nth-child(1){
+        background: url('./img/zf_cube1.png') no-repeat;
+        transform: translateZ(510px);
+    }
+    ul li:nth-child(2){
+        background: url('./img/zf_cube2.png') no-repeat;
+        transform: rotateX(-90deg);
+        transform-origin:bottom;
+    }
+    ul li:nth-child(3){
+        background: url('./img/zf_cube3.png') no-repeat;
+        transform: rotateY(270deg);
+        transform-origin:left;
+    }
+    ul li:nth-child(4){
+        background: url('./img/zf_cube4.png') no-repeat;
+        transform: rotateX(90deg);
+        transform-origin:top;
+    }
+    ul li:nth-child(5){
+        background: url('./img/zf_cube5.png') no-repeat;
+        transform: rotateY(90deg);
+        transform-origin:right;
+    }
+    ul li:nth-child(6){
+        background: url('./img/zf_cube6.png') no-repeat;
+        transform: rotateY(180deg);
+    }
+    </style>
+</head>
+<body>
+<div id="warp">
+    <ul id="box">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+</body>
+</html>
