@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0,maximum-scale=1.0,minimun-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    /*
+    设计图是750 那么调试工具也弄成750
+    750/750=1*100=1rem = 100px
+    为了好计算
+    ->  用设备到的宽度/设计的宽度 = 1rem  =100px
+    */
+    function refreshRem(){
+        var desW=750,//设计图的宽度
+             winW=window.screen.width,//document.documentElement.clientWidth||document.body.clientWidth;
+             ratio=winW/desW,
+             html=document.documentElement;
+             html.style.fontSize=ratio*100+'px';
+    }
+    refreshRem();
+    window.addEventListener('resize',refreshRem);
+    </script>
+</body>
+</html>
