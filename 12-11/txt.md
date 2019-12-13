@@ -113,7 +113,39 @@ vw    只相对于视口宽度
 ### 时间定义的方式
 >大致上分为DOM0事件和DOM2事件两种.
 - DMO0事件，就是传统的直接将事件作为属性设置的形式
-复制代码DOM2事件，则是用addEventListener的方式来绑定事件处理程序：
+- 复制代码DOM2事件，则是用addEventListener的方式来绑定事件处理程序：
 - >复制代码大多数时候不推崇第一种方式，这种方式在移动端使用时好时坏，不建议使用。
 ### PC的事件比移动端上的事件响应的慢300ms:
 - >在早期的手机上，浏览器为了能够实现放大和缩放功能，采用双击的方式来达到这样的交互效果，为了实现这样的效果，浏览器需要判断用户在第一次触碰屏幕之后，是否在300ms之内再次点击，有则表明用户希望缩放和放大，所以click事件会推迟到300ms之后运行。
+- >可以看到每次点击，touchstart总会先于click事件运行。
+```
+注意到前面的例子里每一个事件处理程序都有一个evt的参数了吗，那是有关于当前触摸的相关信息，通过这样一个对象，能够获取到当前触碰的坐标，触碰的手指个数等等。 其中最重要的常用的莫过于手指列表了。
+touches:当前位于屏幕下的手指列表信息
+targetTouches: 当前位于当前元素下的手指列表信息
+changedTouches: 当前涉及到当前事件的手指列表
+var div = document.querySelector("#div");
+         div.ontouchmove = function(evt){
+            this.innerHTML = `
+                touches-length:${evt.touches.length}
+                targetTouches-length:${evt.targetTouches.length}
+                changedTouches-length:${evt.changedTouches.length}
+                `
+            console.log(evt);
+        }
+```
+## 局域网传送手机端
+>调试自己的手机
+- >1.同一个wifi要连上手机和pc端，要使用到局域网
+- >2.在html页面上右键点击[Open with Live Server]
+- >3.在window开始页面上搜索栏 => 输入cmb[命令提示符] =>  输入ipconfig  ->  查找ip  ->  ip下的IPv4 -> 数字如[172.18.1.223]  ->  替换掉原有的部分open网址再次刷新
+```
+按照手指放到屏幕上来计算
+  targetTouches：触碰到元素身上触发，随着手指的增多，会动态更新。
+  touches：随着手指的增多，会动态更新。
+按照当前手指触摸来计算
+  changedTouches:当一个手指按下的时候，再放下另一根手指，这个时候还是会显示出一根手指，虽然已有两个手指。但是两个手指同时放到屏幕上显示出两个手指。
+移动端触点使用
+   按下和移动的时候要使用targetTouches
+   抬起的时候使用changedTouches
+```
+## audio事件

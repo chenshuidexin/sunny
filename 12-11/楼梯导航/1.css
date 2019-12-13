@@ -46,6 +46,7 @@
     margin-left: -18px;
     display: flex;
     flex-direction: column;
+    transition: 2s;
     opacity: 0;
 }
 #box>#dao>span{

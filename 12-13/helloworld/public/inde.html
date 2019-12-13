@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    用户名：<input id="user" type="text"><span id="s"></span><br>
+    密码：<input type="password" id="pw">
+    <button id="btn">提交</button>
+    <script>
+        //先进行判断在请求数据
+        // let re=/^[a-zA-Z][\w_-]{5,8}$/;
+        // user.onfocus=function(){
+        //     user.style.border="1px solid balck";
+        //     s.innerText='';        
+        // }
+        // user.onblur=function(){
+        //     let val=this.value.trim();//去掉空格 
+        //     //判断条件不是空内容并且符合规则进入执行代码
+        //     if(val && re.test(val)){
+        //         let xhr=new XMLHttpRequest;
+        //         xhr.open('get','/get?user='+this.value,true);
+        //         xhr.send();
+        //         xhr.onload=function(){
+        //             //获取xhr的响应文本 => json对象
+        //             let d=JSON.parse(xhr.responseText);
+        //             if(d.code === 0){
+        //             user.style.border="1px solid red"
+        //             }else if(d.code === 1){
+        //             user.style.border="1px solid black"
+        //             }
+        //         }
+        //     }else{
+        //         s.innerText='请检查一遍';
+        //         user.style.border="1px solid red"
+        //     }
+        // }
+        //post
+        user.onblur=function(){
+            var xhr=new XMLHttpRequest;
+            xhr.open('post','/post',true);
+            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+            xhr.send('user='+this.value);
+            xhr.onload=function(){
+                console.log(xhr.responseText)
+            }
+        }
+    </script>
+</body>
+</html>
