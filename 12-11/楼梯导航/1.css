@@ -1,0 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style:none;
+    background:#fcfcfc;
+}
+#nav{
+    /* width: 100%; */
+    height: 70px;
+    display: flex;
+}
+#nav > #icon{
+    font-size: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#icon img{
+    flex: 2;
+    height: 50px;
+    width: 50px;
+}
+#icon span{
+    flex: 1;
+}
+#nav > #txt{
+    text-align: center;
+    line-height: 70px;
+    font-size: 30px;
+    font-weight: 600;
+    color:ivory;
+    background-image: linear-gradient(to right,#ccfbff,#ef96c5);
+    flex: 6.1;
+}
+/* 第二部分 */
+#box{
+    width: 90%;
+    height: 480px;
+    margin: 8px auto;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+#box>#dao{
+    margin-left: -18px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+}
+#box>#dao>span{
+    border: 1px solid ;
+    width: 90px;
+    height: 45px;
+    margin-top: 1px;
+    line-height: 45px;
+    flex: 1;
+    text-align: center;
+    --color: #60f2ff;
+    --hover: #ffa760;
+}
+#box>#dao>span:hover,
+#box>#dao>span:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+          transform: translateY(-0.25em);
+}
+#pic{
+    width:90%;
+    height:480px;
+    align-self: flex-end;
+}
+#pic img{
+    width:100%;
+    height:100%
+}
+.n{
+    display:none;
+}
+.k{
+    display:block
+}
+.c{
+    background-image: linear-gradient(to bottom,#ef6eae,#ef8f6e);
+}
