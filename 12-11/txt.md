@@ -149,3 +149,139 @@ var div = document.querySelector("#div");
    抬起的时候使用changedTouches
 ```
 ## audio事件
+### 标签属性
+- autoplay：自动播放
+- controls：显示控件
+- loop：循环播放
+- preload：音频在页面加载时进行加载
+- src：音频链接
+### 方法
+- 1.canPlayType()：检测浏览器是否支持音频类型，返回值
+```
+probable'：浏览器最可能支持该类型
+'maybe'：可能支持
+''：不支持
+```
+- 2.load()：重新加载音频，用于更改src之后使用，无参数，无返回值
+- 3.play()：播放音频，无参数，返回一个promise
+- 4.pause()：暂停音频，无参数，无返回值
+### 只读属性
+- 1.buffered
+```
+audio.buffered.end(0)：获取已缓冲的秒数
+audio.buffered.length：获取缓冲范围
+audio.buffered.start(index)：获取某个已缓冲返回的开始位置
+audio.buffered.end(index)：获取某个已缓冲范围的结束位置
+```
+- 2.currentSrc：返回当前音频的URL
+- 3.currentTime：返回当前音频的现在时间
+- 4.ended：音频是否结束
+- 5.duration：返回音频时长，以秒计
+- 6.networkState：返回音频的网络状态
+```
+0:尚未初始化
+1:已经选取资源，但未使用网络
+2:正在下载数据
+3:未找到资源
+```
+- 7.paused：是否处于暂停状态
+- 8.played
+```
+audio.played.length：已播放范围数量
+audio.played.start(index)：获取某个已播范围的开始位置
+audio.played.end(index)：获取某个已播范围的结束位置
+```
+- 9.readyState：音频当前状态
+```
+0：没有关于音频或视频是否就绪的信息
+1：关于音频或视频就绪的元数据
+2：关于当前播放位置的数据是可用的，但没有足够的数据来播放下一帧
+3：当前及至少下一帧的数据是可用的
+4：可用数据足以开始播放
+```
+- 10.seekable：返回可寻址的时间范围
+```
+seekable.length：可寻址范围数量
+seekable.start(index)：可寻址范围的开始位置
+seekable.end(index)：可寻址范围的结束位置
+```
+- 11.seeking：用户是否在寻址
+### 可读写的属性
+- 1.autoplay：是否自动播放，默认为false
+```
+audio.autoplay = false;
+audio.autoplay = ture;
+```
+- 2.constrols：是否显示控件，默认为false
+- 3.currentTime：音频当前播放位置，以秒计
+- 4.defaultMuted：初始是否静音，默认为false
+- 5.muted：是否静音，默认为false
+- 6.defaultPlaybackRate：默认播放速度
+```
+1：正常速度
+0.5：半速
+2：倍速
+-1：向后正常速度
+-0.5：向后半速
+```
+- 7.playbackRate：播放速度
+```
+1：正常速度
+0.5：半速
+2：倍速
+-1：向后正常速度
+-0.5：向后半速
+```
+- 8.loop：是否循环播放，默认为false
+- 9.preload：是否在页面加载后立即加载
+```
+auto：一旦页面加载，则开始加载音频或视频
+metadata：当页面加载后仅加载音频或视频的元数据
+none：页面加载后不加载音频或视频
+```
+- 10.src：地址源
+- 11.volume：音量，范围0-1
+### JS事件触发
+- 1.加载时触发
+```
+loadstart:浏览器开始寻找指定的音频或视频
+progress:浏览器正在下载指定的音频或视频
+durationchange:音频或视频的时长已改变
+loadedmetadata:音频或视频的元数据已加载
+loadeddata:音频或视频的当前帧已加载，但没有足够数据播放下一帧
+canplay:浏览器能够开始播放指定的音频或视频
+canplaythrough:音频或视频能够不停顿地一直播放
+progress:浏览器正在下载指定的音频或视频
+```
+- 2.加载出错时触发
+```
+abort:在音频或视频终止加载时触发
+error:在音频或视频加载发生错误时触发
+stalled:在浏览器尝试获取媒体数据，但数据不可用时触发
+suspend:在音频或视频数据被阻止加载时触发(可以是完成加载后触发，或者因为被暂停)
+empted:在发生故障并且文件突然不可用时触发
+```
+- 3.改变状态触
+```
+play:音频或视频文件已经就绪可以开始播放时触发
+playing:音频或视频已开始播放时触发
+ended:音频或视频文件播放完毕后触发
+pause:音频或视频文件暂停时触发
+ratechange:播放速度改变进触发
+seeked:指示定位已结束时触发
+seeking:正在进行指示定位时触发
+timeupdate:播放位置改变时触发[注意:播放和调整指示定位时都会触发]
+volumechange:音量改变时触发
+waiting:需要缓冲下一帧而停止时触发
+```
+- 4.总结以上开发常用事件
+```
+play:音频或视频文件已经就绪可以开始播放时触发
+ended:音频或视频文件播放完毕后触发
+pause:音频或视频文件暂停时触发
+timeupdate:播放位置改变时触发[注意:播放和调整指示定位时都会触发]
+volumechange:音量改变时触发
+abort:在音频或视频终止加载时触发
+canplay:浏览器能够开始播放指定的音频或视频
+```
+## 使用Audio()构造函数可以构造一个audio实例
