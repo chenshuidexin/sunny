@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名:<input id="user" type="text"><span id="s"></span><br>
+    密码:<input type="password" id="pw">
+    <button id="btn">提交</button>
+    <ul id="ul"></ul>
+</body>
+<script>
+user.onblur=function(){
+    ajax('/sleep?name='+this.value,{
+        success(d){
+            console.log(d);
+        }
+    },{
+        async:false,
+    });
+    console.log("这回有一百多多多多行代码呢")
+}
+function ajax(url,cb,opt){
+    //如果没有传入opt，maopt就是undefined
+    var myopt=opt&&{
+        method:opt.method||'get',
+        body:opt.body||'',
+        headers:opt.headers||{},
+        dataType:opt.dataType||'json',
+        timeout:opt.timeout||10000,
+        ontimeout:opt.ontimeout||function(){},
+        async:(opt.async === undefined)?true:opt.async
+    }
+    var len=arguments.length;
+    var xhr=new XMLHttpRequest;
+    if(myopt.async === true){
+        //异步状态才可以允许设置超时时间和监听时间
+        xhr.timeout=mayopt.timeout;
+        xhr.ontimeout=myopt.ontimeout;
+    }
+    function ready(){
+        if(maopt.async === true){
+            xhr.onreadystatechange =function(){
+                if(xhr.readyState === 4){//只需第四次的请求回答
+                    if(/(20[0-7])|(30[14])/.test(xhr.status)){//转台码
+                    if(myopt.dataType === 'json'){
+                        cb.success&&cb.success(eval('('+xhr.responseText+')'))
+                    }else if(myopt.dataType === 'xml'){
+                        cb.success&&cb.success(xhr.innerHTML)
+                    }
+                    }else{
+                        cb.error&&cb.error(xhr.status);
+                    }
+                }
+            }
+        }else{
+            if(/(20[0-7])|(30[14])/.text(xhr.status)){
+                if(myopt.dataType === 'json'){
+                    cb.success&&cb.success(eval('('+xhr.responseText+')'))
+                }else if(myopt.dataType === 'xml'){
+                    cb.success&&cb.success(xhr.responseXML)
+                }
+            }else{
+                cb.error&&cb.error(xhr.status)
+            }
+        }
+    }
+    if(len ===2){//直接走get
+    xhr.open('get',url,true);
+    ready();
+    xhr.send();
+    }else if(len === 3){
+        if(/^get$/i.test(myopt.method)){
+            url=myopt.body?url+"?"+myopt.body:url;
+            xhr.open('get',url+'&myrandom='+Date.now(),myopt.async)//random是为了ie低版本没有缓存情况。
+            xhr.send();
+            ready();
+        }else if(/^post$/i.test(myopt.method)){
+            xhr.open('post',url,myopt.async);
+            for(var attr in myopt.headers){
+                if(myopt.headers.hasOwnProperty(attr)){
+                    xhr.setRequestHeader(attr,myopt.headers[attr]);
+                }
+            }
+            xhr.send(myopt.body);
+            ready();
+        }
+    }
+}
+</script>
+</html>

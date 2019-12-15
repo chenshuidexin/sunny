@@ -1,5 +1,4 @@
-## QueryUrlParmas
->
+# 今天的课件全在昨天public中
 ## URLSearchParams
 ```
 let obj=new URLSearchParams({
@@ -156,4 +155,94 @@ user.onreadystatechange=function(){
     idi.innerHTML=xhr.responseText;
     }
 }
+```
+## eval
+- eval函数的作用是在当前作用域中执行一段JavaScript代码字符串。
+```js
+eval('window.console.log("LBJ")');//LBJ
+eval(window.console.log("LBJ"));//LBJ
+window.console.log("LBJ");//LBJ
+//三条语句输出的结果是一样的
+```
+- 间接和直接调用函数的时候会改变全局或局部作用域的值，带来不好的效果。
+```js
+//代码段1直接调用eval
+var foo = 1;
+function test() {
+    var foo = 2;
+    eval('foo = 3');
+    return foo;
+}
+
+test(); // 3
+foo; // 1
+
+//代码段2间接调用eval
+var foo = 1;
+function test() {
+    var foo = 2;
+    var bar = eval; //这里将bar变量指向了eval函数的引用
+    bar('foo = 3');
+    return foo;
+}
+test(); // 2
+foo; // 3
+```
+>在任何情况下我们都应该避免使用 eval 函数。99.9% 使用 eval 的场景都有不使用 eval 的解决方案.
+- eval 也存在安全问题，因为它会执行任意传给它的代码， 在代码字符串未知或者是来自一个不信任的源时，绝对不要使用 eval 函数,容易造成xxs攻击。
+```js
+//安全解决部分问题方案
+    btn.onclick = function(){
+        let val = txt.value;
+        if(/href|src|style|location/.test(val)){
+            alert('早知道你想搞事情')
+        }else{
+            console.log(eval(`(${txt.value})`));
+        }
+        
+    }
+```
+
+## JSON数据的两种解析方法 JSON.parse() 、eval ()方法
+>JSON.parse() : 用于将一个 JSON 字符串转换为 JavaScript 对象。
+```js
+var str = '{"name":"zhangsan","age":18,"gender":"man"}';
+​
+var ass=JSON.parse(str);
+console.log(ass);
+```
+
+
+结果：
+
+注意：单引号写在{}外，每个属性名都必须用双引号，否则会抛出异常。(有的浏览器不支持 JSON.parse() 如：IE 6 、IE 7 就不支持)
+2：eval(): 也是用于将一个 JSON 字符串转换为 JavaScript 对象
+var str = '{"name":"zhangsan","age":18,"gender":"man"}';
+
+eval('('+str+')'); // 格式： eval( '(' + string + ')' ); 
+
+**结果**：
+
+为什么eval()解析的时候要加括号？
+那是因为eval()相当于一个执行环境，当你不加括号的时候，str 会被认为是一条复合语句。运行的时候就会逐个字符的解析。
+但是加上括号的时候，str 就当做一个表达式去运算。从括号开始就被当做了对象进行识别。
+```js
+//JSON.parse() 和 eval()的区别
+var num = 1;
+var jsonstr = '{"name":"zhangsan","age":++num}';
+var jsondata1 = eval('('+jsonstr+')');
+​
+
+console.log(jsondata1);
+
+​
+console.log(num);//这时num值为2
+​
+var jasondata2=JSON.parse(jsonstr);
+console.log(jsondata2);//报错
+```
+```
+结果：
+从上例就可以明显地看出, eval在解析字符串时，会执行该字符串中的代码。 
+由于用eval解析一个json字符串而造成原先的num的值改变(这样的后果是相当危险的)。
 ```
