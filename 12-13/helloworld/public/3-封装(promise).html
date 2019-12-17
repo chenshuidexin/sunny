@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input type="text" id="user"><span id="s"></span><br>
+    密码：<input type="password" id="pw">
+    <button id="btn">提交</button>
+    <ul id="ul"></ul>
+    <script>
+        user.onblur = function () {
+            ajax('/get?user='+this.value)
+            .then(d => {
+                console.log(d);
+            })
+        }
+
+        function ajax(url, opt) {
+            return new Promise(function (resolve, reject) {
+                // var myopt = opt && {
+                //     method: opt.method || 'get',
+                //     body: opt.body || '',
+                //     headers: opt.headers || {},
+                //     dataType: opt.dataType || 'json',
+                //     timeout: opt.timeout || 10000,
+                //     ontimeout: opt.ontimeout || function () {},
+                //     async:(opt.async===undefined)?true:opt.async
+                // }
+                var myopt = opt || {};
+                let fefObj = {
+                    method: 'get',
+                    body: '', 
+                    headers: {},
+                    dataType: 'json', 
+                    timeout: 10000, 
+                    ontimeout: function () {},
+                    async: true
+                }
+                for (var attr in myopt){
+                    fefObj[attr]=myopt[attr];
+                }
+                myopt=fefObj;
+                var len = arguments.length;
+                var xhr = new XMLHttpRequest;
+                // console.log(myopt.async)
+                if (myopt.async === true) {
+                    //异步设置超时时间和事件
+                    xhr.timeout = myopt.timeout;
+                    xhr.ontimeout = myopt.ontimeout;
+                }
+
+                function ready() {
+                    if (myopt.async === true) {
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                succOrError();
+                            }
+                        }
+                    } else {
+                        succOrError();
+                    }
+                }
+
+                function succOrError() {
+                    if (/(20[0-7])|30[14]/.test(xhr.status)) {
+                        if (myopt.dataType === 'json') {
+                            resolve(eval('(' + xhr.responseText + ')'));
+                        } else if (myopt.dataType === 'xml') {
+                            resolve(xhr.responseXML);
+                        }
+                    } else {
+                        reject(xhr.status);
+                    }
+                }
+                if (len === 1) {
+                    ready();
+                    xhr.open('get', url, true);
+                    xhr.send();
+                } else if (len === 2) {
+                    if (/^get$/i.test(myopt.method)) {
+                        ready();
+                        url = myopt.body ? url + '?' + myopt.body : (url.includes('?') ? url : url + '?');
+                        xhr.open('get', url + '&myrandom=' + Date.now(), myopt.async);
+                        xhr.send();
+                    } else if (/^post$/i.test(myopt.method)) {
+                        ready();
+                        xhr.open('post', url, myopt.async);
+                        for (var attr in myopt.headers) {
+                            if (myopt.headers.hasOwnProperty(attr)) {
+                                //自身属性
+                                xhr.setRequestHeader(attr, myopt.headers[attr])
+                                console.log(xhr.setRequestHeader(attr, myopt.headers[attr]));
+                            }
+                        }
+                        xhr.send(myopt.body);
+                    }
+                }
+
+            })
+        }
+    </script>
+</body>
+
+</html>

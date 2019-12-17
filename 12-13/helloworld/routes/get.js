@@ -8,8 +8,8 @@ var router = express.Router();
 let person = [
  "yuhaiyang",
  "lintonghe",
- "zhaodan",
- "mamou",
+ "kb",
+ "kkw",
  "wwk"
 ];
 
