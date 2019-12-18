@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    #box{
+        padding: 30px;
+        border: 1px solid #ccc;
+    }
+    </style>
 </head>
 
 <body>
-    <h1 id="h"></h1>
+    <h1 id="h1"></h1>
     <div id="box">
-        用户名:<input type="text" id="name"><br>
+        用户名:<input type="text" id="user"><br>
         密码:<input type="password" id="pw">
         <button id="btn">噔噔</button>
     </div>
@@ -22,20 +28,20 @@
         // console.log(document.cookie)
         let per=[
             {
-                name:'kkw',
+                user:'kkw',
                 pw:'111'
             },
             {
-                name:'kaib',
+                user:'kaib',
                 pw:'666'
             }
         ]
-        //重新赋值
-        setCookie('name','yyqx'),{
-            setTime:{
-                date:1
-            }
-        }
+        //设置
+        // setCookie('name','yyqx'),{
+        //     setTime:{
+        //         date:1
+        //     }
+        // }
         function setCookie(key,val,time){
             if(time){
                 let o=new Date;
@@ -45,13 +51,13 @@
                     t=attr[0].toUpperCase()+attr.substr(1);
                     prop=attr;
                 }
-                console.log('set'+t);;
                 o['set'+t](new Date()['get'+t]()+time.setTime[prop]);
                 document.cookie=key+'='+val+'; expires='+o;
             }else{
                 document.cookie=key+'='+val;
             }
         }
+        //获取
         function getCookie(key){
             let c=document.cookie;
             let val;
@@ -63,20 +69,31 @@
             })
             return val;
         }
+        //删除
         function removeCookie(key,val){
             setCookie(key,val,{setTime:{date:-1}});
         }
         // removeCookie('name','kkw');
-        console.log(getCookie('name'));
+        console.log(getCookie('user'));
+        let c=document.cookie;
+        c.split('; ').forEach(item=>{
+            let ary=item.split('=');
+            if(ary[0] === 'user'){
+                h1.innerHTML=`欢迎${ary[1]}来到我的世界`
+                box.style.display='none';
+            }
+        })
+        // console.log(user);
         btn.onclick=function(){
-            let val1=name.value;
+            let val1=user.value;
             let val2=pw.value;
-            let o=per.find(item=>item.name === val1);
-            console.log(per.find(item=>item.name));
+            let o=per.find(item=>item.user === val1);
+            console.log(per.find(item=>item.user));
             if(o){
-                if(o.pw === val2*1){
+                console.log(o.pw === val2)
+                if(o.pw === val2){
                     alert('成功了！！！')
-                    document.cookie='name='+o.name;
+                    document.cookie='user='+o.user;
                     window.location.reload();
                 }else{
                     alert('用户名或密码错误')

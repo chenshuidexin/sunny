@@ -69,3 +69,63 @@ function setCookie(c_name, value, expiredays){
 0：删除cookie；
 正数：有效期为创建时刻+ max-age
 ***cookie***在以前每个域名只能设置几个或几十个，字字千金，现在据说有5M,cookie必须使用服务器环境。
+
+
+
+
+
+
+## FormData
+>使用场景:
+1.模拟表单控件
+2.用来传输二进制文件
+>能够把files[n]变成二进制的数据 => 机器的语言
+```
+image图片变成二进制，方便机器解析
+let fd=new FormData;
+有多少字段就追加多少个append,后面不会覆盖前面的
+fd.append('image',file.files[0]);
+fd.append('user','kkw')
+image=asdawe&user=kkw
+```
+```js
+  let fd = new FormData();
+  xhr.upload.onprogress = function(ev){
+    let scale = ev.loaded / ev.total;
+    box.style.width = scale * 100 + '%';
+  }
+  fd.append('image',file.files[0]);
+  xhr.send(fd);
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## window.location.reload() 
+- >在js中实现刷新页面的方法有很多种，在js中有一个location.reload()函数，它就可以实现我们想要的功能。
+- >window.location.reload(true) //浏览器重新从服务器请求资源,在http请求头中不会包含缓存标记。
+## 文件上传和下载事件  => 上传和下载的进度条的显示 
+>xhr的进度事件分为上传xhr.upload.onprogress和下载的xhr.onprogress都会给事件监听函数传递一个实参event对象,event.loaded表示已经载入的数据,event.total表示总共数量,前提是event. lengthComputable优值得情况下才可以。 
+```js
+ //下载
+  xhr.onprogress = progressHandle
+ //上传
+ xhr.upload.onprogress = progressHandle
+ 
+ function progressHandle(e) {
+     var e = e || event 
+     if(e.lengthComputable) {
+         return Math.round(e.loaded / e.total * 100)+'%'
+     }
+ }
+ ```

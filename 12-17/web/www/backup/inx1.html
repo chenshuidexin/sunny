@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="/public/css/weibo.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="nArea">
+    <!--留言-->
+    <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="text"></textarea>
+        <div class="takeSbmComment">
+            <input type="button" id="submit" class="inputs" value=""/>
+            <span>(可按 Enter 回复)</span>
+        </div>
+    </div>
+    <!--已留-->
+    <div class="commentOn">
+        <div class="messList" id="div1" style="height:502px">
+            <!-- <div class="reply">
+                <p class="replyContent">卫士，新款卫士将推出总共14种车身式样。其中， XS旅行款车型售价为32295英镑(约33.6万元)。</p>
+                <p class="operation">
+                    <span class="replyTime">2018-09-08 16:37:60</span>
+                    <span class="handle">
+                        <a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>
+            </div> -->
+        </div>
+        <div class="page" id="page">
+            <a href="#" class="active">1</a>
+            <a href="#" >2</a>
+        </div>
+    </div>
+</div>
+<script>
+//小小方法:只要是ajax请求，优先把数据打出来看看是否成功。
+//每次刷新就要请求第一页的数据
+fetch('/api/weibo?act=get&page=1').then(d=>d.json()).then(d=>{
+    //新写的在前面
+    d.reverse();
+    d.forEach(e => {
+        render(e);
+    });
+})
+//点击按钮就发送
+function tod(n){
+    return n<10?'0'+n:''+n;
+}
+submit.onclick=function(){
+    let {value}=text;
+    //请求成功之后加入页面
+    fetch('/api/weibo?act=add&content='+value).then(d=>d.json()).then(d=>{
+        if(d.code === 0){
+          /*
+          使用服务器时间安全可靠，使用本地时间可以让人随意改变
+          如果在使用服务器时间的时候，发现设置的时间是1970，直接在后面*1000，因为服务器时间是按照秒计算的。
+
+
+          因为d里没有conntent，但是render里面需要这个content，所以给数据库里添加一个content属性
+          */  
+          d.content=value;
+          render(d);
+          text.value='';
+        }
+    })
+}
+function render(d){
+    let o=new Date(d.time);
+    let y=o.getFullYear();
+    let m=o.getMonth()+1;
+    let r=o.getDate();
+    let h=o.getHours();
+    let f=o.getMinutes();
+    let s=o.getSeconds();
+    div1.innerHTML+=`<div class="reply">
+    <p class="replayContent">${d.content}</p>
+    <p class="operation">
+        <span class="replyTime">${y}-${tod(m)}-${tod(r)} ${tod(h)}:${tod(f)}:${tod(s)}</span>
+        <span class="handle">
+            <a href="javascript:;" class="top">0</a>
+            <a href="javascript:;"  class="down_icon">0</a>
+            <a href="javascript:;" class="cut">删除</a>
+        </span>
+    </p>
+    </div>`
+}
+</script>
+</body>
+</html>

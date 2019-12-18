@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #bar {
+            width: 0%;
+            height: 3px;
+            background: lightcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 进度条 -->
+<div id="bar"></div>
+<h2>文件上传</h2>
+请选择一个文件:<br>
+<input type="file" id="file" name="image" size="50"><br>
+<button id="btn">上去</button>
+<script>
+btn.onclick=function(){
+    let xhr=new XMLHttpRequest;
+    xhr.open('post','/upload');
+    xhr.upload.onprogress=function(e){
+        bar.style.width=(e.loaded/e.total)*100+'%';
+    }
+    let f=new FormData;
+    f.append('image',file.files[0]);
+    xhr.send(f);
+    xhr.onload=function(){
+        console.log(xhr.responseText);
+    }
+}
+</script>
+</body>
+
+</html>
