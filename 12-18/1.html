@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script>
+        // document.onclick=function(){
+        //     a()
+        // }
+    // a(3)
+    </script>
+    <script>
+        function a(){
+            console.log(5)
+        }
+    </script>
+    <script>
+     document.onclick=function(){
+            a()
+        }
+    </script> -->
+    <script>
+        // document.onclick=function(){
+        //  let a=window.open('https://www.baidu.com/');
+        // //  console.log(a)
+        // setTimeout(()=>{
+        //     a.close()//关闭当前打开的页面
+        //     window.close()//关闭第一个页面
+        // },5000)
+        // }
+        //************************************************
+        // new Promise(a => {
+        //     return new Error('你就是错了！')
+        // }).then(w => {
+        //     console.log(w)
+        // }, q => {
+        //     console.log(q)
+        // })
+        //******************************************
+        function f(a){
+            console.log(a);
+        }
+        //点击事件是异步
+        document.onclick = function () {
+            f(4)//f已经解析完成
+        }
+    </script>
+</body>
+
+</html>

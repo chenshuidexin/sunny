@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>111111</button>
+    <button>222222</button>
+    <button>333333</button>
+    <p id="p">一马当先</p>
+    <input type="button" value="后退" id="btn">
+    <script>
+    let arr=['一马当先','双龙戏珠','三羊开泰'];
+    const btns=document.querySelectorAll('button');
+    btns.forEach((ele,i)=>{
+        ele.onclick=function(){
+            p.innerHTML=arr[i];
+            window.history.pushState({
+                num:i
+            },'','http://localhost:88/6_history.html/'+i)
+        }
+    });
+    btn.onclick=function(){
+        //后退一步
+        window.history.go(-1);
+    }
+    window.onpopstate=function(ev){
+        console.dir(ev)
+        p.innerHTML=ary[ev.state.num]    
+        }
+    </script>
+</body>
+</html>

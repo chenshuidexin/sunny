@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function mypromise(executor){
+        let that=this;
+        that.value=undefined;
+        that.reason=undefined;
+        //获取等待状态
+        that.status='pending';
+        //添加事件池中
+        that.fulfilledCallback=[];
+        that.rejectedCallbak=[];
+        //成功函数
+        function fulfilled(value){
+            //发布成功池
+            //在调用成功函数的时候只允许从pending到fulfilled
+            if(that.status==='pending'){
+                that.status='fulfilled';
+                that.value=value;
+                //当调用成功函数的时候，把外界传入的参数赋值给this.value
+                that.fulfilledCallback.forEach(fn=> {
+                    fn();
+                });
+            }
+        }
+        //失败函数
+        function rejected(reason){
+            //发布失败池
+            //在调用失败函数的时候只允许pending到rejected
+            if(that.status === 'pending'){
+                that.status='rejected';
+                that.reason=reason;
+                that.rejectedCallbak.forEach(fn=>{
+                    fn();
+                })
+            }
+        }
+        executor(fulfilled,rejected)//只要调用mypromise，就执行executor,所以在executor中有同步和异步代码
+    }
+    mypromise.prototype.then=function(res,rej){
+        let that=this;
+        //成功时调用res
+        if(that.status === 'fulfilled'){
+            res(that.value);
+        }
+        //失败时调用rej
+        if(that.status === 'rejected'){
+            rej(that.reason)
+        }
+        //异步情况，把成功和失败函数添加到订阅对应的池子里
+        if(that.status === 'pending'){
+            that.fulfilledCallback.push(function(){
+                res(that.value);
+            });
+            that.rejectedCallbak.push(function(){
+                rej(that.reason);
+            });
+        }
+    }
+    new mypromise((resolve,rejected)=>{
+        // resolve(11)
+        setTimeout(()=>{
+            resolve(66)
+        },1000)
+    }).then(d=>{
+        console.log(d)
+    })
+    //弊端：then方法只能用一次，需要添加return的返回值
+    </script>
+</body>
+</html>

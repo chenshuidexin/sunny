@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function Mypromise(executor){
+        let that=this;
+        that.value=undefined;
+        that.reason=undefined;
+        that.status='pending';
+        //成功失败函数添加订阅池
+        that.fulfilledCallback=[];
+        that.rejectedCallback=[];
+        //成功函数
+        function fulfilled(value){
+            if(that.status === 'pending'){
+                that.status='fulfilled';
+                that.value=value;
+                that.fulfilledCallback.forEach(fn => {
+                    fn();     
+                });
+            }
+        }
+        //失败函数
+        function rejected(reason){
+            if(that.status === 'pending'){
+                that.status='rejected';
+                that.reason=reason;
+                that.rejectedCallback.forEach(fn=>{
+                    fn();
+                })
+            }
+        }
+        try{
+            executor(fulfilled,rejected);
+        }catch (error){
+            rejected(error);
+        }
+    }
+    Mypromise.prototype.then=function(res,rej){
+        let that=this;
+        //为了then之后能在then一次，需要返回一个promise对象
+        let promise2=new Mypromise((resolve2,reject2)=>{
+            if(that.status === 'fulfilled'){
+                try{
+                    let x=res(that.value);
+                    resolve2(x)
+                }catch(error){
+                    resolve2(that.value)
+                }
+            }
+            if(that.status === 'rejected'){
+                try{
+                    let x=rej(that.reason);
+                    reject2(x)
+                }catch(error){
+                    reject2(that.reason)
+                }
+            }
+            //异步情况，成功函数和失败函数订阅到对应的池子里去
+            if(that.status === 'pending'){
+                that.fulfilledCallback.push(function(){
+                    try{
+                        let x=res(that.value);
+                        resolve2(x)
+                    }catch(error){
+                        if(typeof res === 'function'){
+                            reject2(that.reason)
+                        }else{
+                            resolve2(that.value)
+                        }
+                    }
+                })
+                that.rejectedCallback.push(function(){
+                    try{
+                        let x=rej(that.reason);
+                        reject2(x)
+                    }catch(error){
+                        reject2(that.reason)
+                    }
+                })
+            }
+        })
+        return promise2;
+    }
+    new Mypromise((res,rej)=>{
+        setTimeout(()=>{
+            res(10)
+        },2000)
+    }).then(d=>{
+        throw new Error('错的太过分了')
+    },e=>{
+        console.log(e)
+    }).then(e=>{
+        console.log(e)
+    },w=>{
+        console.log('你就是懒')
+    })
+    </script>
+</body>
+</html>
