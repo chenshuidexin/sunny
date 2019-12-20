@@ -60,11 +60,13 @@
             ary.push(attr +'='+opt.data[attr]);
         }
         options=ary.join('&');
+        //换成"name=kkw&pw=3"字段
         let os=document.createElement('script');
         //随机生成函数名一般用时间戳即可
         let fnName='jQuery_'+Date.now();
         //把函数名挂在window下
         window[fnName]=function(s){
+            //调用函数
             opt.success(s);
         }
         os.src=opt.url+'?'+options+'&'+cb+'='+fnName;
@@ -86,11 +88,13 @@
                     return;
                 }
                 g.forEach(({q}) => {
+                    //出现结果的格式
                     html+=`<li>${q}</li>`
                 });
                 ul.innerHTML=html;
                 ul.onclick=function(ev){
                     if(ev.target.tagName === 'LI'){
+                        //新开一个窗口
                         window.open('https://www.baidu.com/s?ie=UTF-8&wd='+ev.target.innerText,'_blank');
                     }
                 }

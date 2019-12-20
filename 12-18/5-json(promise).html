@@ -69,7 +69,7 @@
             let fnName='jQuery_'+Date.now();
             //函数名要挂在window上
             window[fnName]=function(s){
-                res(s);
+                res(s);//调用成功函数
             }
             os.src=opt.url+'?'+options+'&'+cb+'='+fnName;
             document.getElementsByTagName('head')[0].appendChild(os);
@@ -83,7 +83,7 @@
                 wd:this.value,
                 prod:'pc'
             },
-        },'cb').then(data=>{
+        },'cb').then(data=>{//成功函数之后的then方法
             const {g}=data;
             let html='';
             if(!g){

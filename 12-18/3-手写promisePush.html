@@ -19,9 +19,7 @@
             if(that.status === 'pending'){
                 that.status='fulfilled';
                 that.value=value;
-                that.fulfilledCallback.forEach(fn => {
-                    fn();     
-                });
+                that.fulfilledCallback.forEach(fn =>{fn()});
             }
         }
         //失败函数
@@ -29,9 +27,7 @@
             if(that.status === 'pending'){
                 that.status='rejected';
                 that.reason=reason;
-                that.rejectedCallback.forEach(fn=>{
-                    fn();
-                })
+                that.rejectedCallback.forEach(fn=>{fn()})
             }
         }
         try{
@@ -57,7 +53,7 @@
                     let x=rej(that.reason);
                     reject2(x)
                 }catch(error){
-                    reject2(that.reason)
+                    rejected2(that.reason)
                 }
             }
             //异步情况，成功函数和失败函数订阅到对应的池子里去
@@ -79,7 +75,7 @@
                         let x=rej(that.reason);
                         reject2(x)
                     }catch(error){
-                        reject2(that.reason)
+                        rejected2(that.reason)
                     }
                 })
             }
