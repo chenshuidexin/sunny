@@ -6,7 +6,9 @@ var router = express.Router();
   
 */
 let person = [
- 
+ "lili",
+ "kkw",
+ "lq",
 ];
 
 router.get('/', function(req, res, next) {

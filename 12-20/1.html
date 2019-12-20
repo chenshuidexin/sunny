@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //     function timeout(ms) {
+        //         return new Promise((resolve, reject) => {
+        //             throw new Error;
+        //             setTimeout(resolve, ms, 'done');
+        //         });
+        //     }
+        //    console.log(timeout(100))
+        // var p=new Promise((resolve,reject)=>{
+        //     resolve('你咋不上天呢？');
+        //     reject('嗯。。。。。')
+        // })
+        // p.then(console.log,console.error);
+   
+
+        // function* dd(){
+        //     console.log(22)
+        //     yield "你好好啊"
+        //     console.log(11)
+        //     return ()=>{return "不错耶！"}
+        //     console.log(w);
+        // }
+        // let ss=dd();
+        // // ss.next();
+        // // ss.next();
+        // console.log(ss.next())
+        // console.log(ss.next())
+        // console.log(ss.next())
+
+        // function* fibonacci() {
+        //     let [prev, curr] = [0, 1]
+        //     for (;;) {
+        //         [prev, curr] = [curr, prev + curr];
+        //         yield curr
+        //     }
+        // }
+
+        // for (let n of fibonacci()) {
+        //     if (n > 1000) break; // 1000 以内
+        //     console.log(n)
+        // }
+          /*
+        key和value是一个名字。
+        结果为：
+                 ["red", "red"]
+                 ["green", "green"]
+                 ["origin", "origin"] 
+       */
+
+       let s= new Set(['red','green','origin'])
+       for(let i of s.entries()){
+           console.log(i);
+       }
+       
+
+    </script>
+</body>
+
+</html>

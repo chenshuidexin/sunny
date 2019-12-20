@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function* ff(x){
+        var y=4*(yield (x+1));
+        var z=7+ (yield y);
+        return (x+y+z)
+    }    
+    var s=ff(2);
+    console.log(s)//ff {<suspended>}指针对象状态
+    console.log(s.next());//3  false
+    console.log(s.next(5));//20  false
+    console.log(s.next(3));//32 true
+/*
+小小总结：next里面的值是上一个yield的返回值，不传参的话就是就是undefined。
+
+*/
+let ss=(function* (){
+    yield 11
+})();
+console.log(ss.next().value)
+
+
+
+
+function* g(g1,g2){
+    //先后顺序位置有关
+    yield*g2();
+    yield*g1()
+}
+//函数调用
+let dd=g(function* g1(){
+    yield  3
+},
+function* g2(){
+    yield 5
+})
+for(var i of dd){
+    console.log(i)//5  3
+}
+
+
+
+
+function* cc(){
+    console.log(this);//没有call指向window   有的话就会指向{}
+    this.ss="坚持呀！"
+}
+let obj={};
+let c=cc.call(obj)//ss();
+c.next()
+console.log(obj.ss)//call指向obj之后就赋值到obj身上了！
+
+    </script>
+</body>
+</html>
