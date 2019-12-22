@@ -1,5 +1,5 @@
 ## 关于ajax的小小总结
-- fetch:ES6新的api，是基于promise，用的是promise的方法和返回peomise实例。默认请求数据的方式是get。但是post请求数据的方式是可以的。
+- fetch:ES6新的api，是基于promise，用的是promise的方法和返回peomise实例。默认请求数据的方式是get。但是post请求数据的方式是可以的。低版本不支持。
 - axios里面有拦截器，方便做些钩子函数处理。是基于new XMLHttpRequest(xhr)的实例对象方法来封装的，可以监听细节问题，监听请求过程1-4，abort()方法强制中断，onabort()事件中断监听.
 - XHR(浏览器自带api)和axios(基于这个XHR来封装的一个js库)
 ```
@@ -79,4 +79,9 @@ Set 和 Map 结构：Set 和 Map 结构也原生具有 Iterator 接口，可以�
 每次调用遍历对象的next方法，就会返回一个有着value和done两个属性的对象{value:xxx,done:false}
 value属性表示当前的内部状态的值，是yield或者return表达式后面那个表达式的值。
 done属性是一个布尔值，表示是否遍历结束。false代表遍历没有结束，true代表遍历结束。
+每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行。
+```
+```
+return和yield的区别
+相似之处在于，都能返回紧跟在语句后面的那个表达式的值。区别在于每次遇到yield，函数暂停执行，下一次再从该位置继续向后执行，而return语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）return语句，但是可以执行多次（或者说多个）yield表达式。正常函数只能返回一个值，因为只能执行一次return；Generator 函数可以返回一系列的值，因为可以有任意多个yield。
 ```
