@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #box{
+        width: 300px;
+        height: 200px;
+        border: 1px solid green;
+        margin: 14% auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #btn_box{
+        margin-top: 20px;
+    }
+    .box1{
+        margin-top: 10px;
+    }
+    #delog{
+        width: 100px;
+        height: 30px;
+        background: red;
+        color: #ccc;
+        text-align: center;
+        line-height: 30px;
+        font-size: 12px;
+        position: absolute;
+        top: -30px;
+        bottom:0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        transform: .5s;
+    }
+    .show{
+        display:block;
+    }
+    .hide{
+        display: none;
+    }
+    .active{
+        background: pink;
+    }
+    </style>
+</head>
+<body>
+    <p id="p"></p>
+    <div id="delog"></div>
+    <button id="b1" class="active bb">注册</button>
+    <button id="b2" class="bb">登录</button>
+    <div id="box">
+        <div class="box1 box3"><span>注册用户:</span><input type="text" placeholder="请输入用户名" autocomplete="off" id="user"></div>
+        <div class="box1 hide box3"><span>登录用户:</span><input type="text" autocomplete="off" placeholder="请输入用户名" id="user2"></div>
+        <div class="box1"><span>提交密码:</span><input type="password" id="pw" placeholder="请输入密码"></div>
+        <div>
+           <button id="re">注册</button> 
+           <button id="login">登录</button>
+        </div>
+    </div>
+    <script>
+    function delogFn(val){
+        delog.innerHTML=val;
+        delog.style.top=0;
+        setTimeout(()=>{
+            delog.style.top='-30px';
+        },2000)
+    }
+    const bbs=document.querySelectorAll('.bb');
+    const box3=document.querySelectorAll('.box3');
+    let b=0;
+    bbs.forEach((ele,i)=>{
+        ele.onclick=function(){
+            bbs[b].classList.remove('active');
+            this.classList.add('active');
+            box3[b].classList.remove('show');
+            box3[b].classList.add('hide');
+            box3[i].classList.remove('hide');
+            box3[i].classList.add('show');
+            b=i;
+        }
+    })
+
+
+    user.onblur=async function(){
+        let v=this.value.trim();
+        if(v){
+            let d=await fetch('/getName',{
+                method:''
+            })
+        }
+    }
+    </script>
+</body>
+</html>
