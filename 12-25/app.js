@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.post('/login',(req,res)=>{
     setTimeout(()=>{
         res.json({code:0})
-    },2000)
+    },6000)
 });
 
 app.post('/login2',(req,res)=>{

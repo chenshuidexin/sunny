@@ -2,7 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const app=express();
 const session=require('express-session');
-const multer=require('module');
+const multer=require('multer');
 
 
 let sql=[
@@ -38,10 +38,10 @@ app.use(express.static('www'));
 app.use(multer({dest:'uploads/'}).single('filename'))
 app.use('/',(req,res,next)=>{
     req.sql=sql;
-    if(req.session.userinfo || req.url === '/login2'){
+    if(req.session.userinfo || req.url === '/login2'){//上面完成的时候，下面继续执行
         next();
     }else{//没有权限
-        res.json({code:1111});
+        res.json({code:1111,msg:'不能进去'});
     }
 });
 app.use(bodyParser.json());//解决axios不能用对象的问题

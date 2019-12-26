@@ -5,9 +5,9 @@ const path=require('path');
 const bodyParser=require('body-parser');
 const session=require('express-session');
 //中间件  
-app.use(express.static('wwww'));//静态文件
+app.use(express.static('www'));//静态文件
 /* 
- * express.static('wwww')
+ * express.static('www')
  * 是Express中唯一的内建中间件。它以server-static模块为基础开发，负责托管 Express 应用内的静态资源。 参数root为静态资源的所在的根目录。
  * 
  * app.use()中间件 
@@ -54,8 +54,9 @@ const userFn=(req,res)=>{
     }
     res.json(msgObj);
 }
+//注册函数
 app.post('/register',(req,res)=>{
-    const {body:{user,pw}}=req;
+    const {body:{user,pw}}=req;//请求体
     let re=/^[a-zA-Z]\w{2,7}$/;
     let msgObj={};
     if(user&&pw&&re.test(user)){
@@ -78,13 +79,13 @@ app.post('/register',(req,res)=>{
     };
     res.json(msgObj);
 })
-//登录
+//登录函数
 app.post('/login',(req,res)=>{
     let msgObj={};
     const {body:{user,pw}}=req;
     if(user&&pw){
         let o=sql.find(item=>item.user === user);
-        if(o){
+        if(o){//核对密码的流程
             if(o.pw===pw){
                 msgObj.code=0;
                 msgObj.msg='登陆成功';
@@ -103,7 +104,7 @@ app.post('/login',(req,res)=>{
     }
     res.json(msgObj);
 })
-
+//判断是否登录了
 app.get('/islogin',(req,res)=>{
     if(req.session.userinfo){
         res.json({
@@ -118,16 +119,46 @@ app.get('/islogin',(req,res)=>{
         })
     }
 })
+//退出登录
 app.get('/logout',(req,res)=>{
     req.session.destroy(function(err){
         console.log(err);
     })
-    res.end({
+    res.send({
         code:0
     })
 })
-app.listen(80);
+//多并发
+app.get('/a',(req,res)=>{
+    setTimeout(()=>{
+        res.json({user:'kkw'});
+    },2000);
+})
+app.get('/b',(req,res)=>{
+    setTimeout(()=>{
+        res.json({iphone:'19960818'})
+    },5000)
+})
+app.get('/c',(req,res)=>{
+    let {user,iphone}=req.query
+    if(user === 'kkw'&&iphone === '19960818'){
+        res.json({
+            code:0,
+            msg:'看见了'
+        })
+    }else{
+        res.json({
+            code:1,
+            msg:'还没有看到呢？'
+        })
+    }
+})
+
+
+
+
 app.use('*',(req,res)=>{
     let data=fs.readFileSync(path.resolve('./www/404.html'));
     res.send(data.toString());
 })
+app.listen(80);

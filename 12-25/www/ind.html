@@ -10,7 +10,7 @@
         display: none;
     }
     #box{
-        display: none;
+        _display: none;
     }
     #btn3,#btn2,#btn1{
         display: none;
@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-   登陆:<input type="text" id="user"> 
+   登陆:<input type="text" id="user" autocomplete="off" placeholder="请输入名字"> 
    <br>
    <div id="box">
        <button id="btn1">选择一</button>
@@ -37,6 +37,7 @@
     */
    axios.interceptors.request.use(config=>{
        img.style.display='block';
+       console.log(config)
        if(config.url === '/getary'){
            let type=localStorage.getItem('type');
            if(type >=1){
@@ -61,8 +62,10 @@
            }else if(type === 2){
             btn3.style.display=btn2.style.display=btn1.style.display='inline-block';
            }
+           //为请求的时候判断权限级别，可以通过权限判断用户是否能够访问接口
            localStorage.setItem('type',type);
        }else{
+           //没有权限就删除type
            localStorage.removeItem('type');
        }
        return response;
@@ -79,7 +82,7 @@
 
 
    const intance=axios.create();
-   instance.interceptors.response.use(response=>{
+   intance.interceptors.response.use(response=>{
        if(response.data.code === 100){
            location.href='/'//权限不够返回登录页面
        }else{
@@ -101,7 +104,7 @@
        })
    }
    btn3.onclick=function(){
-       instance.get('/noloading').then(d=>{
+       intance.get('/noloading').then(d=>{
            console.log(d.data)
        })
    }

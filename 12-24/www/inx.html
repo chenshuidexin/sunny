@@ -28,7 +28,7 @@
         width: 100px;
         height: 30px;
         background: red;
-        color: #ccc;
+        color: #fff;
         text-align: center;
         line-height: 30px;
         font-size: 12px;
@@ -115,7 +115,7 @@
             delogFn('请输入内容')
         }
     }
-    re.onclick=function(){
+    re.onclick= async function(){
         let v=user.value.trim();
         let v2=pw.value.trim();
         if(v&&v2){
@@ -145,7 +145,7 @@
         }
     }
 
-    login.onclick=function(){
+    login.onclick= async function(){
         let v=user2.value.trim();
         let v2=pw.value.trim();
         if(v&&v2){

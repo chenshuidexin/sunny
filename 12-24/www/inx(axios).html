@@ -59,6 +59,9 @@
         .active {
             background: lightgreen;
         }
+        #p{
+            font-size: 20px;
+        }
     </style>
 </head>
 
@@ -174,12 +177,12 @@
                     user.style.border = '1px solid green';
                     pw.style.border = '1px solid green';
                     let num = 10;
-                    window.location.href = '/index2.html';
+                    // window.location.href = '/inx2.html';
                     setInterval(() => {
                         num--;
                         if (num < 0) {
                             num = 0;
-                            window.location.href = '/index2.html';
+                            window.location.href = '/inx2.html';
                         }
                         p.innerHTML = num + '秒到达人生巅峰！'
                     }, 1000);
