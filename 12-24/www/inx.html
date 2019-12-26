@@ -93,8 +93,101 @@
         let v=this.value.trim();
         if(v){
             let d=await fetch('/getName',{
-                method:''
-            })
+                method:'post',
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                body:''+new URLSearchParams({
+                    user:v
+                })
+            }).then(d=>d.json())
+            if(d.code===0){
+                user.style.border='1px solid green';
+                pw.style.border='1px solid grenn';
+            }else if(d.code === 1){
+                user.style.border='1px solid red';
+                delogFn(d.msg);
+            }else if(d.code===2){
+                user.style.border='1px solid red';
+                delogFn(d.msg);
+            }
+        }else{
+            delogFn('请输入内容')
+        }
+    }
+    re.onclick=function(){
+        let v=user.value.trim();
+        let v2=pw.value.trim();
+        if(v&&v2){
+            let d=await fetch('/register',{
+                method:'post',
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                body:''+new URLSearchParams({
+                    user:v,
+                    pw:v2
+                })
+            }).then(d=>d.json());
+            if(d.code === 0){
+                delogFn('恭喜你敲到了');
+                user.style.border='1px solid green';
+                pw.style.border='1px solid green';
+            }else if(d.code===1){
+                user.style.border='1px solid red';
+                delogFn(d.msg);
+            }else if(d.code === 2){
+                user.style.border='1px solid red';
+                delogFn(d.msg);
+            }
+        }else{
+            delogFn('请输入内容')
+        }
+    }
+
+    login.onclick=function(){
+        let v=user2.value.trim();
+        let v2=pw.value.trim();
+        if(v&&v2){
+            let d=await fetch('/login',{
+                method:'post',
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                body:''+new URLSearchParams({
+                    user:v,
+                    pw:v2
+                })
+            }).then(d=>d.json())
+            if(d.code === 0){
+                delogFn('你啊登上去了');
+                user.style.border='1px solid green';
+                pw.style.border='1px solid green';
+                let num=10;
+                window.location.href='/inx2.html';
+                setInterval(() => {
+                    num--;
+                    if(num<0){
+                        num=0;
+                        wimdow.location.href='/inx2.html'
+                    }
+                    p.innerHTML=num+'秒之后开始走上人生巅峰~~~~'
+                }, 1000);
+            }else if(d.code === 1){
+                user.style.border='1px solid red';
+                pw.style.border='1px solid red';
+                delogFn(d.msg);
+            }else if(d.code === 2){
+                user.style.border='1px solid red';
+                pw.style.border='1px solid red';
+                delogFn(d.msg);
+            }else if(d.code === 3){
+                user.style.border='1px solid red';
+                pw.style.border='1px solid red';
+                delogFn(d.msg);
+            }
+        }else{
+            delogFn('要内容不要空白！')
         }
     }
     </script>

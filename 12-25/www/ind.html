@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #img{
+        display: none;
+    }
+    #box{
+        display: none;
+    }
+    #btn3,#btn2,#btn1{
+        display: none;
+    }
+    </style>
+</head>
+<body>
+   登陆:<input type="text" id="user"> 
+   <br>
+   <div id="box">
+       <button id="btn1">选择一</button>
+       <button id="btn2">选择二</button>
+       <button id="btn3">选择三</button>
+   </div>
+   <img src="1.jpg" id="img" alt="">
+   <script src="./axios.js"></script>
+   <script>
+   /* 
+    *使用拦截器的原因:想在发起请求之前做些事情，也想在数据请求回来之后做点事情。 
+    * 
+    *axios.interceptors  公共的 
+    * axios.create    局部的
+    *  
+    */
+   axios.interceptors.request.use(config=>{
+       img.style.display='block';
+       if(config.url === '/getary'){
+           let type=localStorage.getItem('type');
+           if(type >=1){
+               return config;
+           }else{
+               console.log('权限不够');
+               config.url='';//破环url
+           }
+       }
+       return config;
+   },error=>{
+       return Promise.reject(error);
+   });
+   axios.interceptors.response.use(response=>{
+       img.style.display='none';
+       const {type}=response.data;
+       if(type !== undefined){
+           if(type===0){
+               btn1.style.display='inline-block';
+           }else if(type ===1){
+               btn2.style.display=btn1.style.display='inline-block';
+           }else if(type === 2){
+            btn3.style.display=btn2.style.display=btn1.style.display='inline-block';
+           }
+           localStorage.setItem('type',type);
+       }else{
+           localStorage.removeItem('type');
+       }
+       return response;
+   },error=>{
+       return Promise.reject(error);
+   })
+
+
+   user.onblur=function(){
+       axios.post('/login2',{name:this.value}).then(d=>d.data).then(d=>{
+           console.log(d);
+       })
+   }
+
+
+   const intance=axios.create();
+   instance.interceptors.response.use(response=>{
+       if(response.data.code === 100){
+           location.href='/'//权限不够返回登录页面
+       }else{
+           return response;//可以继续访问
+       }
+   })
+
+
+   //各个按钮的应用
+   btn1.onclick=function(){
+       let postData={name:'nizb'};
+       axios.post('/login',postData).then(d=>{
+           console.log(d);
+       });
+   }
+   btn2.onclick=function(){
+       axios.get('/getary').then(d=>{
+           console.log(d.data);
+       })
+   }
+   btn3.onclick=function(){
+       instance.get('/noloading').then(d=>{
+           console.log(d.data)
+       })
+   }
+
+   </script>
+</body>
+</html>
