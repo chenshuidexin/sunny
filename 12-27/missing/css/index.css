@@ -1,0 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#kb{
+    width: 200px;
+    height: 180px;
+    background: lightcoral ;
+}
