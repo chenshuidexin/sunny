@@ -35,6 +35,7 @@ http.createServer((req, res) => {
             //形成字段
             let opt = queryString(ary[1]);
             switch (jiekou) {
+                //登录接口
                 case '/namers':
                     //返回给前端json
                     let msg = {

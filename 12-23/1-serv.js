@@ -15,13 +15,13 @@ const app=http.createServer((req,res)=>{
         })
     }
     const {pathname,query}=urlModel.parse(req.url);
-    let lastName=['\.js$','\.js$','\.css$','\.less$']
+    let lastName=['\.js$','\.css$','\.less$']
     let re=new RegExp(lastName.join('|'));
     if(pathname === '/'){
         let data=fs.readFileSync('www/index.html');
         res.end(data.toString());
     }else if(re.test(pathname)){
-        console.log(urlModel.parse(req.url));
+        // console.log(urlModel.parse(req.url));
         try{
             let data=fs.readFileSync('www'+pathname);
             res.end(data.toString());
@@ -34,6 +34,7 @@ const app=http.createServer((req,res)=>{
         switch(pathname){
             case '/add':
                 const {mkdirname}=qs.parse(query);
+                //创建文件夹，不支持多层创建，必须清楚文件上的目录否则就会报错
                 fs.mkdir('www/'+mkdirname+'/',(error)=>{
                     if(err){
                         if(err.code === 'EEXIST'){
@@ -44,9 +45,11 @@ const app=http.createServer((req,res)=>{
                                 let b=filesAry.includes(mkdirname);
                                 let name='';
                                 while(b){
+                                    //重复的文件夹清除数字
                                     name=mkdirname.replace(/\(\d+)/,'');
                                     //数字重复的文件夹
                                     b=filesAry.includes(name+'('+(++num)+')');
+                                    //加上顺序的数字
                                     name=name+'('+num+')';
                                 }
                                 fs.mkdir('www/'+name+'/',err=>{
